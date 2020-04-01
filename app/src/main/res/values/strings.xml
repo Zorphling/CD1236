@@ -1,3 +1,23 @@
 <resources>
-    <string name="app_name">CD1236</string>
+    <string name="app_name">1236</string>
+
+    //注册
+    <string name="regist">注册</string>
+    <string name="regist_hint">验证码5分钟内有效，请勿重复提交</string>
+    <string name="regist_get_code">获取验证码</string>
+    <string name="regist_input_number">请输入手机号</string>
+    <string name="regist_input_code">请输入验证码</string>
+    <string name="regist_input_psw">请输入密码</string>
+    <string name="regist_input_psw_again">请再次输入密码</string>
+
+    //登录
+    <string name="login">登录</string>
+    <string name="login_input_number">请输入手机号码</string>
+    <string name="login_save_info">保存账号信息</string>
+    <string name="login_forget_psw">忘记密码?</string>
+    //修改密码
+    <string name="revise_psw">修改密码</string>
+    <string name="revise_input_newpsw">请输入新密码</string>
+    <string name="revise_confirm_newpsw">请确认新密码</string>
+    <string name="revise_cofirm">确认修改</string>
 </resources>

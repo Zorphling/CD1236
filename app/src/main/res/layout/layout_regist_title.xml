@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<TextView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/tv_hint"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/colorGray1"
+    android:paddingLeft="@dimen/dp10"
+    android:paddingTop="@dimen/dp3"
+    android:paddingBottom="@dimen/dp3"
+    android:text="@string/regist_hint"
+    android:textSize="@dimen/sp12"
+    android:textColor="@color/colorGray2" />

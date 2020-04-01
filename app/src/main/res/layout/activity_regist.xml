@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <include layout="@layout/layout_regist_title" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="@dimen/dp30"
+        android:orientation="vertical"
+        android:paddingLeft="@dimen/dp20"
+        android:paddingRight="@dimen/dp20">
+
+        <EditText
+            android:id="@+id/et_input_number"
+            style="@style/et_input_style"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@null"
+            android:hint="@string/regist_input_number"
+            android:inputType="number"
+            android:maxLines="1"
+            android:padding="@dimen/dp5" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp0_5"
+            android:layout_marginTop="@dimen/dp5"
+            android:background="@color/colorGray3" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dp20">
+
+            <EditText
+                android:id="@+id/et_input_code"
+                style="@style/et_input_style"
+                android:layout_width="@dimen/dp0"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="@null"
+                android:hint="@string/regist_input_code"
+                android:inputType="number"
+                android:maxLines="1"
+                android:padding="@dimen/dp5" />
+
+            <TextView
+                android:id="@+id/tv_get_code"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:background="@drawable/shape_bg_regist_codebutton"
+                android:gravity="center"
+                android:paddingLeft="@dimen/dp10"
+                android:paddingRight="@dimen/dp10"
+                android:text="@string/regist_get_code"
+                android:textColor="@android:color/white"
+                android:textSize="@dimen/sp14" />
+
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp0_5"
+            android:layout_marginTop="@dimen/dp5"
+            android:background="@color/colorGray3" />
+
+        <EditText
+            android:id="@+id/et_input_psw"
+            style="@style/et_input_style"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dp20"
+            android:background="@null"
+            android:hint="@string/regist_input_psw"
+            android:inputType="numberPassword"
+            android:maxLength="18"
+            android:maxLines="1"
+            android:padding="@dimen/dp5" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp0_5"
+            android:layout_marginTop="@dimen/dp5"
+            android:background="@color/colorGray3" />
+
+        <EditText
+            android:id="@+id/et_input_psw_again"
+            style="@style/et_input_style"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dp20"
+            android:background="@null"
+            android:hint="@string/regist_input_psw_again"
+            android:inputType="numberPassword"
+            android:maxLength="18"
+            android:maxLines="1"
+            android:padding="@dimen/dp5" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp0_5"
+            android:layout_marginTop="@dimen/dp5"
+            android:background="@color/colorGray3" />
+
+        <TextView
+            android:id="@+id/tv_regist"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dp20"
+            android:background="@drawable/shape_bg_regist_button"
+            android:gravity="center"
+            android:paddingTop="@dimen/dp10"
+            android:paddingBottom="@dimen/dp10"
+            android:text="@string/regist"
+            android:textColor="@android:color/white"
+            android:textSize="@dimen/sp16" />
+    </LinearLayout>
+</LinearLayout>
