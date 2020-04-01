@@ -8,12 +8,18 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
+import android.widget.ImageView;
 import android.widget.TextView;
 
+import androidx.annotation.DrawableRes;
+import androidx.annotation.IdRes;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.widget.Toolbar;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 
 import com.business.cd1236.R;
 import com.jess.arms.base.delegate.IActivity;
@@ -26,12 +32,19 @@ import com.jess.arms.utils.ArmsUtils;
 import com.trello.rxlifecycle2.android.ActivityEvent;
 import com.trello.rxlifecycle2.components.support.RxAppCompatActivity;
 
+import javax.inject.Inject;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.Unbinder;
 import io.reactivex.subjects.BehaviorSubject;
 import io.reactivex.subjects.Subject;
 
 public abstract class MyBaseActivity<P extends IPresenter> extends RxAppCompatActivity implements IActivity, ActivityLifecycleable, IView {
+    @Inject
+    @Nullable
+    protected P mPresenter;//如果当前页面逻辑简单, Presenter 可以为 null
+    private Unbinder mUnbinder;
     private Cache<String, Object> mCache;
     private final BehaviorSubject<ActivityEvent> mLifecycleSubject = BehaviorSubject.create();
     protected Activity mActivity;
@@ -61,7 +74,7 @@ public abstract class MyBaseActivity<P extends IPresenter> extends RxAppCompatAc
                 LayoutInflater.from(this).inflate(layoutResID, (ViewGroup) findViewById(R.id.fl_container), true);
                 //绑定到butterknife
 //                mUnbinder = ButterKnife.bind(this);
-                ButterKnife.bind(this);
+                mUnbinder = ButterKnife.bind(this);
             }
         } catch (Exception e) {
             if (e instanceof InflateException)
@@ -86,11 +99,48 @@ public abstract class MyBaseActivity<P extends IPresenter> extends RxAppCompatAc
         ((TextView) findViewById(R.id.tv_title)).setText(text);
     }
 
+    protected void setRightBtn(CharSequence text, @DrawableRes int idRes, View.OnClickListener onClick) {
+        findViewById(R.id.ll_right).setVisibility(View.VISIBLE);
+        findViewById(R.id.ll_right).setOnClickListener(onClick);
+        ((TextView) findViewById(R.id.tv_right)).setText(text);
+        ((ImageView) findViewById(R.id.iv_right)).setImageResource(idRes);
+
+        ((TextView) findViewById(R.id.tv_right)).setCompoundDrawables(null, null, null, null);
+    }
+
+    /**
+     * Fragment替换(核心为隐藏当前的,显示现在的,用过的将不会destrory与create)
+     */
+    private Fragment currentFragment;
+
+    protected void smartReplaceFragment(@IdRes int flId, Fragment toFragment, String tag) {
+        FragmentManager manager = getSupportFragmentManager();
+        FragmentTransaction transaction = manager.beginTransaction();
+        // 如有当前在使用的->隐藏当前的
+        if (currentFragment != null) {
+            transaction.hide(currentFragment);
+        }
+        // toFragment之前添加使用过->显示出来
+        if (manager.findFragmentByTag(tag) != null) {
+            transaction.show(toFragment);
+        } else {// toFragment还没添加使用过->添加上去
+            transaction.add(flId, toFragment, tag);
+        }
+        transaction.commitAllowingStateLoss();
+        // toFragment 更新为当前的
+        currentFragment = toFragment;
+    }
+
+    public void smartReplaceFragment(@IdRes int flId, Fragment toFragment) {
+        smartReplaceFragment(flId, toFragment, toFragment.getClass().getSimpleName());
+    }
+
     @Override
     public abstract int initView(@Nullable Bundle savedInstanceState);
 
     @Override
     public abstract void initData(@Nullable Bundle savedInstanceState);
+
     /**
      * 是否使用 EventBus
      * Arms 核心库现在并不会依赖某个 EventBus, 要想使用 EventBus, 还请在项目中自行依赖对应的 EventBus
@@ -121,6 +171,7 @@ public abstract class MyBaseActivity<P extends IPresenter> extends RxAppCompatAc
     public final Subject<ActivityEvent> provideLifecycleSubject() {
         return mLifecycleSubject;
     }
+
     //点击界面返回键
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
@@ -132,5 +183,16 @@ public abstract class MyBaseActivity<P extends IPresenter> extends RxAppCompatAc
                 break;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        if (mUnbinder != null && mUnbinder != Unbinder.EMPTY)
+            mUnbinder.unbind();
+        this.mUnbinder = null;
+        if (mPresenter != null)
+            mPresenter.onDestroy();//释放资源
+        this.mPresenter = null;
     }
 }

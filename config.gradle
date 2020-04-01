@@ -19,7 +19,8 @@ ext {
             rxlifecycleSdkVersion   : "1.0",
             rxlifecycle2SdkVersion  : "2.2.2",
             espressoSdkVersion      : "3.0.1",
-            canarySdkVersion        : "2.2"
+            canarySdkVersion        : "2.2",
+            pictureSelector         : "2.5.1"
     ]
 
     dependencies = [
@@ -63,6 +64,7 @@ ext {
             "paginate"                 : "com.github.markomilos:paginate:0.5.1",
             "vlayout"                  : "com.alibaba.android:vlayout:1.1.0@aar",
             "autosize"                 : "me.jessyan:autosize:1.2.0",
+            "pictureSelector"          : "com.github.LuckSiege.PictureSelector:picture_library:v${version["pictureSelector"]}",
 
             //rx1
             "rxandroid"                : "io.reactivex:rxandroid:1.2.1",

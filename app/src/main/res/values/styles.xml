@@ -25,6 +25,7 @@
         <item name="android:paddingTop">@dimen/dp13</item>
         <item name="android:paddingRight">@dimen/dp20</item>
         <item name="android:paddingBottom">@dimen/dp13</item>
+        <item name="background">@drawable/slc_bg_text_button</item>
     </style>
 
     <style name="style_setting_text">

@@ -2,6 +2,9 @@ package com.business.cd1236.mvp.ui.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.ImageView;
+import android.widget.RelativeLayout;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -11,8 +14,17 @@ import com.business.cd1236.base.MyBaseActivity;
 import com.business.cd1236.di.component.DaggerPersonalInfoComponent;
 import com.business.cd1236.mvp.contract.PersonalInfoContract;
 import com.business.cd1236.mvp.presenter.PersonalInfoPresenter;
+import com.business.cd1236.utils.GlideEngine;
+import com.business.cd1236.view.dialog.SetHeaderDialog;
 import com.jess.arms.di.component.AppComponent;
 import com.jess.arms.utils.ArmsUtils;
+import com.luck.picture.lib.PictureSelector;
+import com.luck.picture.lib.config.PictureConfig;
+import com.luck.picture.lib.config.PictureMimeType;
+
+import butterknife.BindView;
+import butterknife.ButterKnife;
+import butterknife.OnClick;
 
 import static com.jess.arms.utils.Preconditions.checkNotNull;
 
@@ -29,7 +41,22 @@ import static com.jess.arms.utils.Preconditions.checkNotNull;
  * <a href="https://github.com/JessYanCoding/MVPArmsTemplate">模版请保持更新</a>
  * ================================================
  */
-public class PersonalInfoActivity extends MyBaseActivity<PersonalInfoPresenter> implements PersonalInfoContract.View {
+public class PersonalInfoActivity extends MyBaseActivity<PersonalInfoPresenter> implements PersonalInfoContract.View, SetHeaderDialog.SelectPicListener {
+
+    @BindView(R.id.iv_arrow)
+    ImageView ivArrow;
+    @BindView(R.id.iv_src)
+    ImageView ivSrc;
+    @BindView(R.id.rl_person_info)
+    RelativeLayout rlPersonInfo;
+    @BindView(R.id.iv_arrow1)
+    ImageView ivArrow1;
+    @BindView(R.id.rl_nickname)
+    RelativeLayout rlNickname;
+    @BindView(R.id.iv_arrow2)
+    ImageView ivArrow2;
+    @BindView(R.id.rl_harvest_address)
+    RelativeLayout rlHarvestAddress;
 
     @Override
     public void setupActivityComponent(@NonNull AppComponent appComponent) {
@@ -76,5 +103,42 @@ public class PersonalInfoActivity extends MyBaseActivity<PersonalInfoPresenter> 
     @Override
     public void killMyself() {
         finish();
+    }
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        // TODO: add setContentView(...) invocation
+        ButterKnife.bind(this);
+    }
+
+    @OnClick({R.id.rl_person_info, R.id.rl_nickname, R.id.rl_harvest_address})
+    public void onViewClicked(View view) {
+        switch (view.getId()) {
+            case R.id.rl_person_info:
+                ShowDialog();
+                break;
+            case R.id.rl_nickname:
+                break;
+            case R.id.rl_harvest_address:
+                break;
+        }
+    }
+
+    private void ShowDialog() {
+        new SetHeaderDialog(this,this);
+    }
+
+    @Override
+    public void onPhototaken() {
+        PictureSelector.create(this)
+                .openGallery(PictureMimeType.ofImage())
+                .loadImageEngine(GlideEngine.createGlideEngine())
+                .forResult(PictureConfig.CHOOSE_REQUEST);
+    }
+
+    @Override
+    public void onSelectPic() {
+
     }
 }

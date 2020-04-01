@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <EditText
+        android:id="@+id/et_nickname"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/dp15"
+        android:layout_marginLeft="@dimen/dp20"
+        android:layout_marginRight="@dimen/dp20"
+        android:background="@drawable/stroke_bg_revise_nick_name"
+        android:hint="请输入昵称"
+        android:paddingLeft="@dimen/dp5"
+        android:paddingTop="@dimen/dp10"
+        android:paddingRight="@dimen/dp5"
+        android:paddingBottom="@dimen/dp10"
+        android:textColorHint="@color/colorGray_hintcolor" />
+</LinearLayout>

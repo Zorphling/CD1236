@@ -10,7 +10,7 @@ android {
         targetSdkVersion 29
         versionCode 1
         versionName "1.0"
-
+        multiDexEnabled true
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
 
 
@@ -39,13 +39,19 @@ dependencies {
     implementation 'com.jakewharton:butterknife:10.2.1'
     annotationProcessor 'com.jakewharton:butterknife-compiler:10.2.1'
     implementation project(path: ':arms')
-
+    //Rx
+    implementation rootProject.ext.dependencies["retrofit-adapter-rxjava2"]
+    implementation rootProject.ext.dependencies["retrofit-converter-gson"]
     implementation rootProject.ext.dependencies["rxlifecycle2-components"]
     annotationProcessor rootProject.ext.dependencies["dagger2-compiler"]
 
+    implementation rootProject.ext.dependencies["glide"]
+    annotationProcessor rootProject.ext.dependencies["glide-compiler"]
     //autoSize
     implementation rootProject.ext.dependencies["autosize"]
     //仿IOS选择控件
     implementation 'com.github.zcweng:switch-button:0.0.3@aar'
+    //图片选择
+    implementation rootProject.ext.dependencies["pictureSelector"]
 
 }
