@@ -38,7 +38,7 @@
 
             <TextView
                 style="@style/style_setting_text"
-                android:text="" />
+                android:text="登录密码" />
 
             <ImageView
                 style="@style/style_setting_arrow"
@@ -47,4 +47,84 @@
 
     </LinearLayout>
 
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/dp20"
+        android:background="@android:color/white"
+        android:orientation="vertical">
+
+        <RelativeLayout
+            android:id="@+id/rl_clean_cache"
+            style="@style/style_setting_rl">
+
+            <TextView
+                style="@style/style_setting_text"
+                android:text="清除缓存" />
+
+            <ImageView
+                android:id="@+id/iv_cache"
+                style="@style/style_setting_arrow"
+                android:src="@mipmap/arrow_right" />
+
+            <TextView
+                android:id="@+id/tv_cache"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="@dimen/dp5"
+                android:layout_toLeftOf="@id/iv_cache"
+                android:textColor="@color/colorGray2" />
+        </RelativeLayout>
+
+        <include layout="@layout/layout_line" />
+
+        <RelativeLayout
+            android:id="@+id/rl_secret"
+            style="@style/style_setting_rl">
+
+            <TextView
+                style="@style/style_setting_text"
+                android:text="隐私政策" />
+
+            <ImageView
+                style="@style/style_setting_arrow"
+                android:src="@mipmap/arrow_right" />
+        </RelativeLayout>
+        <include layout="@layout/layout_line" />
+        <RelativeLayout
+            android:id="@+id/rl_user_agreement"
+            style="@style/style_setting_rl">
+
+            <TextView
+                style="@style/style_setting_text"
+                android:text="用户协议" />
+
+            <ImageView
+                style="@style/style_setting_arrow"
+                android:src="@mipmap/arrow_right" />
+        </RelativeLayout>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/dp40"
+        android:background="@android:color/white"
+        android:orientation="vertical">
+
+        <include layout="@layout/layout_line" />
+
+        <TextView
+            android:id="@+id/tv_login_out"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:paddingTop="@dimen/dp15"
+            android:paddingBottom="@dimen/dp15"
+            android:textSize="@dimen/sp16"
+            android:text="退出登录"
+            android:textColor="@color/colorPrimary" />
+
+        <include layout="@layout/layout_line" />
+    </LinearLayout>
 </LinearLayout>

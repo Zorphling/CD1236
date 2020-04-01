@@ -22,9 +22,9 @@
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:paddingLeft">@dimen/dp20</item>
-        <item name="android:paddingTop">@dimen/dp10</item>
+        <item name="android:paddingTop">@dimen/dp13</item>
         <item name="android:paddingRight">@dimen/dp20</item>
-        <item name="android:paddingBottom">@dimen/dp10</item>
+        <item name="android:paddingBottom">@dimen/dp13</item>
     </style>
 
     <style name="style_setting_text">
