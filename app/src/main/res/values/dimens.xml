@@ -80,6 +80,8 @@
     <dimen name="dp130">130dp</dimen>
     <dimen name="dp135">135dp</dimen>
     <dimen name="dp138">138dp</dimen>
+    <dimen name="dp140">140dp</dimen>
+    <dimen name="dp145">145dp</dimen>
     <dimen name="dp150">150dp</dimen>
     <dimen name="dp160">160dp</dimen>
     <dimen name="dp162">162dp</dimen>

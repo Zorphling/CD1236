@@ -3,10 +3,6 @@ package com.business.cd1236.mvp.ui.activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.CheckedTextView;
-import android.widget.ImageView;
-import android.widget.LinearLayout;
-import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -16,8 +12,16 @@ import com.business.cd1236.base.MyBaseActivity;
 import com.business.cd1236.di.component.DaggerMainComponent;
 import com.business.cd1236.mvp.contract.MainContract;
 import com.business.cd1236.mvp.presenter.MainPresenter;
+import com.business.cd1236.mvp.ui.fragment.HomeFourFragment;
+import com.business.cd1236.mvp.ui.fragment.HomeOneFragment;
+import com.business.cd1236.mvp.ui.fragment.HomeThreeFragment;
+import com.business.cd1236.mvp.ui.fragment.HomeTwoFragment;
+import com.business.cd1236.view.homebtn.CircularRevealButton;
 import com.jess.arms.di.component.AppComponent;
 import com.jess.arms.utils.ArmsUtils;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -39,30 +43,20 @@ import static com.jess.arms.utils.Preconditions.checkNotNull;
  */
 public class MainActivity extends MyBaseActivity<MainPresenter> implements MainContract.View {
 
-    @BindView(R.id.iv_main01)
-    ImageView ivMain01;
-    @BindView(R.id.tv_main01)
-    CheckedTextView tvMain01;
     @BindView(R.id.ll_main01)
-    LinearLayout llMain01;
-    @BindView(R.id.iv_main02)
-    ImageView ivMain02;
-    @BindView(R.id.tv_main02)
-    TextView tvMain02;
+    CircularRevealButton llMain01;
     @BindView(R.id.ll_main02)
-    LinearLayout llMain02;
-    @BindView(R.id.iv_main03)
-    ImageView ivMain03;
-    @BindView(R.id.tv_main03)
-    TextView tvMain03;
+    CircularRevealButton llMain02;
     @BindView(R.id.ll_main03)
-    LinearLayout llMain03;
-    @BindView(R.id.iv_main04)
-    ImageView ivMain04;
-    @BindView(R.id.tv_main04)
-    TextView tvMain04;
+    CircularRevealButton llMain03;
     @BindView(R.id.ll_main04)
-    LinearLayout llMain04;
+    CircularRevealButton llMain04;
+
+    private HomeOneFragment homeOneFragment;
+    private HomeTwoFragment homeTwoFragment;
+    private HomeThreeFragment homeThreeFragment;
+    private HomeFourFragment homeFourFragment;
+    private List<CircularRevealButton> navs = new ArrayList<>();
 
     @Override
     public void setupActivityComponent(@NonNull AppComponent appComponent) {
@@ -81,7 +75,18 @@ public class MainActivity extends MyBaseActivity<MainPresenter> implements MainC
 
     @Override
     public void initData(@Nullable Bundle savedInstanceState) {
+        homeOneFragment = HomeOneFragment.newInstance();
+        homeTwoFragment = HomeTwoFragment.newInstance();
+        homeThreeFragment = HomeThreeFragment.newInstance();
+        homeFourFragment = HomeFourFragment.newInstance();
 
+        navs.add(llMain01);
+        navs.add(llMain02);
+        navs.add(llMain03);
+        navs.add(llMain04);
+
+
+        firstLoad();
     }
 
     @Override
@@ -115,13 +120,16 @@ public class MainActivity extends MyBaseActivity<MainPresenter> implements MainC
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.ll_main01:
-                clickHomeOne();
+                clickMaiNav(1);
                 break;
             case R.id.ll_main02:
+                clickMaiNav(2);
                 break;
             case R.id.ll_main03:
+                clickMaiNav(3);
                 break;
             case R.id.ll_main04:
+                clickMaiNav(4);
                 break;
         }
     }
@@ -129,9 +137,44 @@ public class MainActivity extends MyBaseActivity<MainPresenter> implements MainC
     /**
      * 点击首页
      */
-    private void clickHomeOne() {
-//        hideToolBar();
-//        ClickedSelect(0);
-//        smartReplaceFragment(R.id.fl_content, mHomeOneFragment);
+    int page = 1;
+
+    private void clickMaiNav(int page) {
+        if (this.page == page) return;
+        this.page = page;
+        hideToolBar();
+        switch (page) {
+            case 1:
+                changeNav(page);
+                firstLoad();
+                break;
+            case 2:
+                changeNav(page);
+                smartReplaceFragment(R.id.fl_home_container, homeTwoFragment);
+                setStatusColor(this, true, false, android.R.color.white);
+                break;
+            case 3:
+                changeNav(page);
+                smartReplaceFragment(R.id.fl_home_container, homeThreeFragment);
+                setStatusColor(this, true, false, android.R.color.white);
+                break;
+            case 4:
+                changeNav(page);
+                smartReplaceFragment(R.id.fl_home_container, homeFourFragment);
+                setStatusColor(this, true, false, android.R.color.white);
+                break;
+        }
+    }
+
+    private void changeNav(int page) {
+        for (int i = 0; i < navs.size(); i++) {
+            navs.get(i).setOnSelected(false);
+        }
+        navs.get(page - 1).setOnSelected(true);
+    }
+
+    private void firstLoad() {
+        smartReplaceFragment(R.id.fl_home_container, homeOneFragment);
+        setStatusColor(this, true, true, android.R.color.white);
     }
 }

@@ -1,5 +1,8 @@
 apply plugin: 'com.android.application'
-
+// 使用Kotlin插件
+apply plugin: 'kotlin-android'
+// 使用Kotlin Android扩展插件
+apply plugin: 'kotlin-android-extensions'
 android {
     compileSdkVersion 29
     buildToolsVersion "29.0.3"
@@ -39,6 +42,7 @@ dependencies {
     implementation 'com.jakewharton:butterknife:10.2.1'
     annotationProcessor 'com.jakewharton:butterknife-compiler:10.2.1'
     implementation project(path: ':arms')
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
     //Rx
     implementation rootProject.ext.dependencies["retrofit-adapter-rxjava2"]
     implementation rootProject.ext.dependencies["retrofit-converter-gson"]
@@ -47,11 +51,15 @@ dependencies {
 
     implementation rootProject.ext.dependencies["glide"]
     annotationProcessor rootProject.ext.dependencies["glide-compiler"]
+    //RecyclerViewAdapter框架
+    implementation 'com.github.CymChad:BaseRecyclerViewAdapterHelper:3.0.2'
     //autoSize
     implementation rootProject.ext.dependencies["autosize"]
     //仿IOS选择控件
     implementation 'com.github.zcweng:switch-button:0.0.3@aar'
     //图片选择
     implementation rootProject.ext.dependencies["pictureSelector"]
+    //首页Banner
+    compile 'com.youth.banner:banner:2.0.1'
 
 }

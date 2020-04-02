@@ -22,7 +22,8 @@
         android:theme="@style/AppTheme"
         tools:replace="android:name,android:allowBackup">
         <activity android:name=".mvp.ui.activity.MainActivity" />
-        <activity android:name=".mvp.ui.activity.SplashActivity">
+        <activity android:name=".mvp.ui.activity.SplashActivity"
+            android:theme="@style/SplashTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <action android:name="android.intent.action.VIEW" />
@@ -42,6 +43,9 @@
         <meta-data
             android:name="design_height_in_dp"
             android:value="640" />
+        <meta-data
+            android:name="project.com.arms.app.GlobalConfiguration"
+            android:value="ConfigModule" />
     </application>
 
 </manifest>

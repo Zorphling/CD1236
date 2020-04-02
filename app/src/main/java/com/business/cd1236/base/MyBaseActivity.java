@@ -1,22 +1,28 @@
 package com.business.cd1236.base;
 
 import android.app.Activity;
+import android.graphics.Color;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.InflateException;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import androidx.annotation.ColorRes;
 import androidx.annotation.DrawableRes;
 import androidx.annotation.IdRes;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.widget.Toolbar;
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
@@ -93,6 +99,9 @@ public abstract class MyBaseActivity<P extends IPresenter> extends RxAppCompatAc
             actionBar.setDisplayShowTitleEnabled(false);//不显示应用图标
         }
     }
+    protected void hideToolBar() {
+        toolBar.setVisibility(View.GONE);
+    }
 
     protected void setHeader(CharSequence text) {
         toolBar.setVisibility(View.VISIBLE);
@@ -106,6 +115,30 @@ public abstract class MyBaseActivity<P extends IPresenter> extends RxAppCompatAc
         ((ImageView) findViewById(R.id.iv_right)).setImageResource(idRes);
 
         ((TextView) findViewById(R.id.tv_right)).setCompoundDrawables(null, null, null, null);
+    }
+    protected void hideBackButton() {
+        ActionBar actionBar = getSupportActionBar();
+        if (actionBar != null) {
+            actionBar.setDisplayHomeAsUpEnabled(false);//显示返回图标
+        }
+    }
+
+    /**
+     * 状态栏改变颜色
+     * @param activity
+     * @param isTranslate
+     * @param isDarkText
+     * @param bgColor
+     */
+    public static void setStatusColor(Activity activity, boolean isTranslate, boolean isDarkText, @ColorRes int bgColor) {
+        //如果系统为6.0及以上，就可以使用Android自带的方式
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            Window window = activity.getWindow();
+            View decorView = window.getDecorView();
+            window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS); //可有可无
+            decorView.setSystemUiVisibility((isTranslate ? View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN : 0) | (isDarkText ? View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR : 0));
+            window.setStatusBarColor(isTranslate ? Color.TRANSPARENT : ContextCompat.getColor(activity, bgColor)); //Android5.0就可以用
+        }
     }
 
     /**

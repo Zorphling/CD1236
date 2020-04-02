@@ -8,10 +8,13 @@
     <color name="colorGray1">#F0F0F0</color>
     <color name="colorGray2">#999999</color>
     <color name="colorGray3">#DBDADA</color>
+    <color name="colorGray4">#9F9F9F</color>
+    <color name="colorGray5">#F9F9F9</color>
     <color name="colorGray_hintcolor">#BFBFBF</color>
 
     //text
     <color name="text_black">#1A1A1A</color>
     <color name="text_default">#656565</color>
+    <color name="home_search_bg">#E5E5E5</color>
 
 </resources>

@@ -21,4 +21,16 @@
         <attr name="sb_background" format="reference|color" />//背景色，默认白色
         <attr name="sb_enable_effect" format="reference|boolean" />//是否启用特效，默认true
     </declare-styleable>
+
+    //首页导航按钮
+    <declare-styleable name="CircularRevealButton">
+        <attr name="focus_icon" format="reference" />
+        <attr name="defocus_icon" format="reference" />
+        <attr name="focus_color" format="color" />
+        <attr name="defocus_color" format="color" />
+        <attr name="text" format="string" />
+        <attr name="textsize" format="dimension" />
+        <attr name="anim_show" format="boolean" />
+        <attr name="is_selected" format="boolean" />
+    </declare-styleable>
 </resources>

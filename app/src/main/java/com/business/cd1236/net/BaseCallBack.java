@@ -55,14 +55,14 @@ public abstract class BaseCallBack implements Observer<ResponseBody> {
             String jsonString = new String(tResponse.bytes());
             JSONObject jsonObject = new JSONObject(jsonString);
             /*JsonObject.opt 无key值时会得到默认值,JsonObject.get无key值会出错*/
-            String data = jsonObject.optString("data");
+            String data = jsonObject.optString("result");
             int status = Integer.parseInt(jsonObject.optString("status"));
             String msg = jsonObject.optString("msg");
-            LogUtils.e(tag, "=====okgo002===status====" + status);
+            LogUtils.i(tag, "=====okgo002===status====" + status);
             LogUtils.i(tag, "=====okgo002====msg===" + msg);
             LogUtils.i(tag, "=====okgo002====data===" + data);
 
-            if (status == 1) {
+            if (status == 200) {
                 onSuccess(data);
             } else if (status == -4001 || status == -4008 || status == -4010) {
 //                SPUtils.put(mContext, Constants.user_isLogin, false);
