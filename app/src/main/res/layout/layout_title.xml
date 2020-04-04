@@ -8,7 +8,7 @@
     android:background="@color/colorPrimary"
     android:visibility="gone"
     app:elevation="4dp"
-    app:navigationIcon="@mipmap/arrow_left"
+    app:navigationIcon="@mipmap/arrow_left_white"
     app:popupTheme="@style/title_style">
 
     <LinearLayout

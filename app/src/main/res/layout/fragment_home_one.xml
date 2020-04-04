@@ -11,11 +11,11 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/dp10"
+        android:layout_marginBottom="@dimen/dp10"
         android:gravity="center"
+        android:layout_marginTop="@dimen/dp10"
         android:orientation="horizontal"
         android:paddingLeft="@dimen/dp20"
-        android:layout_marginBottom="@dimen/dp10"
         android:paddingRight="@dimen/dp20">
 
         <LinearLayout
@@ -46,11 +46,11 @@
     </LinearLayout>
 
     <androidx.core.widget.NestedScrollView
-        android:scrollbars="none"
-        android:overScrollMode="never"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:fillViewport="true">
+        android:fillViewport="true"
+        android:overScrollMode="never"
+        android:scrollbars="none">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -79,13 +79,12 @@
                 android:background="@color/bg_gray" />
 
             <LinearLayout
+                android:id="@+id/ll_category"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
-                android:paddingLeft="@dimen/dp10"
-                android:paddingTop="@dimen/dp20"
-                android:paddingRight="@dimen/dp10"
-                android:paddingBottom="@dimen/dp20">
+                android:padding="@dimen/dp10"
+                android:visibility="gone">
 
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/rv_category"
@@ -96,13 +95,13 @@
                     android:id="@+id/ll_home_transport"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/dp20"
+                    android:layout_marginTop="@dimen/dp10"
                     android:gravity="center_vertical">
 
                     <ImageView
                         android:id="@+id/iv_transport"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                        android:layout_width="@dimen/dp70"
+                        android:layout_height="@dimen/dp20"
                         android:src="@mipmap/home_adverse" />
 
                     <TextView
@@ -112,8 +111,8 @@
                         android:layout_marginLeft="@dimen/dp15"
                         android:ellipsize="end"
                         android:lines="1"
-                        android:textSize="@dimen/sp12"
-                        android:text="招募物流合作商，欢迎各大物流公司合作" />
+                        android:text="招募物流合作商，欢迎各大物流公司合作"
+                        android:textSize="@dimen/sp12" />
                 </LinearLayout>
             </LinearLayout>
 
@@ -126,20 +125,23 @@
                 android:id="@+id/ll_recommend"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:orientation="vertical">
+                android:orientation="vertical"
+                android:visibility="gone">
+
                 <ImageView
-                    android:src="@mipmap/home_recommend"
                     android:layout_width="wrap_content"
-                    android:layout_marginTop="@dimen/dp10"
+                    android:layout_height="wrap_content"
                     android:layout_marginLeft="@dimen/dp10"
+                    android:layout_marginTop="@dimen/dp10"
                     android:layout_marginRight="@dimen/dp10"
-                    android:layout_height="wrap_content"/>
+                    android:src="@mipmap/home_recommend" />
 
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/rv_recommend"
-                    android:paddingBottom="@dimen/dp10"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent" />
+                    android:layout_height="match_parent"
+                    android:paddingRight="@dimen/dp10"
+                    android:paddingBottom="@dimen/dp10" />
             </LinearLayout>
         </LinearLayout>
     </androidx.core.widget.NestedScrollView>

@@ -1,12 +1,12 @@
 package com.business.cd1236.net;
 
-import android.app.ProgressDialog;
 import android.content.Context;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 
 import com.business.cd1236.utils.LogUtils;
 import com.business.cd1236.utils.RxExceptionUtil;
+import com.business.cd1236.view.dialog.LoadingDialog;
 
 import org.json.JSONObject;
 
@@ -17,7 +17,7 @@ import okhttp3.ResponseBody;
 public abstract class BaseCallBack implements Observer<ResponseBody> {
     private String tag = "okhttp";
     private boolean mShowDialog;
-    private ProgressDialog dialog;
+    private LoadingDialog dialog;
     Context mContext;
     private Disposable d;
     private boolean mShowToast = true;
@@ -57,19 +57,13 @@ public abstract class BaseCallBack implements Observer<ResponseBody> {
             /*JsonObject.opt 无key值时会得到默认值,JsonObject.get无key值会出错*/
             String data = jsonObject.optString("result");
             int status = Integer.parseInt(jsonObject.optString("status"));
-            String msg = jsonObject.optString("msg");
+            String msg = jsonObject.optString("message");
             LogUtils.i(tag, "=====okgo002===status====" + status);
             LogUtils.i(tag, "=====okgo002====msg===" + msg);
             LogUtils.i(tag, "=====okgo002====data===" + data);
 
             if (status == 200) {
                 onSuccess(data);
-            } else if (status == -4001 || status == -4008 || status == -4010) {
-//                SPUtils.put(mContext, Constants.user_isLogin, false);
-//                SPUtils.put(mContext, Constants.Token, "");
-//                if (!TextUtils.isEmpty(msg) && mShowToast)
-//                    ToastUtils.showShort(msg);
-//                needLogin();
             } else {
                 onFailure(msg);
                 onFailure(status);
@@ -129,7 +123,7 @@ public abstract class BaseCallBack implements Observer<ResponseBody> {
 
     private void showDialog() {
         if (dialog == null && mShowDialog) {
-            dialog = new ProgressDialog(mContext);
+            dialog = new LoadingDialog(mContext);
             dialog.show();
         }
     }

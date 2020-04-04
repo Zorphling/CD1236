@@ -23,7 +23,7 @@ public class HomeCategrayAdapter extends BaseQuickAdapter<HomeBannerBean.Categor
         ImageView iv = baseViewHolder.getView(R.id.iv);
         int dp = SizeUtils.dp2px(getContext(), 30);
         ViewGroup.LayoutParams layoutParams = iv.getLayoutParams();
-        int width = ((SizeUtils.getScreenHW((Activity) getContext())[0]) / 2) - dp;
+        int width = ((SizeUtils.getScreenHW((Activity) getContext())[0]) - dp)/2 ;
         layoutParams.width = width;
         layoutParams.height = width / 2;
         GlideUtil.loadImg(categoryBean.thumb, iv);

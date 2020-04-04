@@ -51,6 +51,7 @@ public class SplashActivity extends MyBaseActivity<SplashPresenter> implements S
     public void initData(@Nullable Bundle savedInstanceState) {
         MyApplication.getHandler().postDelayed(() -> {
             launchActivity(new Intent(SplashActivity.this, MainActivity.class));
+            killMyself();
         }, 2000);
     }
 

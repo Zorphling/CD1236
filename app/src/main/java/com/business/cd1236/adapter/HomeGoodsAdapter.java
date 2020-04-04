@@ -6,7 +6,6 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 
 import com.business.cd1236.R;
-import com.business.cd1236.bean.HomeBannerBean;
 import com.business.cd1236.bean.HomeGoodsBean;
 import com.business.cd1236.utils.GlideUtil;
 import com.business.cd1236.utils.SizeUtils;
@@ -14,7 +13,6 @@ import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.viewholder.BaseViewHolder;
 
 import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
 
@@ -31,7 +29,7 @@ public class HomeGoodsAdapter extends BaseQuickAdapter<HomeGoodsBean.DataBean, B
         ImageView iv = baseViewHolder.getView(R.id.iv_goods);
         ViewGroup.LayoutParams layoutParams = iv.getLayoutParams();
         int width = (int) ((SizeUtils.getScreenHW((Activity) getContext())[0]) * 0.265);
-        layoutParams.width = width;
+//        layoutParams.width = width;
         layoutParams.height = (int) (width * 1.4545);
         GlideUtil.loadImg(dataBean.thumb, iv);
 

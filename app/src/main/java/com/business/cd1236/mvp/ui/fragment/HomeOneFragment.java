@@ -7,6 +7,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -25,6 +26,7 @@ import com.business.cd1236.bean.HomeGoodsBean;
 import com.business.cd1236.di.component.DaggerHomeOneComponent;
 import com.business.cd1236.mvp.contract.HomeOneContract;
 import com.business.cd1236.mvp.presenter.HomeOnePresenter;
+import com.business.cd1236.mvp.ui.activity.GoodsDetailActivity;
 import com.business.cd1236.utils.GlideUtil;
 import com.business.cd1236.utils.SizeUtils;
 import com.business.cd1236.view.SpaceItemDecoration;
@@ -34,6 +36,8 @@ import com.jess.arms.di.component.AppComponent;
 import com.jess.arms.utils.ArmsUtils;
 import com.youth.banner.Banner;
 import com.youth.banner.indicator.RectangleIndicator;
+import com.youth.banner.transformer.DepthPageTransformer;
+import com.youth.banner.transformer.ZoomOutPageTransformer;
 
 import butterknife.BindView;
 
@@ -56,6 +60,10 @@ public class HomeOneFragment extends MyBaseFragment<HomeOnePresenter> implements
 
     @BindView(R.id.banner)
     Banner banner;
+    @BindView(R.id.ll_category)
+    LinearLayout llCategory;
+    @BindView(R.id.ll_recommend)
+    LinearLayout llRecommend;
     @BindView(R.id.rv_category)
     RecyclerView rvCategory;
     @BindView(R.id.rv_recommend)
@@ -92,7 +100,7 @@ public class HomeOneFragment extends MyBaseFragment<HomeOnePresenter> implements
         initBanner();
         ArmsUtils.configRecyclerView(rvCategory, new LinearLayoutManager(mContext, LinearLayoutManager.HORIZONTAL, false));
         int dp = SizeUtils.dp2px(mActivity, 10);
-        rvCategory.addItemDecoration(new SpaceItemDecoration(0, dp,SpaceItemDecoration.TYPE.LEFT));
+        rvCategory.addItemDecoration(new SpaceItemDecoration(0, dp, SpaceItemDecoration.TYPE.LEFT));
         homeCategrayAdapter = new HomeCategrayAdapter(R.layout.item_home_category);
         rvCategory.setAdapter(homeCategrayAdapter);
         homeCategrayAdapter.setOnItemClickListener(this);
@@ -113,7 +121,9 @@ public class HomeOneFragment extends MyBaseFragment<HomeOnePresenter> implements
                 .setDelayTime(2500)
                 .setIndicator(new RectangleIndicator(mActivity))
                 .setIndicatorNormalColorRes(R.color.colorGray4)
-                .setIndicatorSelectedColorRes(R.color.white);
+                .setIndicatorSelectedColorRes(R.color.white)
+                .addPageTransformer(new ZoomOutPageTransformer())
+                .addPageTransformer(new DepthPageTransformer());
     }
 
     /**
@@ -187,6 +197,7 @@ public class HomeOneFragment extends MyBaseFragment<HomeOnePresenter> implements
     @Override
     public void getBannerSuccess(HomeBannerBean homeBannerBean) {
         banner.setAdapter(new HomeBannerAdapter(homeBannerBean.banner)).start();
+        llCategory.setVisibility(View.VISIBLE);
         homeCategrayAdapter.setNewInstance(homeBannerBean.category);
         GlideUtil.loadImg(homeBannerBean.transport, ivTransport);
         ivTransportContent.setText(homeBannerBean.transport_content);
@@ -194,15 +205,19 @@ public class HomeOneFragment extends MyBaseFragment<HomeOnePresenter> implements
 
     @Override
     public void getGoodsSuccess(HomeGoodsBean homeGoodsBean) {
-        homeGoodsAdapter.loadData(homeGoodsBean.jud,homeGoodsBean.data);
+        llRecommend.setVisibility(View.VISIBLE);
+        homeGoodsAdapter.loadData(homeGoodsBean.jud, homeGoodsBean.data);
     }
 
     @Override
     public void onItemClick(@NonNull BaseQuickAdapter<?, ?> adapter, @NonNull View view, int position) {
+        Intent intent = new Intent();
         if (adapter instanceof HomeCategrayAdapter) {
             ArmsUtils.snackbarText(((HomeBannerBean.CategoryBean) adapter.getData().get(position)).content);
         } else {
-            ArmsUtils.snackbarText(((HomeGoodsBean.DataBean) adapter.getData().get(position)).title);
+            intent.setClass(mActivity, GoodsDetailActivity.class);
+            intent.putExtra(GoodsDetailActivity.GOODS_ID, ((HomeGoodsBean.DataBean) adapter.getData().get(position)).id);
+            launchActivity(intent);
         }
     }
 }

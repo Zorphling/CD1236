@@ -20,4 +20,7 @@
     <string name="revise_input_newpsw">请输入新密码</string>
     <string name="revise_confirm_newpsw">请确认新密码</string>
     <string name="revise_cofirm">确认修改</string>
+    <string name="login_agreement">登录即代表您已阅读并同意以下协议</string>
+    <string name="login_agreement_user_agreement">《买盐网平台用户服务协议》</string>
+    <string name="login_agreement_privacy_policy">《买盐网平台隐私政策》</string>
 </resources>

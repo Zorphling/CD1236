@@ -14,6 +14,8 @@ import com.business.cd1236.base.MyBaseActivity;
 import com.business.cd1236.di.component.DaggerRegistComponent;
 import com.business.cd1236.mvp.contract.RegistContract;
 import com.business.cd1236.mvp.presenter.RegistPresenter;
+import com.business.cd1236.utils.ParamsToJson;
+import com.business.cd1236.utils.StringUtils;
 import com.jess.arms.di.component.AppComponent;
 import com.jess.arms.utils.ArmsUtils;
 
@@ -106,7 +108,46 @@ public class RegistActivity extends MyBaseActivity<RegistPresenter> implements R
             case R.id.tv_get_code:
                 break;
             case R.id.tv_regist:
+                String name = StringUtils.getEditText(etInputNumber);
+                String code = StringUtils.getEditText(etInputCode);
+                String psw = StringUtils.getEditText(etInputPsw);
+                String pswAgain = StringUtils.getEditText(etInputPswAgain);
+                if (StringUtils.checkString(name)) {
+                    ArmsUtils.snackbarText("请输入手机号");
+                    return;
+                }
+                if (name.length() != 11) {
+                    ArmsUtils.snackbarText("请输入正确的手机号");
+                    return;
+                }
+//                if (StringUtils.checkString(code)) {
+//                    ArmsUtils.snackbarText("请输入验证码");
+//                    return;
+//                }
+                if (StringUtils.checkString(psw)) {
+                    ArmsUtils.snackbarText("请输入密码");
+                    return;
+                }
+                if (StringUtils.checkString(pswAgain)) {
+                    ArmsUtils.snackbarText("请再次输入密码");
+                    return;
+                }
+                if (!StringUtils.equals(psw, pswAgain)) {
+                    ArmsUtils.snackbarText("密码不匹配");
+                    return;
+                }
+                mPresenter.regist(mActivity, ParamsToJson.PTJ(ParamsToJson.PTO("name", "pwd"), name, psw));
                 break;
         }
+    }
+
+    @Override
+    public void registSuccess() {
+        String name = StringUtils.getEditText(etInputNumber);
+        String psw = StringUtils.getEditText(etInputPsw);
+        Intent intent = new Intent(mActivity, LoginActivity.class);
+        intent.putExtra("name", name);
+        intent.putExtra("psw", psw);
+        launchActivity(intent);
     }
 }

@@ -7,7 +7,7 @@
     android:orientation="vertical">
 
     <include
-        layout="@layout/layout_line"
+        layout="@layout/layout_margin_line"
         android:layout_marginTop="@dimen/dp20"
         tools:ignore="IncludeLayoutParam" />
 
@@ -30,7 +30,7 @@
                 android:src="@mipmap/arrow_right" />
         </RelativeLayout>
 
-        <include layout="@layout/layout_line" />
+        <include layout="@layout/layout_margin_line" />
 
         <RelativeLayout
             android:id="@+id/rl_login_psw"
@@ -68,6 +68,7 @@
                 android:src="@mipmap/arrow_right" />
 
             <TextView
+                android:text="13.2M"
                 android:id="@+id/tv_cache"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -76,7 +77,7 @@
                 android:textColor="@color/colorGray2" />
         </RelativeLayout>
 
-        <include layout="@layout/layout_line" />
+        <include layout="@layout/layout_margin_line" />
 
         <RelativeLayout
             android:id="@+id/rl_secret"
@@ -90,7 +91,7 @@
                 style="@style/style_setting_arrow"
                 android:src="@mipmap/arrow_right" />
         </RelativeLayout>
-        <include layout="@layout/layout_line" />
+        <include layout="@layout/layout_margin_line" />
         <RelativeLayout
             android:id="@+id/rl_user_agreement"
             style="@style/style_setting_rl">
@@ -112,7 +113,7 @@
         android:background="@android:color/white"
         android:orientation="vertical">
 
-        <include layout="@layout/layout_line" />
+        <include layout="@layout/layout_margin_line" />
 
         <TextView
             android:id="@+id/tv_login_out"
@@ -120,11 +121,12 @@
             android:layout_height="wrap_content"
             android:gravity="center"
             android:paddingTop="@dimen/dp15"
+            android:background="?android:attr/selectableItemBackground"
             android:paddingBottom="@dimen/dp15"
             android:textSize="@dimen/sp16"
             android:text="退出登录"
             android:textColor="@color/colorPrimary" />
 
-        <include layout="@layout/layout_line" />
+        <include layout="@layout/layout_margin_line" />
     </LinearLayout>
 </LinearLayout>

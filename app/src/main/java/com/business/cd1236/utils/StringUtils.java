@@ -200,13 +200,13 @@ public class StringUtils {
 
     /**
      * 检查字符串不能为null 或 ""
-     * false为空
+     * true为空
      */
     public static boolean checkString(String s) {
         if (TextUtils.isEmpty(s) || TextUtils.equals("", s)) {
-            return false;
+            return true;
         }
-        return true;
+        return false;
     }
 
 

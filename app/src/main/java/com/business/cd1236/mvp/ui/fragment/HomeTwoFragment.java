@@ -57,7 +57,6 @@ public class HomeTwoFragment extends MyBaseFragment<HomeTwoPresenter> implements
 
     @Override
     public void initData(@Nullable Bundle savedInstanceState) {
-
     }
 
     /**

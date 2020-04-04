@@ -47,7 +47,7 @@ public class SetHeaderDialog extends Dialog implements View.OnClickListener {
         WindowManager.LayoutParams params = window.getAttributes();
         params.y = 100;
         window.setGravity(Gravity.BOTTOM);
-        getWindow().setLayout(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+        getWindow().setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
         show();
     }
 
@@ -58,6 +58,7 @@ public class SetHeaderDialog extends Dialog implements View.OnClickListener {
                 dismiss();
                 break;
             case R.id.tv_select_pic:
+                dismiss();
                 break;
             case R.id.tv_cancel:
                 dismiss();

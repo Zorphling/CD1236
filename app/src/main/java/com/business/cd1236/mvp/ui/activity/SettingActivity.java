@@ -2,6 +2,10 @@ package com.business.cd1236.mvp.ui.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.ImageView;
+import android.widget.RelativeLayout;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -11,8 +15,13 @@ import com.business.cd1236.base.MyBaseActivity;
 import com.business.cd1236.di.component.DaggerSettingComponent;
 import com.business.cd1236.mvp.contract.SettingContract;
 import com.business.cd1236.mvp.presenter.SettingPresenter;
+import com.business.cd1236.utils.SPUtils;
 import com.jess.arms.di.component.AppComponent;
 import com.jess.arms.utils.ArmsUtils;
+
+import butterknife.BindView;
+import butterknife.ButterKnife;
+import butterknife.OnClick;
 
 import static com.jess.arms.utils.Preconditions.checkNotNull;
 
@@ -31,6 +40,23 @@ import static com.jess.arms.utils.Preconditions.checkNotNull;
  */
 public class SettingActivity extends MyBaseActivity<SettingPresenter> implements SettingContract.View {
 
+    @BindView(R.id.rl_person_info)
+    RelativeLayout rlPersonInfo;
+    @BindView(R.id.rl_login_psw)
+    RelativeLayout rlLoginPsw;
+    @BindView(R.id.iv_cache)
+    ImageView ivCache;
+    @BindView(R.id.tv_cache)
+    TextView tvCache;
+    @BindView(R.id.rl_clean_cache)
+    RelativeLayout rlCleanCache;
+    @BindView(R.id.rl_secret)
+    RelativeLayout rlSecret;
+    @BindView(R.id.rl_user_agreement)
+    RelativeLayout rlUserAgreement;
+    @BindView(R.id.tv_login_out)
+    TextView tvLoginOut;
+
     @Override
     public void setupActivityComponent(@NonNull AppComponent appComponent) {
         DaggerSettingComponent //如找不到该类,请编译一下项目
@@ -48,7 +74,7 @@ public class SettingActivity extends MyBaseActivity<SettingPresenter> implements
 
     @Override
     public void initData(@Nullable Bundle savedInstanceState) {
-            setHeader("设置");
+        setHeader("设置");
     }
 
     @Override
@@ -76,5 +102,46 @@ public class SettingActivity extends MyBaseActivity<SettingPresenter> implements
     @Override
     public void killMyself() {
         finish();
+    }
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        // TODO: add setContentView(...) invocation
+        ButterKnife.bind(this);
+    }
+
+    @OnClick({R.id.rl_person_info, R.id.rl_login_psw, R.id.rl_clean_cache, R.id.rl_secret, R.id.rl_user_agreement, R.id.tv_login_out})
+    public void onViewClicked(View view) {
+        Intent intent = new Intent();
+        switch (view.getId()) {
+            case R.id.rl_person_info:
+                launchActivity(new Intent(mActivity, PersonalInfoActivity.class));
+                break;
+            case R.id.rl_login_psw:
+                launchActivity(new Intent(mActivity, RevisePswActivity.class));
+                break;
+            case R.id.rl_clean_cache:
+                tvCache.setText("");
+                ArmsUtils.snackbarText("清除成功");
+                break;
+            case R.id.rl_secret:
+                intent.setClass(mActivity, HtmlActivity.class);
+                intent.putExtra(HtmlActivity.AGREEMENT_TYPE, HtmlActivity.PRIVACY_POLICY);
+                launchActivity(intent);
+                break;
+            case R.id.rl_user_agreement:
+                intent.setClass(mActivity, HtmlActivity.class);
+                intent.putExtra(HtmlActivity.AGREEMENT_TYPE, HtmlActivity.USER_AGREEMENT);
+                launchActivity(intent);
+                break;
+            case R.id.tv_login_out:
+                SPUtils.clear(mActivity);
+                Intent intent3 = new Intent(mActivity, MainActivity.class);
+                intent3.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                launchActivity(intent3);
+                killMyself();
+                break;
+        }
     }
 }

@@ -26,7 +26,7 @@
             android:layout_toLeftOf="@id/iv_arrow"
             android:src="@mipmap/header_default" />
     </RelativeLayout>
-
+<include layout="@layout/layout_margin_line"/>
     <RelativeLayout
         android:id="@+id/rl_nickname"
         style="@style/style_setting_rl">
@@ -48,7 +48,7 @@
             android:layout_marginRight="@dimen/dp5"
             android:textColor="@color/colorGray3" />
     </RelativeLayout>
-
+    <include layout="@layout/layout_margin_line"/>
     <RelativeLayout
         android:id="@+id/rl_harvest_address"
         style="@style/style_setting_rl">

@@ -5,6 +5,7 @@
     <color name="colorAccent">#ffffff</color>
 
     <color name="bg_gray">#F4F3F3</color>
+    <color name="colorGray_line">#F6F6F6</color>
     <color name="colorGray1">#F0F0F0</color>
     <color name="colorGray2">#999999</color>
     <color name="colorGray3">#DBDADA</color>

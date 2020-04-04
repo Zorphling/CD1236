@@ -2,6 +2,8 @@ package com.business.cd1236.mvp.ui.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Process;
+import android.view.KeyEvent;
 import android.view.View;
 
 import androidx.annotation.NonNull;
@@ -10,12 +12,15 @@ import androidx.annotation.Nullable;
 import com.business.cd1236.R;
 import com.business.cd1236.base.MyBaseActivity;
 import com.business.cd1236.di.component.DaggerMainComponent;
+import com.business.cd1236.globle.Constants;
 import com.business.cd1236.mvp.contract.MainContract;
 import com.business.cd1236.mvp.presenter.MainPresenter;
 import com.business.cd1236.mvp.ui.fragment.HomeFourFragment;
 import com.business.cd1236.mvp.ui.fragment.HomeOneFragment;
 import com.business.cd1236.mvp.ui.fragment.HomeThreeFragment;
 import com.business.cd1236.mvp.ui.fragment.HomeTwoFragment;
+import com.business.cd1236.utils.MyToastUtils;
+import com.business.cd1236.utils.SPUtils;
 import com.business.cd1236.view.homebtn.CircularRevealButton;
 import com.jess.arms.di.component.AppComponent;
 import com.jess.arms.utils.ArmsUtils;
@@ -129,7 +134,11 @@ public class MainActivity extends MyBaseActivity<MainPresenter> implements MainC
                 clickMaiNav(3);
                 break;
             case R.id.ll_main04:
-                clickMaiNav(4);
+                if ((Boolean) SPUtils.get(mActivity, Constants.LOGIN, false)) {
+                    clickMaiNav(4);
+                } else {
+                    launchActivity(new Intent(mActivity, LoginActivity.class));
+                }
                 break;
         }
     }
@@ -150,18 +159,18 @@ public class MainActivity extends MyBaseActivity<MainPresenter> implements MainC
                 break;
             case 2:
                 changeNav(page);
+                setStatusColor(this, false, false, R.color.colorPrimary);
                 smartReplaceFragment(R.id.fl_home_container, homeTwoFragment);
-                setStatusColor(this, true, false, android.R.color.white);
                 break;
             case 3:
                 changeNav(page);
+                setStatusColor(this, false, false, R.color.colorPrimary);
                 smartReplaceFragment(R.id.fl_home_container, homeThreeFragment);
-                setStatusColor(this, true, false, android.R.color.white);
                 break;
             case 4:
                 changeNav(page);
+                setStatusColor(this, true, false, R.color.colorPrimary);
                 smartReplaceFragment(R.id.fl_home_container, homeFourFragment);
-                setStatusColor(this, true, false, android.R.color.white);
                 break;
         }
     }
@@ -177,4 +186,30 @@ public class MainActivity extends MyBaseActivity<MainPresenter> implements MainC
         smartReplaceFragment(R.id.fl_home_container, homeOneFragment);
         setStatusColor(this, true, true, android.R.color.white);
     }
+
+    /**
+     * 监听返回--是否退出程序
+     */
+    private long exitTime = 0;
+
+    //改写物理按键——返回的逻辑，希望浏览的网页后退而不是退出浏览器
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if (keyCode == KeyEvent.KEYCODE_BACK) {
+            //  System.exit(0);//退出程序
+            if (keyCode == KeyEvent.KEYCODE_BACK && event.getAction() == KeyEvent.ACTION_DOWN) {
+                if ((System.currentTimeMillis() - exitTime) > 2000) {
+                    MyToastUtils.showLong("再按一次退出程序！");
+                    exitTime = System.currentTimeMillis();
+                } else {
+                    finish();
+                    System.exit(0);
+                    Process.killProcess(android.os.Process.myPid());
+                }
+                return true;
+            }
+        }
+        return super.onKeyDown(keyCode, event);
+    }
+
 }

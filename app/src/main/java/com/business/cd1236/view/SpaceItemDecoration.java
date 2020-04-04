@@ -25,7 +25,7 @@ public class SpaceItemDecoration extends RecyclerView.ItemDecoration {
 
                 outRect.left = normal;
                 outRect.right = normal;
-                if (parent.getChildLayoutPosition(view) >= 0)
+                if (parent.getChildLayoutPosition(view) >= 1)
                     outRect.left = margin;
                 break;
             case ALL:

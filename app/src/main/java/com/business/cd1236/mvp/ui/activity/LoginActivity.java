@@ -11,8 +11,12 @@ import androidx.annotation.Nullable;
 import com.business.cd1236.R;
 import com.business.cd1236.base.MyBaseActivity;
 import com.business.cd1236.di.component.DaggerLoginComponent;
+import com.business.cd1236.globle.Constants;
 import com.business.cd1236.mvp.contract.LoginContract;
 import com.business.cd1236.mvp.presenter.LoginPresenter;
+import com.business.cd1236.utils.ParamsToJson;
+import com.business.cd1236.utils.SPUtils;
+import com.business.cd1236.utils.StringUtils;
 import com.google.android.material.textfield.TextInputEditText;
 import com.jess.arms.di.component.AppComponent;
 import com.jess.arms.utils.ArmsUtils;
@@ -52,6 +56,13 @@ public class LoginActivity extends MyBaseActivity<LoginPresenter> implements Log
     TextView tvLoginRegist;
     @BindView(R.id.tv_agreement)
     TextView tvAgreement;
+    @BindView(R.id.tv_user_agreement)
+    TextView tvUserAgreement;
+    @BindView(R.id.tv_privacy_policy)
+    TextView tvPrivacyPolicy;
+    private String name;
+    private String psw;
+    private boolean isSaveInfo = true;
 
     @Override
     public void setupActivityComponent(@NonNull AppComponent appComponent) {
@@ -70,8 +81,12 @@ public class LoginActivity extends MyBaseActivity<LoginPresenter> implements Log
 
     @Override
     public void initData(@Nullable Bundle savedInstanceState) {
+        name = getIntent().getStringExtra("name");
+        psw = getIntent().getStringExtra("psw");
         setHeader(getResources().getString(R.string.login));
         btnSwitch.setOnCheckedChangeListener(this);
+        etInputNumber.setText(name);
+        etInputPsw.setText(psw);
     }
 
     @Override
@@ -101,25 +116,59 @@ public class LoginActivity extends MyBaseActivity<LoginPresenter> implements Log
         finish();
     }
 
-    @OnClick({R.id.btn_switch, R.id.tv_forget, R.id.tv_login, R.id.tv_login_regist})
+    @OnClick({R.id.tv_forget, R.id.tv_login, R.id.tv_login_regist, R.id.tv_user_agreement, R.id.tv_privacy_policy})
     public void onViewClicked(View view) {
+        Intent intent = new Intent();
         switch (view.getId()) {
-            case R.id.btn_switch:
-                break;
             case R.id.tv_forget:
-                launchActivity(new Intent(this,RevisePswActivity.class));
+                launchActivity(new Intent(this, RevisePswActivity.class));
                 break;
             case R.id.tv_login:
-                launchActivity(new Intent(this,SettingActivity.class));
+                String name = StringUtils.getEditText(etInputNumber);
+                String psw = StringUtils.getEditText(etInputPsw);
+                if (StringUtils.checkString(name)) {
+                    ArmsUtils.snackbarText("请输入手机号");
+                    return;
+                }
+                if (name.length() != 11) {
+                    ArmsUtils.snackbarText("请输入正确的手机号");
+                    return;
+                }
+                if (StringUtils.checkString(psw)) {
+                    ArmsUtils.snackbarText("请输入密码");
+                    return;
+                }
+                mPresenter.login(ParamsToJson.PTJ(ParamsToJson.PTO("username", "userpwd"), name, psw), mActivity);
                 break;
             case R.id.tv_login_regist:
                 launchActivity(new Intent(this, RegistActivity.class));
+                break;
+            case R.id.tv_user_agreement:
+                intent.setClass(mActivity, HtmlActivity.class);
+                intent.putExtra(HtmlActivity.AGREEMENT_TYPE, HtmlActivity.USER_AGREEMENT);
+                launchActivity(intent);
+                break;
+            case R.id.tv_privacy_policy:
+                intent.setClass(mActivity, HtmlActivity.class);
+                intent.putExtra(HtmlActivity.AGREEMENT_TYPE, HtmlActivity.PRIVACY_POLICY);
+                launchActivity(intent);
                 break;
         }
     }
 
     @Override
     public void onCheckedChanged(SwitchButton view, boolean isChecked) {
-        ArmsUtils.snackbarText(isChecked ? "选中" : "未选中");
+        isSaveInfo = isChecked;
+    }
+
+    @Override
+    public void loginSuccsee(String jsonString) {
+        SPUtils.put(mActivity, Constants.ID, jsonString);
+        if (isSaveInfo) {
+            SPUtils.put(mActivity, Constants.LOGIN, true);
+//            SPUtils.put(mActivity, Constants.SAVE_LOGIN_INFO,isSaveInfo);
+        }
+        launchActivity(new Intent(mActivity, MainActivity.class));
+        killMyself();
     }
 }

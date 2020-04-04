@@ -13,7 +13,7 @@
         android:layout_weight="1" />
 
     <include
-        layout="@layout/layout_line"
+        layout="@layout/layout_margin_line"
         android:layout_width="match_parent"
         android:layout_height="@dimen/dp1" />
 

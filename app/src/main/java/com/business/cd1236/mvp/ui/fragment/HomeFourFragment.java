@@ -6,17 +6,30 @@ import android.os.Message;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
 import com.business.cd1236.R;
+import com.business.cd1236.base.MyBaseFragment;
 import com.business.cd1236.di.component.DaggerHomeFourComponent;
 import com.business.cd1236.mvp.contract.HomeFourContract;
 import com.business.cd1236.mvp.presenter.HomeFourPresenter;
-import com.jess.arms.base.BaseFragment;
+import com.business.cd1236.mvp.ui.activity.PersonalInfoActivity;
+import com.business.cd1236.mvp.ui.activity.SettingActivity;
+import com.business.cd1236.utils.SizeUtils;
+import com.business.cd1236.view.CustomCircleImageView;
+import com.business.cd1236.view.PitemView;
+import com.business.cd1236.view.homebtn.CircularRevealButton;
 import com.jess.arms.di.component.AppComponent;
 import com.jess.arms.utils.ArmsUtils;
+
+import butterknife.BindView;
+import butterknife.OnClick;
 
 import static com.jess.arms.utils.Preconditions.checkNotNull;
 
@@ -33,7 +46,58 @@ import static com.jess.arms.utils.Preconditions.checkNotNull;
  * <a href="https://github.com/JessYanCoding/MVPArmsTemplate">模版请保持更新</a>
  * ================================================
  */
-public class HomeFourFragment extends BaseFragment<HomeFourPresenter> implements HomeFourContract.View {
+public class HomeFourFragment extends MyBaseFragment<HomeFourPresenter> implements HomeFourContract.View {
+
+    @BindView(R.id.rl_header)
+    RelativeLayout rlHeader;
+    @BindView(R.id.ll_person_info)
+    LinearLayout llPersonInfo;
+    @BindView(R.id.tv_follow_store)
+    TextView tvFollowStore;
+    @BindView(R.id.ll_follow_store)
+    LinearLayout llFollowStore;
+    @BindView(R.id.tv_my_collect)
+    TextView tvMyCollect;
+    @BindView(R.id.ll_my_collect)
+    LinearLayout llMyCollect;
+    @BindView(R.id.tv_history)
+    TextView tvHistory;
+    @BindView(R.id.ll_history)
+    LinearLayout llHistory;
+    @BindView(R.id.iv_header)
+    CustomCircleImageView ivHeader;
+    @BindView(R.id.tv_name)
+    TextView tvName;
+    @BindView(R.id.iv_setting)
+    ImageView ivSetting;
+    @BindView(R.id.iv_notice)
+    ImageView ivNotice;
+    @BindView(R.id.crb_1)
+    CircularRevealButton crb1;
+    @BindView(R.id.crb_2)
+    CircularRevealButton crb2;
+    @BindView(R.id.crb_3)
+    CircularRevealButton crb3;
+    @BindView(R.id.crb_4)
+    CircularRevealButton crb4;
+    @BindView(R.id.crb_5)
+    CircularRevealButton crb5;
+    @BindView(R.id.rl_my_order)
+    RelativeLayout rlMyOrder;
+    @BindView(R.id.ll_bottom)
+    LinearLayout llBottom;
+    @BindView(R.id.piv_address)
+    PitemView pivAddress;
+    @BindView(R.id.piv_cooperation)
+    PitemView pivCooperation;
+    @BindView(R.id.piv_seller)
+    PitemView pivSeller;
+    @BindView(R.id.piv_fankui)
+    PitemView pivFankui;
+    @BindView(R.id.piv_custom_service)
+    PitemView pivCustomService;
+    @BindView(R.id.piv_about_us)
+    PitemView pivAboutUs;
 
     public static HomeFourFragment newInstance() {
         HomeFourFragment fragment = new HomeFourFragment();
@@ -57,7 +121,12 @@ public class HomeFourFragment extends BaseFragment<HomeFourPresenter> implements
 
     @Override
     public void initData(@Nullable Bundle savedInstanceState) {
+        initHeader();
+    }
 
+    private void initHeader() {
+        ViewGroup.LayoutParams layoutParams = rlHeader.getLayoutParams();
+        layoutParams.height = (SizeUtils.getScreenHW(mActivity)[1] / 3) - SizeUtils.dp2px(mActivity, 30);
     }
 
     /**
@@ -126,5 +195,51 @@ public class HomeFourFragment extends BaseFragment<HomeFourPresenter> implements
     @Override
     public void killMyself() {
 
+    }
+
+    @OnClick({R.id.ll_follow_store, R.id.ll_my_collect, R.id.ll_history, R.id.ll_person_info, R.id.iv_setting, R.id.iv_notice, R.id.crb_1, R.id.crb_2, R.id.crb_3, R.id.crb_4, R.id.crb_5, R.id.rl_my_order
+            , R.id.piv_address, R.id.piv_cooperation, R.id.piv_seller, R.id.piv_fankui, R.id.piv_custom_service, R.id.piv_about_us})
+    public void onViewClicked(View view) {
+        switch (view.getId()) {
+            case R.id.ll_follow_store:
+                break;
+            case R.id.ll_my_collect:
+                break;
+            case R.id.ll_history:
+                break;
+            case R.id.ll_person_info:
+                launchActivity(new Intent(mActivity, PersonalInfoActivity.class));
+                break;
+            case R.id.iv_setting:
+                launchActivity(new Intent(mActivity, SettingActivity.class));
+                break;
+            case R.id.iv_notice:
+                break;
+            case R.id.rl_my_order:
+                break;
+            case R.id.crb_1:
+                break;
+            case R.id.crb_2:
+                break;
+            case R.id.crb_3:
+                break;
+            case R.id.crb_4:
+                break;
+            case R.id.crb_5:
+                break;
+            case R.id.piv_address:
+                break;
+            case R.id.piv_cooperation:
+                break;
+            case R.id.piv_seller:
+                break;
+            case R.id.piv_fankui:
+                break;
+            case R.id.piv_custom_service:
+                break;
+            case R.id.piv_about_us:
+                break;
+
+        }
     }
 }

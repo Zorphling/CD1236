@@ -13,12 +13,11 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:background="@color/colorGray5"
-        android:padding="@dimen/dp5">
+        android:background="@android:color/white">
 
         <ImageView
             android:id="@+id/iv_goods"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:scaleType="centerCrop" />
@@ -44,6 +43,7 @@
 
         <TextView
             android:id="@+id/tv_goods_sales"
+            android:layout_centerVertical="true"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"

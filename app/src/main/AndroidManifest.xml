@@ -21,8 +21,11 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:replace="android:name,android:allowBackup">
+        <activity android:name=".mvp.ui.activity.GoodsDetailActivity" />
+        <activity android:name=".mvp.ui.activity.HtmlActivity" />
         <activity android:name=".mvp.ui.activity.MainActivity" />
-        <activity android:name=".mvp.ui.activity.SplashActivity"
+        <activity
+            android:name=".mvp.ui.activity.SplashActivity"
             android:theme="@style/SplashTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

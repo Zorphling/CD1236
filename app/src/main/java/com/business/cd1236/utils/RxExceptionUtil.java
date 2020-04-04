@@ -11,8 +11,6 @@ import retrofit2.HttpException;
 
 
 /**
- * Created by jaylm
- * on 2018/11/19.
  */
 public class RxExceptionUtil {
     public static String exceptionHandler(Throwable e) {

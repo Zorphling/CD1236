@@ -1,9 +1,192 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#88ccdd"
-    android:orientation="vertical">
+    android:background="@color/white"
+    android:fillViewport="true"
+    android:overScrollMode="never"
+    android:scrollbars="none">
 
-</LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <include layout="@layout/layout_p_header" />
+
+        <RelativeLayout
+            android:id="@+id/rl_my_order"
+            style="@style/style_setting_rl">
+
+            <TextView
+                style="@style/style_setting_text"
+                android:text="我的订单" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:drawableRight="@mipmap/arrow_right"
+                android:drawablePadding="@dimen/dp5"
+                android:text="全部"
+                android:textColor="@color/colorGray2" />
+        </RelativeLayout>
+
+        <include layout="@layout/layout_line" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <com.business.cd1236.view.homebtn.CircularRevealButton
+                android:id="@+id/crb_1"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="?android:attr/selectableItemBackground"
+                android:paddingTop="@dimen/dp10"
+                android:paddingBottom="@dimen/dp5"
+                app:defocus_color="@color/text_default"
+                app:defocus_icon="@mipmap/icon_daifukuan"
+                app:text="待付款" />
+
+            <com.business.cd1236.view.homebtn.CircularRevealButton
+                android:id="@+id/crb_2"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="?android:attr/selectableItemBackground"
+                android:paddingTop="@dimen/dp10"
+                android:paddingBottom="@dimen/dp5"
+                app:anim_show="true"
+                app:defocus_color="@color/text_default"
+                app:defocus_icon="@mipmap/icon_daifahuo"
+                app:text="待发货" />
+
+            <com.business.cd1236.view.homebtn.CircularRevealButton
+                android:id="@+id/crb_3"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="?android:attr/selectableItemBackground"
+                android:paddingTop="@dimen/dp10"
+                android:paddingBottom="@dimen/dp5"
+                app:anim_show="true"
+                app:defocus_color="@color/text_default"
+                app:defocus_icon="@mipmap/icon_daishouhuo"
+                app:text="待收货" />
+
+            <com.business.cd1236.view.homebtn.CircularRevealButton
+                android:id="@+id/crb_4"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="?android:attr/selectableItemBackground"
+                android:paddingTop="@dimen/dp10"
+                android:paddingBottom="@dimen/dp5"
+                app:anim_show="true"
+                app:defocus_color="@color/text_default"
+                app:defocus_icon="@mipmap/icon_daipingjia"
+                app:text="待评价" />
+
+            <com.business.cd1236.view.homebtn.CircularRevealButton
+                android:id="@+id/crb_5"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="?android:attr/selectableItemBackground"
+                android:paddingTop="@dimen/dp10"
+                android:paddingBottom="@dimen/dp5"
+                app:anim_show="true"
+                app:defocus_color="@color/text_default"
+                app:defocus_icon="@mipmap/icon_yiwancheng"
+                app:text="已完成" />
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp10"
+            android:background="@color/bg_gray" />
+
+        <com.business.cd1236.view.PitemView
+            android:id="@+id/piv_address"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:drawable="@mipmap/icon_address"
+            app:title="收货地址"
+            app:titleColor="@color/text_default" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp1"
+            android:layout_marginLeft="@dimen/dp50"
+            android:background="@color/colorGray_line" />
+
+        <com.business.cd1236.view.PitemView
+            android:id="@+id/piv_cooperation"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:drawable="@mipmap/icon_cooperation"
+            app:title="加入代理"
+            app:titleColor="@color/text_default" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp1"
+            android:layout_marginLeft="@dimen/dp50"
+            android:background="@color/colorGray_line" />
+
+        <com.business.cd1236.view.PitemView
+            android:id="@+id/piv_seller"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:drawable="@mipmap/icon_seller"
+            app:title="商家中心"
+            app:titleColor="@color/text_default" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp10"
+            android:background="@color/bg_gray" />
+
+        <com.business.cd1236.view.PitemView
+            android:id="@+id/piv_fankui"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:drawable="@mipmap/icon_fankui"
+            app:title="意见反馈"
+            app:titleColor="@color/text_default" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp1"
+            android:layout_marginLeft="@dimen/dp50"
+            android:background="@color/colorGray_line" />
+
+        <com.business.cd1236.view.PitemView
+            android:id="@+id/piv_custom_service"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:drawable="@mipmap/icon_custom_service"
+            app:title="联系客服"
+            app:titleColor="@color/text_default" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp1"
+            android:layout_marginLeft="@dimen/dp50"
+            android:background="@color/colorGray_line" />
+
+        <com.business.cd1236.view.PitemView
+            android:id="@+id/piv_about_us"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:drawable="@mipmap/icon_about_us"
+            app:title="关于我们"
+            app:titleColor="@color/text_default" />
+
+    </LinearLayout>
+</ScrollView>

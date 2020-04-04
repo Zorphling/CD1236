@@ -6,6 +6,8 @@
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
+        <item name="android:screenOrientation">portrait</item>
+        <item name="android:windowSoftInputMode">stateAlwaysHidden|adjustResize</item>
     </style>
 
     <style name="SplashTheme" parent="AppTheme">
@@ -29,7 +31,8 @@
         <item name="android:paddingTop">@dimen/dp13</item>
         <item name="android:paddingRight">@dimen/dp20</item>
         <item name="android:paddingBottom">@dimen/dp13</item>
-        <item name="background">@drawable/slc_bg_text_button</item>
+        <item name="background">@color/bg_change_item_press</item>
+        <item name="android:background">?android:attr/selectableItemBackground</item>
     </style>
 
     <style name="style_setting_text">
@@ -46,4 +49,15 @@
         <item name="android:layout_alignParentRight">true</item>
         <item name="android:layout_centerVertical">true</item>
     </style>
+
+    <style name="CustomerDialogStyle" parent="@android:style/Theme.Dialog">
+        <item name="android:windowFrame">@null</item>
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowIsFloating">true</item>
+        <item name="android:windowContentOverlay">@null</item>
+        <item name="android:windowIsTranslucent">false</item>
+        <item name="android:backgroundDimEnabled">false</item>
+        <item name="android:windowBackground">@android:color/transparent</item>
+    </style>
+
 </resources>
