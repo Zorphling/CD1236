@@ -67,7 +67,7 @@ public class RegistPresenter extends BasePresenter<RegistContract.Model, RegistC
             @Override
             protected void onFailure(String errorMsg, int status) {
                 super.onFailure(errorMsg, status);
-                if (!StringUtils.checkString(errorMsg))
+                if (StringUtils.checkString(errorMsg))
                     ArmsUtils.snackbarText(errorMsg);
             }
         });

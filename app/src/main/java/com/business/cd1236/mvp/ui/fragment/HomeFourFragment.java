@@ -22,7 +22,6 @@ import com.business.cd1236.mvp.presenter.HomeFourPresenter;
 import com.business.cd1236.mvp.ui.activity.PersonalInfoActivity;
 import com.business.cd1236.mvp.ui.activity.SettingActivity;
 import com.business.cd1236.utils.SizeUtils;
-import com.business.cd1236.view.CustomCircleImageView;
 import com.business.cd1236.view.PitemView;
 import com.business.cd1236.view.homebtn.CircularRevealButton;
 import com.jess.arms.di.component.AppComponent;
@@ -30,6 +29,7 @@ import com.jess.arms.utils.ArmsUtils;
 
 import butterknife.BindView;
 import butterknife.OnClick;
+import de.hdodenhof.circleimageview.CircleImageView;
 
 import static com.jess.arms.utils.Preconditions.checkNotNull;
 
@@ -65,7 +65,7 @@ public class HomeFourFragment extends MyBaseFragment<HomeFourPresenter> implemen
     @BindView(R.id.ll_history)
     LinearLayout llHistory;
     @BindView(R.id.iv_header)
-    CustomCircleImageView ivHeader;
+    CircleImageView ivHeader;
     @BindView(R.id.tv_name)
     TextView tvName;
     @BindView(R.id.iv_setting)

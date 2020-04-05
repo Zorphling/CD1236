@@ -1,17 +1,12 @@
 package com.business.cd1236.mvp.presenter;
 
 import android.app.Application;
-import android.content.Context;
 
-import com.business.cd1236.mvp.contract.RevisePswContract;
-import com.business.cd1236.net.BaseCallBack;
-import com.business.cd1236.net.RequestUtils;
-import com.business.cd1236.utils.StringUtils;
+import com.business.cd1236.mvp.contract.OrderContract;
 import com.jess.arms.di.scope.ActivityScope;
 import com.jess.arms.http.imageloader.ImageLoader;
 import com.jess.arms.integration.AppManager;
 import com.jess.arms.mvp.BasePresenter;
-import com.jess.arms.utils.ArmsUtils;
 
 import javax.inject.Inject;
 
@@ -22,7 +17,7 @@ import me.jessyan.rxerrorhandler.core.RxErrorHandler;
  * ================================================
  * Description:
  * <p>
- * Created by MVPArmsTemplate on 03/31/2020 17:38
+ * Created by MVPArmsTemplate on 04/05/2020 14:45
  * <a href="mailto:jess.yan.effort@gmail.com">Contact me</a>
  * <a href="https://github.com/JessYanCoding">Follow me</a>
  * <a href="https://github.com/JessYanCoding/MVPArms">Star me</a>
@@ -31,7 +26,7 @@ import me.jessyan.rxerrorhandler.core.RxErrorHandler;
  * ================================================
  */
 @ActivityScope
-public class RevisePswPresenter extends BasePresenter<RevisePswContract.Model, RevisePswContract.View> {
+public class OrderPresenter extends BasePresenter<OrderContract.Model, OrderContract.View> {
     @Inject
     RxErrorHandler mErrorHandler;
     @Inject
@@ -42,7 +37,7 @@ public class RevisePswPresenter extends BasePresenter<RevisePswContract.Model, R
     AppManager mAppManager;
 
     @Inject
-    public RevisePswPresenter(RevisePswContract.Model model, RevisePswContract.View rootView) {
+    public OrderPresenter(OrderContract.Model model, OrderContract.View rootView) {
         super(model, rootView);
     }
 
@@ -53,21 +48,5 @@ public class RevisePswPresenter extends BasePresenter<RevisePswContract.Model, R
         this.mAppManager = null;
         this.mImageLoader = null;
         this.mApplication = null;
-    }
-
-    public void revisePsw(Context context, String ptj) {
-        RequestUtils.revisePsw(ptj, new BaseCallBack(context) {
-            @Override
-            protected void onSuccess(String jsonString) {
-                mRootView.reviseSuccess();
-            }
-
-            @Override
-            protected void onFailure(String errorMsg, int status) {
-                super.onFailure(errorMsg, status);
-                if (StringUtils.checkString(errorMsg))
-                    ArmsUtils.snackbarText(errorMsg);
-            }
-        });
     }
 }

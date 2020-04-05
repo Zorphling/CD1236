@@ -17,5 +17,9 @@
     <color name="text_black">#1A1A1A</color>
     <color name="text_default">#656565</color>
     <color name="home_search_bg">#E5E5E5</color>
+    <color name="text_select_red">#D21426</color>
+
+    //goods_detail_color
+    <color name="goods_detail_title">#2f2f2f</color>
 
 </resources>

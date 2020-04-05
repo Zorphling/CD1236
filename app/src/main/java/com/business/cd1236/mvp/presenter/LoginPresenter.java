@@ -65,7 +65,7 @@ public class LoginPresenter extends BasePresenter<LoginContract.Model, LoginCont
             @Override
             protected void onFailure(String errorMsg, int status) {
                 super.onFailure(errorMsg, status);
-                if (!StringUtils.checkString(errorMsg))
+                if (StringUtils.checkString(errorMsg))
                     ArmsUtils.snackbarText(errorMsg);
             }
         });

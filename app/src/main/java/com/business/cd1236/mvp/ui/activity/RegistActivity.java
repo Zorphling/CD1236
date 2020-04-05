@@ -112,7 +112,7 @@ public class RegistActivity extends MyBaseActivity<RegistPresenter> implements R
                 String code = StringUtils.getEditText(etInputCode);
                 String psw = StringUtils.getEditText(etInputPsw);
                 String pswAgain = StringUtils.getEditText(etInputPswAgain);
-                if (StringUtils.checkString(name)) {
+                if (!StringUtils.checkString(name)) {
                     ArmsUtils.snackbarText("请输入手机号");
                     return;
                 }
@@ -120,15 +120,15 @@ public class RegistActivity extends MyBaseActivity<RegistPresenter> implements R
                     ArmsUtils.snackbarText("请输入正确的手机号");
                     return;
                 }
-//                if (StringUtils.checkString(code)) {
+//                if (!StringUtils.checkString(code)) {
 //                    ArmsUtils.snackbarText("请输入验证码");
 //                    return;
 //                }
-                if (StringUtils.checkString(psw)) {
+                if (!StringUtils.checkString(psw)) {
                     ArmsUtils.snackbarText("请输入密码");
                     return;
                 }
-                if (StringUtils.checkString(pswAgain)) {
+                if (!StringUtils.checkString(pswAgain)) {
                     ArmsUtils.snackbarText("请再次输入密码");
                     return;
                 }

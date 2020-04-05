@@ -126,7 +126,7 @@ public class LoginActivity extends MyBaseActivity<LoginPresenter> implements Log
             case R.id.tv_login:
                 String name = StringUtils.getEditText(etInputNumber);
                 String psw = StringUtils.getEditText(etInputPsw);
-                if (StringUtils.checkString(name)) {
+                if (!StringUtils.checkString(name)) {
                     ArmsUtils.snackbarText("请输入手机号");
                     return;
                 }
@@ -134,7 +134,7 @@ public class LoginActivity extends MyBaseActivity<LoginPresenter> implements Log
                     ArmsUtils.snackbarText("请输入正确的手机号");
                     return;
                 }
-                if (StringUtils.checkString(psw)) {
+                if (!StringUtils.checkString(psw)) {
                     ArmsUtils.snackbarText("请输入密码");
                     return;
                 }

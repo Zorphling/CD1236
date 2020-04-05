@@ -1,22 +1,34 @@
 package com.business.cd1236.mvp.ui.fragment;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Message;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.FrameLayout;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.business.cd1236.R;
+import com.business.cd1236.adapter.HomeTwoStoreAdapter;
 import com.business.cd1236.base.MyBaseFragment;
 import com.business.cd1236.di.component.DaggerHomeTwoComponent;
 import com.business.cd1236.mvp.contract.HomeTwoContract;
 import com.business.cd1236.mvp.presenter.HomeTwoPresenter;
+import com.business.cd1236.utils.SizeUtils;
+import com.business.cd1236.view.SpaceItemDecoration;
+import com.chad.library.adapter.base.BaseQuickAdapter;
+import com.chad.library.adapter.base.listener.OnItemClickListener;
+import com.google.android.material.appbar.AppBarLayout;
 import com.jess.arms.di.component.AppComponent;
 import com.jess.arms.utils.ArmsUtils;
+
+import butterknife.BindView;
 
 import static com.jess.arms.utils.Preconditions.checkNotNull;
 
@@ -33,7 +45,23 @@ import static com.jess.arms.utils.Preconditions.checkNotNull;
  * <a href="https://github.com/JessYanCoding/MVPArmsTemplate">模版请保持更新</a>
  * ================================================
  */
-public class HomeTwoFragment extends MyBaseFragment<HomeTwoPresenter> implements HomeTwoContract.View {
+public class HomeTwoFragment extends MyBaseFragment<HomeTwoPresenter> implements HomeTwoContract.View, AppBarLayout.OnOffsetChangedListener, OnItemClickListener {
+    @BindView(R.id.app_bar)
+    AppBarLayout appBar;
+    @BindView(R.id.layout_open)
+    FrameLayout layoutOpen;
+    @BindView(R.id.layout_close)
+    FrameLayout layoutClose;
+    @BindView(R.id.view_search)
+    View viewSearch;
+    @BindView(R.id.view_open)
+    View viewOpen;
+    @BindView(R.id.view_close)
+    View viewClose;
+    @BindView(R.id.rv_content)
+    RecyclerView rvContent;
+    private HomeTwoStoreAdapter homeTwoStoreAdapter;
+
 
     public static HomeTwoFragment newInstance() {
         HomeTwoFragment fragment = new HomeTwoFragment();
@@ -57,6 +85,17 @@ public class HomeTwoFragment extends MyBaseFragment<HomeTwoPresenter> implements
 
     @Override
     public void initData(@Nullable Bundle savedInstanceState) {
+        appBar.addOnOffsetChangedListener(this);
+
+        ArmsUtils.configRecyclerView(rvContent, new LinearLayoutManager(mContext, LinearLayoutManager.VERTICAL, false));
+        rvContent.setNestedScrollingEnabled(false);
+        int dp = SizeUtils.dp2px(mActivity, 10);
+        rvContent.addItemDecoration(new SpaceItemDecoration(0, dp, SpaceItemDecoration.TYPE.LEFT));
+        homeTwoStoreAdapter = new HomeTwoStoreAdapter(R.layout.item_home_two_store);
+        rvContent.setAdapter(homeTwoStoreAdapter);
+        homeTwoStoreAdapter.setOnItemClickListener(this);
+
+//        mPresenter.get()
     }
 
     /**
@@ -124,6 +163,49 @@ public class HomeTwoFragment extends MyBaseFragment<HomeTwoPresenter> implements
 
     @Override
     public void killMyself() {
+
+    }
+
+    /**
+     * 通过计算滑动的距离，逐渐改变透明度。
+     */
+    @Override
+    public void onOffsetChanged(AppBarLayout appBarLayout, int i) {
+        //垂直方向偏移量
+        int offset = Math.abs(i);
+        //最大偏移距离
+        int scrollRange = appBarLayout.getTotalScrollRange();
+        //当滑动没超过一半，展开状态下 toolbar 显示内容，更具收缩位置，改变透明值
+        if (offset <= scrollRange / 2) {
+            layoutOpen.setVisibility(View.VISIBLE);
+            layoutClose.setVisibility(View.GONE);
+            //根据偏移百分比 计算透明值
+            float scale = Float.valueOf(offset) / (scrollRange / 2);
+
+            int alpha = Integer.valueOf((int) (255 * scale));
+            viewOpen.setBackgroundColor(Color.argb(alpha, 255, 255, 255));
+        }//当滑动超过一半，收缩状态下 toolbar 显示内容，根据收缩位置，改变透明值
+        else {
+            layoutOpen.setVisibility(View.GONE);
+            layoutClose.setVisibility(View.VISIBLE);
+            float scale = Float.valueOf(scrollRange - offset) / (scrollRange / 2);
+            int alpha = Integer.valueOf((int) (255 * scale));
+            viewClose.setBackgroundColor(Color.argb(alpha, 255, 255, 255));
+        }
+        //根据百分比计算扫一扫布局透明值
+        float scale = Float.valueOf(offset) / scrollRange;
+        int alpha = Integer.valueOf((int) (255 * scale));
+        viewSearch.setBackgroundColor(Color.argb(alpha, 255, 255, 255));
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        appBar.removeOnOffsetChangedListener(this);
+    }
+
+    @Override
+    public void onItemClick(@NonNull BaseQuickAdapter<?, ?> adapter, @NonNull View view, int position) {
 
     }
 }

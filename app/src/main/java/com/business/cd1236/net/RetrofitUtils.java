@@ -38,9 +38,9 @@ public class RetrofitUtils {
     public Retrofit getRetrofit() {
         String DYNAMIC_URL = (String) SPUtils.get(MyApplication.mApp, Constants.INIT_GLOBAL_URL, "");
         if (StringUtils.checkString(DYNAMIC_URL)) {
-            return getRetrofitBaseUrl(RetrofitUtils.BaseUrl);
-        } else {
             return getRetrofitBaseUrl(DYNAMIC_URL);
+        } else {
+            return getRetrofitBaseUrl(RetrofitUtils.BaseUrl);
         }
     }
 

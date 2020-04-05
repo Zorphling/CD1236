@@ -5,81 +5,232 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <LinearLayout
+    <include layout="@layout/layout_goods_detail_header" />
+
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@color/colorGray1"
-        android:gravity="center_vertical"
-        android:orientation="horizontal"
-        android:weightSum="1">
+        android:layout_height="match_parent"
+        android:fillViewport="true"
+        android:overScrollMode="never"
+        android:scrollbars="none">
 
         <LinearLayout
-            android:layout_width="@dimen/dp0"
-            android:layout_height="wrap_content"
-            android:layout_weight="0.63"
-            android:orientation="horizontal">
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
 
-            <ImageView
-                android:id="@+id/iv_back"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:background="?android:selectableItemBackground"
-                android:paddingLeft="@dimen/dp10"
-                android:paddingRight="@dimen/dp10"
-                android:src="@mipmap/arrow_left_black" />
 
-            <FrameLayout
+            <com.youth.banner.Banner
+                android:id="@+id/goods_detail_banner"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_marginLeft="@dimen/dp10"
-                android:layout_marginTop="@dimen/dp10"
-                android:layout_marginBottom="@dimen/dp10"
-                android:background="@drawable/solid_bg_goods_detail_search">
+                android:layout_height="@dimen/dp200" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="@dimen/dp10">
 
                 <TextView
-                    android:id="@+id/tv_search"
                     android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:layout_gravity="center"
-                    android:drawableLeft="@mipmap/goods_search"
-                    android:drawablePadding="@dimen/dp3"
-                    android:paddingTop="@dimen/dp5"
-                    android:paddingBottom="@dimen/dp5"
-                    android:text="搜索商品名称"
+                    android:layout_height="wrap_content"
+                    android:text="400克绿标"
+                    android:textColor="@color/goods_detail_title" />
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/dp10">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="$23.5/袋" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:layout_centerInParent="true"
+                        android:text="已售194"
+                        android:textSize="@dimen/sp12" />
+                </RelativeLayout>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="发货 四川省 成都市" />
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dp10"
+                android:background="@color/colorGray_line" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="@dimen/dp10">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="商品参数"
+                    android:textColor="@color/goods_detail_title" />
+
+                <include
+                    layout="@layout/layout_line"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/dp0_5"
+                    android:layout_marginLeft="@dimen/dp10"
+                    android:layout_marginTop="@dimen/dp10"
+                    android:layout_marginBottom="@dimen/dp10" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="@dimen/dp0"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="品牌："
+                        android:textSize="@dimen/sp12" />
+
+                    <TextView
+                        android:layout_width="@dimen/dp0"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="建议零售价："
+                        android:textSize="@dimen/sp12" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/dp10"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="@dimen/dp0"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="起批量："
+                        android:textSize="@dimen/sp12" />
+
+                    <TextView
+                        android:layout_width="@dimen/dp0"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="条形码："
+                        android:textSize="@dimen/sp12" />
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dp10"
+                android:background="@color/colorGray_line" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <RelativeLayout
+                    android:id="@+id/rl_secret"
+                    style="@style/style_setting_rl"
+
+                    android:paddingLeft="@dimen/dp10"
+                    android:paddingRight="@dimen/dp10">
+
+
+                    <TextView
+                        style="@style/style_setting_text"
+                        android:text="评价"
+                        android:textColor="@color/text_default"
+                        android:textSize="@dimen/sp14" />
+
+                    <ImageView
+                        style="@style/style_setting_arrow"
+                        android:src="@mipmap/arrow_right" />
+                </RelativeLayout>
+
+                <include
+                    layout="@layout/layout_line"
+                    android:layout_marginLeft="@dimen/dp10"
+                    tools:ignore="IncludeLayoutParam" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:padding="@dimen/dp10"
+                    android:text="暂无评价"
                     android:textSize="@dimen/sp12" />
-            </FrameLayout>
+            </LinearLayout>
 
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dp10"
+                android:background="@color/colorGray_line" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <ImageView
+                        android:layout_width="@dimen/dp40"
+                        android:layout_height="@dimen/dp40"
+                        android:src="@mipmap/ic_launcher" />
+
+                    <LinearLayout
+                        android:layout_width="@dimen/dp0"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="@dimen/dp0"
+                            android:layout_weight="1"
+                            android:gravity="center_vertical"
+                            android:text="四川省天涯大手大脚预先公司"
+                            android:textColor="@color/goods_detail_title"
+                            android:textSize="@dimen/sp12" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="@dimen/dp0"
+                            android:layout_weight="1"
+                            android:gravity="center_vertical"
+                            android:text="商品数量  关注"
+                            android:textSize="@dimen/sp10" />
+                    </LinearLayout>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:background="@drawable/stroke_bg_revise_nick_name"
+                        android:padding="@dimen/dp5"
+                        android:text="进店逛逛" />
+
+                </LinearLayout>
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/rv_goods_detail"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+            </LinearLayout>
         </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="@dimen/dp0"
-            android:layout_height="match_parent"
-            android:layout_weight="0.37"
-            android:paddingLeft="@dimen/dp10"
-            android:gravity="center_vertical|right"
-            android:orientation="horizontal">
-
-            <androidx.appcompat.widget.AppCompatImageView
-                android:id="@+id/iv_collect"
-                android:layout_width="@dimen/dp0"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:src="@mipmap/goods_uncollect" />
-            <!--                android:background="?android:selectableItemBackground"-->
-
-            <androidx.appcompat.widget.AppCompatImageView
-                android:id="@+id/iv_cart"
-                android:layout_width="@dimen/dp0"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:src="@mipmap/goods_cart" />
-
-            <androidx.appcompat.widget.AppCompatImageView
-                android:id="@+id/iv_home"
-                android:layout_width="@dimen/dp0"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:src="@mipmap/goods_home" />
-        </LinearLayout>
-    </LinearLayout>
+    </ScrollView>
 </LinearLayout>

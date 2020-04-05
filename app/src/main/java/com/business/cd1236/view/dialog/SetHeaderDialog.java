@@ -55,9 +55,15 @@ public class SetHeaderDialog extends Dialog implements View.OnClickListener {
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.tv_photo_taken:
+                if (selectPicListener != null) {
+                    selectPicListener.onPhototaken();
+                }
                 dismiss();
                 break;
             case R.id.tv_select_pic:
+                if (selectPicListener != null) {
+                    selectPicListener.onSelectPic();
+                }
                 dismiss();
                 break;
             case R.id.tv_cancel:

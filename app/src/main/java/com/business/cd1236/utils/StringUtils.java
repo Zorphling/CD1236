@@ -200,13 +200,13 @@ public class StringUtils {
 
     /**
      * 检查字符串不能为null 或 ""
-     * true为空
+     * false为空
      */
     public static boolean checkString(String s) {
         if (TextUtils.isEmpty(s) || TextUtils.equals("", s)) {
-            return true;
+            return false;
         }
-        return false;
+        return true;
     }
 
 
@@ -254,6 +254,7 @@ public class StringUtils {
 
     /**
      * 保留两位小数正则
+     *
      * @param number
      * @return
      */
@@ -263,7 +264,7 @@ public class StringUtils {
         return matcher.matches();
     }
 
-     /**
+    /**
      * 将银行卡中间八个字符隐藏为*
      */
     public static String getHideBankCardNum(String bankCardNum) {
@@ -293,7 +294,7 @@ public class StringUtils {
     }
 
     //得到EditText输入的
-    public static String getEditText(EditText editText){
+    public static String getEditText(EditText editText) {
         return editText.getText().toString().trim();
     }
 

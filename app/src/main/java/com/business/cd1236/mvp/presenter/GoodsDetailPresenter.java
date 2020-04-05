@@ -65,7 +65,7 @@ public class GoodsDetailPresenter extends BasePresenter<GoodsDetailContract.Mode
             @Override
             protected void onFailure(String errorMsg, int status) {
                 super.onFailure(errorMsg, status);
-                if (!StringUtils.checkString(errorMsg)){
+                if (StringUtils.checkString(errorMsg)){
                     ArmsUtils.snackbarText(errorMsg);
                 }
             }

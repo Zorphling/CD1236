@@ -23,4 +23,9 @@
     <string name="login_agreement">登录即代表您已阅读并同意以下协议</string>
     <string name="login_agreement_user_agreement">《买盐网平台用户服务协议》</string>
     <string name="login_agreement_privacy_policy">《买盐网平台隐私政策》</string>
+    <string name="home_two_ranking_index">综合排序</string>
+    <string name="home_two_ranking_sales_volume">销量</string>
+    <string name="home_two_ranking_range">距离</string>
+
+
 </resources>

@@ -1,6 +1,8 @@
 package com.business.cd1236.mvp.ui.activity;
 
+import android.Manifest;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.os.Process;
 import android.view.KeyEvent;
@@ -24,6 +26,10 @@ import com.business.cd1236.utils.SPUtils;
 import com.business.cd1236.view.homebtn.CircularRevealButton;
 import com.jess.arms.di.component.AppComponent;
 import com.jess.arms.utils.ArmsUtils;
+import com.luck.picture.lib.config.PictureConfig;
+import com.luck.picture.lib.config.PictureMimeType;
+import com.luck.picture.lib.permissions.PermissionChecker;
+import com.luck.picture.lib.tools.PictureFileUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -74,12 +80,20 @@ public class MainActivity extends MyBaseActivity<MainPresenter> implements MainC
     }
 
     @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        if (savedInstanceState != null)
+            this.recreate();
+    }
+
+    @Override
     public int initView(@Nullable Bundle savedInstanceState) {
         return R.layout.activity_main; //如果你不需要框架帮你设置 setContentView(id) 需要自行设置,请返回 0
     }
 
     @Override
     public void initData(@Nullable Bundle savedInstanceState) {
+        clearCache();
         homeOneFragment = HomeOneFragment.newInstance();
         homeTwoFragment = HomeTwoFragment.newInstance();
         homeThreeFragment = HomeThreeFragment.newInstance();
@@ -92,6 +106,37 @@ public class MainActivity extends MyBaseActivity<MainPresenter> implements MainC
 
 
         firstLoad();
+    }
+
+    /**
+     * 清空缓存包括裁剪、压缩、AndroidQToPath所生成的文件，注意调用时机必须是处理完本身的业务逻辑后调用；非强制性
+     */
+    private void clearCache() {
+        // 清空图片缓存，包括裁剪、压缩后的图片 注意:必须要在上传完成后调用 必须要获取权限
+        if (PermissionChecker.checkSelfPermission(mActivity, Manifest.permission.WRITE_EXTERNAL_STORAGE)) {
+            //PictureFileUtils.deleteCacheDirFile(this, PictureMimeType.ofImage());
+            PictureFileUtils.deleteAllCacheDirFile(mActivity);
+        } else {
+            PermissionChecker.requestPermissions(this, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE},
+                    PictureConfig.APPLY_STORAGE_PERMISSIONS_CODE);
+        }
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        switch (requestCode) {
+            case PictureConfig.APPLY_STORAGE_PERMISSIONS_CODE:
+                // 存储权限
+                for (int i = 0; i < grantResults.length; i++) {
+                    if (grantResults[i] == PackageManager.PERMISSION_GRANTED) {
+                        PictureFileUtils.deleteCacheDirFile(mActivity, PictureMimeType.ofImage());
+                    } else {
+                        ArmsUtils.snackbarText("请打开文件读取权限");
+                    }
+                }
+                break;
+        }
     }
 
     @Override
@@ -159,7 +204,7 @@ public class MainActivity extends MyBaseActivity<MainPresenter> implements MainC
                 break;
             case 2:
                 changeNav(page);
-                setStatusColor(this, false, false, R.color.colorPrimary);
+                setStatusColor(this, false, true, android.R.color.white);
                 smartReplaceFragment(R.id.fl_home_container, homeTwoFragment);
                 break;
             case 3:

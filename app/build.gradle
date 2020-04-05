@@ -52,6 +52,7 @@ dependencies {
     //常用框架
     implementation rootProject.ext.dependencies["glide"]
     implementation rootProject.ext.dependencies["agentweb"]
+    implementation 'org.greenrobot:eventbus:3.2.0'
     annotationProcessor rootProject.ext.dependencies["glide-compiler"]
     //RecyclerViewAdapter框架
     implementation 'com.github.CymChad:BaseRecyclerViewAdapterHelper:3.0.2'
@@ -66,5 +67,7 @@ dependencies {
     implementation 'androidx.viewpager2:viewpager2:1.0.0'
     //状态栏改变工具类
     implementation 'com.jaeger.statusbarutil:library:1.5.1'
+    //圆形图片
+    implementation 'de.hdodenhof:circleimageview:3.1.0'
 
 }

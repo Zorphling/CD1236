@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -18,15 +19,17 @@
             style="@style/style_setting_arrow"
             android:src="@mipmap/arrow_right" />
 
-        <ImageView
+        <de.hdodenhof.circleimageview.CircleImageView
             android:id="@+id/iv_src"
-            android:layout_width="@dimen/dp50"
-            android:layout_height="@dimen/dp50"
+            android:layout_width="@dimen/dp40"
+            android:layout_height="@dimen/dp40"
             android:layout_marginRight="@dimen/dp5"
             android:layout_toLeftOf="@id/iv_arrow"
-            android:src="@mipmap/header_default" />
+            android:src="@mipmap/header_default"/>
     </RelativeLayout>
-<include layout="@layout/layout_margin_line"/>
+
+    <include layout="@layout/layout_margin_line" />
+
     <RelativeLayout
         android:id="@+id/rl_nickname"
         style="@style/style_setting_rl">
@@ -43,12 +46,14 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginRight="@dimen/dp5"
             android:layout_toLeftOf="@id/iv_arrow1"
             android:text="点击编辑"
-            android:layout_marginRight="@dimen/dp5"
             android:textColor="@color/colorGray3" />
     </RelativeLayout>
-    <include layout="@layout/layout_margin_line"/>
+
+    <include layout="@layout/layout_margin_line" />
+
     <RelativeLayout
         android:id="@+id/rl_harvest_address"
         style="@style/style_setting_rl">
@@ -64,8 +69,8 @@
 
         <TextView
             android:layout_width="wrap_content"
-            android:layout_marginRight="@dimen/dp5"
             android:layout_height="wrap_content"
+            android:layout_marginRight="@dimen/dp5"
             android:layout_toLeftOf="@id/iv_arrow2"
             android:text="修改/添加"
             android:textColor="@color/colorGray3" />
