@@ -1,6 +1,97 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="wrap_content"
+    android:layout_marginLeft="@dimen/dp10"
+    android:layout_marginTop="@dimen/dp10"
+    android:layout_marginRight="@dimen/dp10"
+    app:cardElevation="@dimen/dp0"
+    app:cardCornerRadius="@dimen/dp5">
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="@dimen/dp10">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <androidx.cardview.widget.CardView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:cardElevation="@dimen/dp3">
+
+                <com.makeramen.roundedimageview.RoundedImageView
+                    android:id="@+id/riv_store"
+                    android:layout_width="@dimen/dp40"
+                    android:layout_height="@dimen/dp40"
+                    android:scaleType="centerCrop"
+                    app:riv_corner_radius="@dimen/dp5" />
+            </androidx.cardview.widget.CardView>
+
+            <RelativeLayout
+                android:layout_width="@dimen/dp0"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="@dimen/dp10"
+                android:layout_marginRight="@dimen/dp10"
+                android:layout_weight="1">
+
+                <TextView
+                    android:id="@+id/tv_store_name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentTop="true"
+                    android:text="粤盐"
+                    android:textColor="@color/goods_detail_title" />
+
+                <TextView
+                    android:id="@+id/tv_time_and_sales"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentBottom="true"
+                    android:text="07:00-20:00 | 销量2558"
+                    android:textSize="@dimen/sp12" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent">
+
+                <TextView
+                    android:id="@+id/tv_store_range"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentBottom="true"
+                    android:text="15456km"
+                    android:textSize="@dimen/sp10" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignRight="@id/tv_store_range"
+                    android:layout_alignParentTop="true"
+                    android:background="@drawable/solid_bg_regist_button"
+                    android:paddingLeft="@dimen/dp8"
+                    android:paddingTop="@dimen/dp2"
+                    android:paddingRight="@dimen/dp8"
+                    android:paddingBottom="@dimen/dp2"
+                    android:text="进店"
+                    android:textColor="@android:color/white"
+                    android:textSize="@dimen/sp10" />
+
+
+            </RelativeLayout>
+        </LinearLayout>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rv_store_goods"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dp10"
+            android:overScrollMode="never" />
+    </LinearLayout>
 </androidx.cardview.widget.CardView>

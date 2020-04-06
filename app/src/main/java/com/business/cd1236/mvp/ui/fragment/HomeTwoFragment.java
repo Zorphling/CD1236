@@ -21,12 +21,13 @@ import com.business.cd1236.di.component.DaggerHomeTwoComponent;
 import com.business.cd1236.mvp.contract.HomeTwoContract;
 import com.business.cd1236.mvp.presenter.HomeTwoPresenter;
 import com.business.cd1236.utils.SizeUtils;
-import com.business.cd1236.view.SpaceItemDecoration;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.listener.OnItemClickListener;
 import com.google.android.material.appbar.AppBarLayout;
 import com.jess.arms.di.component.AppComponent;
 import com.jess.arms.utils.ArmsUtils;
+
+import java.util.ArrayList;
 
 import butterknife.BindView;
 
@@ -90,10 +91,15 @@ public class HomeTwoFragment extends MyBaseFragment<HomeTwoPresenter> implements
         ArmsUtils.configRecyclerView(rvContent, new LinearLayoutManager(mContext, LinearLayoutManager.VERTICAL, false));
         rvContent.setNestedScrollingEnabled(false);
         int dp = SizeUtils.dp2px(mActivity, 10);
-        rvContent.addItemDecoration(new SpaceItemDecoration(0, dp, SpaceItemDecoration.TYPE.LEFT));
+//        rvContent.addItemDecoration(new SpaceItemDecoration(0, dp, SpaceItemDecoration.TYPE.LEFT));
         homeTwoStoreAdapter = new HomeTwoStoreAdapter(R.layout.item_home_two_store);
         rvContent.setAdapter(homeTwoStoreAdapter);
         homeTwoStoreAdapter.setOnItemClickListener(this);
+        ArrayList<Object> objects = new ArrayList<>();
+        for (int i = 0; i < 20; i++) {
+            objects.add(i);
+        }
+        homeTwoStoreAdapter.setNewInstance(objects);
 
 //        mPresenter.get()
     }
@@ -199,8 +205,8 @@ public class HomeTwoFragment extends MyBaseFragment<HomeTwoPresenter> implements
     }
 
     @Override
-    public void onDestroy() {
-        super.onDestroy();
+    public void onDestroyView() {
+        super.onDestroyView();
         appBar.removeOnOffsetChangedListener(this);
     }
 

@@ -12,7 +12,7 @@ public class SpaceItemDecoration extends RecyclerView.ItemDecoration {
     private final TYPE type;
 
     public enum TYPE {
-        LEFT, ALL
+        LEFT, ALL, TOP;
     }
 
     @Override
@@ -27,6 +27,15 @@ public class SpaceItemDecoration extends RecyclerView.ItemDecoration {
                 outRect.right = normal;
                 if (parent.getChildLayoutPosition(view) >= 1)
                     outRect.left = margin;
+                break;
+            case TOP:
+                outRect.top = normal;
+                outRect.bottom = normal;
+
+                outRect.left = normal;
+                outRect.right = normal;
+                if (parent.getChildLayoutPosition(view) >= 0)
+                    outRect.top = margin;
                 break;
             case ALL:
                 outRect.top = margin;

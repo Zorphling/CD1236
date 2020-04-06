@@ -9,7 +9,7 @@
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="@dimen/dp44"
+        android:layout_height="@dimen/dp47"
         android:background="@color/colorPrimary">
 
         <TextView
@@ -27,11 +27,11 @@
             android:id="@+id/tv_right"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
+            android:layout_alignParentRight="true"
             android:layout_marginLeft="5dp"
+            android:layout_marginRight="@dimen/dp10"
             android:gravity="center_vertical"
             android:text="管理"
-            android:layout_alignParentRight="true"
-            android:layout_marginRight="@dimen/dp10"
             android:textColor="@android:color/white" />
     </RelativeLayout>
 
@@ -75,7 +75,10 @@
     <!--    </androidx.appcompat.widget.Toolbar>-->
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rv"
+        android:id="@+id/rv_home_three"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
+        android:layout_height="match_parent"
+        android:background="@color/colorGray1"
+        android:overScrollMode="never"
+        android:paddingBottom="@dimen/dp10" />
 </LinearLayout>

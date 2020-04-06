@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:layout_marginTop="@dimen/dp10"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <LinearLayout
+            android:id="@+id/ll_left"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <androidx.appcompat.widget.AppCompatCheckBox
+                android:id="@+id/item_check_box"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+            <com.makeramen.roundedimageview.RoundedImageView
+                android:id="@+id/riv_item_src"
+                android:layout_width="@dimen/dp60"
+                android:layout_marginLeft="@dimen/dp10"
+                android:layout_height="@dimen/dp60"
+                android:src="@color/text_select_red"
+                app:riv_corner_radius="@dimen/dp5" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/ll_right"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/dp10"
+            android:layout_toRightOf="@id/ll_left"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="top"
+                android:text="中盐精致加碘食用盐 350g"
+                android:textColor="@color/goods_detail_title" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@color/colorGray_line"
+                android:padding="@dimen/dp3"
+                android:visibility="gone"
+                android:text="中盐精致加碘食用盐18箱"
+                android:textSize="@dimen/sp12" />
+        </LinearLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dp10"
+            android:layout_below="@id/ll_right"
+            android:layout_marginLeft="@dimen/dp10"
+            android:layout_marginRight="@dimen/dp10"
+            android:layout_toRightOf="@id/ll_left">
+
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_centerVertical="true"
+                android:text="￥ 10086"
+                android:textColor="@color/text_select_red"
+                android:textSize="@dimen/sp13" />
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:background="@drawable/stroke_bg_revise_nick_name"
+                android:weightSum="4">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingLeft="@dimen/dp10"
+                    android:paddingTop="@dimen/dp5"
+                    android:paddingRight="@dimen/dp10"
+                    android:paddingBottom="@dimen/dp5"
+                    android:text="—"
+                    android:textSize="@dimen/sp16" />
+
+                <View
+                    android:layout_width="@dimen/dp1"
+                    android:layout_height="match_parent"
+                    android:layout_marginTop="@dimen/dp1"
+                    android:layout_marginBottom="@dimen/dp1"
+                    android:background="@color/colorGray3" />
+
+                <EditText
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@null"
+                    android:inputType="number"
+                    android:textSize="@dimen/sp14"
+                    android:paddingLeft="@dimen/dp20"
+                    android:paddingRight="@dimen/dp20"
+                    android:text="3"
+                    android:textColor="@color/text_default" />
+
+                <View
+                    android:layout_width="@dimen/dp1"
+                    android:layout_height="match_parent"
+                    android:layout_marginTop="@dimen/dp1"
+                    android:layout_marginBottom="@dimen/dp1"
+                    android:background="@color/colorGray3" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingLeft="@dimen/dp10"
+                    android:paddingRight="@dimen/dp10"
+                    android:text="+"
+                    android:textSize="@dimen/sp19" />
+            </LinearLayout>
+        </RelativeLayout>
+
+
+    </RelativeLayout>
+
+    <include
+        layout="@layout/layout_line"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp1"
+        android:layout_marginLeft="@dimen/dp10"
+        android:layout_marginTop="@dimen/dp10" />
+</LinearLayout>

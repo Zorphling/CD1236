@@ -69,5 +69,7 @@ dependencies {
     implementation 'com.jaeger.statusbarutil:library:1.5.1'
     //圆形图片
     implementation 'de.hdodenhof:circleimageview:3.1.0'
+    //圆角、椭圆形图片
+    implementation 'com.makeramen:roundedimageview:2.3.0'
 
 }

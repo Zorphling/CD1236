@@ -9,14 +9,23 @@ import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.business.cd1236.R;
+import com.business.cd1236.adapter.HomeThreeAdapter;
 import com.business.cd1236.base.MyBaseFragment;
 import com.business.cd1236.di.component.DaggerHomeThreeComponent;
 import com.business.cd1236.mvp.contract.HomeThreeContract;
 import com.business.cd1236.mvp.presenter.HomeThreePresenter;
+import com.business.cd1236.utils.SizeUtils;
+import com.business.cd1236.view.SpaceItemDecoration;
 import com.jess.arms.di.component.AppComponent;
 import com.jess.arms.utils.ArmsUtils;
+
+import java.util.ArrayList;
+
+import butterknife.BindView;
 
 import static com.jess.arms.utils.Preconditions.checkNotNull;
 
@@ -34,6 +43,10 @@ import static com.jess.arms.utils.Preconditions.checkNotNull;
  * ================================================
  */
 public class HomeThreeFragment extends MyBaseFragment<HomeThreePresenter> implements HomeThreeContract.View {
+
+    @BindView(R.id.rv_home_three)
+    RecyclerView rvHomeThree;
+    private HomeThreeAdapter homeThreeAdapter;
 
     public static HomeThreeFragment newInstance() {
         HomeThreeFragment fragment = new HomeThreeFragment();
@@ -57,7 +70,16 @@ public class HomeThreeFragment extends MyBaseFragment<HomeThreePresenter> implem
 
     @Override
     public void initData(@Nullable Bundle savedInstanceState) {
-
+        ArmsUtils.configRecyclerView(rvHomeThree, new LinearLayoutManager(mContext, LinearLayoutManager.VERTICAL, false));
+        int dp = SizeUtils.dp2px(mActivity, 10);
+        rvHomeThree.addItemDecoration(new SpaceItemDecoration(0, dp, SpaceItemDecoration.TYPE.TOP));
+        homeThreeAdapter = new HomeThreeAdapter(R.layout.item_home_three);
+        rvHomeThree.setAdapter(homeThreeAdapter);
+        ArrayList<Object> objects = new ArrayList<>();
+        for (int i = 0; i < 10; i++) {
+            objects.add(i);
+        }
+        homeThreeAdapter.setNewInstance(objects);
     }
 
     /**
