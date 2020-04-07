@@ -23,6 +23,7 @@
             android:background="@null"
             android:hint="@string/regist_input_number"
             android:inputType="number"
+            android:maxLength="11"
             android:maxLines="1"
             android:padding="@dimen/dp5" />
 
@@ -35,8 +36,8 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:visibility="gone"
-            android:layout_marginTop="@dimen/dp20">
+            android:layout_marginTop="@dimen/dp20"
+            android:visibility="gone">
 
             <EditText
                 android:id="@+id/et_input_code"
@@ -65,11 +66,11 @@
         </LinearLayout>
 
         <View
-            android:visibility="gone"
             android:layout_width="match_parent"
             android:layout_height="@dimen/dp0_5"
             android:layout_marginTop="@dimen/dp5"
-            android:background="@color/colorGray3" />
+            android:background="@color/colorGray3"
+            android:visibility="gone" />
 
         <EditText
             android:id="@+id/et_input_psw"

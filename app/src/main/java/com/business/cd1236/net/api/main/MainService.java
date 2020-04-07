@@ -2,6 +2,7 @@ package com.business.cd1236.net.api.main;
 
 import io.reactivex.Observable;
 import okhttp3.ResponseBody;
+import retrofit2.http.GET;
 import retrofit2.http.POST;
 
 /**
@@ -14,4 +15,6 @@ public interface MainService {
     Observable<ResponseBody> homeBanner();
     @POST(MainApi.HOME_GOODS)
     Observable<ResponseBody> homeGoods();
+    @GET(MainApi.MORE)
+    Observable<ResponseBody> getMore();
 }

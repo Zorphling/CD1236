@@ -31,8 +31,7 @@
             android:paddingLeft="@dimen/dp2"
             android:paddingTop="@dimen/dp5"
             android:paddingRight="@dimen/dp2"
-            android:paddingBottom="@dimen/dp5"
-            android:text="雪天海天兰博基尼秀的飞起" />
+            android:paddingBottom="@dimen/dp5" />
     </LinearLayout>
 
 </androidx.cardview.widget.CardView>

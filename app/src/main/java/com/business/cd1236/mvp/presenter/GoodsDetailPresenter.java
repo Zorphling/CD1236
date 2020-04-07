@@ -3,9 +3,11 @@ package com.business.cd1236.mvp.presenter;
 import android.app.Application;
 import android.content.Context;
 
+import com.business.cd1236.bean.GoodsDetailBean;
 import com.business.cd1236.mvp.contract.GoodsDetailContract;
 import com.business.cd1236.net.BaseCallBack;
 import com.business.cd1236.net.RequestUtils;
+import com.business.cd1236.utils.GsonUtils;
 import com.business.cd1236.utils.StringUtils;
 import com.jess.arms.di.scope.ActivityScope;
 import com.jess.arms.http.imageloader.ImageLoader;
@@ -59,7 +61,8 @@ public class GoodsDetailPresenter extends BasePresenter<GoodsDetailContract.Mode
         RequestUtils.getGoodsDetail(id, new BaseCallBack(context) {
             @Override
             protected void onSuccess(String jsonString) {
-                mRootView.setGoodsDetail();
+                GoodsDetailBean goodsDetailBean = GsonUtils.parseJsonWithGson(jsonString, GoodsDetailBean.class);
+                mRootView.setGoodsDetail(goodsDetailBean);
             }
 
             @Override

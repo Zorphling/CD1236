@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -32,34 +33,36 @@
                 android:padding="@dimen/dp10">
 
                 <TextView
+                    android:id="@+id/tv_goods_title"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="400克绿标"
                     android:textColor="@color/goods_detail_title" />
 
                 <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/dp10">
+                    android:layout_marginTop="@dimen/dp7">
 
                     <TextView
+                        android:id="@+id/tv_marketprice"
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="$23.5/袋" />
+                        android:layout_height="wrap_content" />
 
                     <TextView
+                        android:id="@+id/tv_sales"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_alignParentRight="true"
                         android:layout_centerInParent="true"
-                        android:text="已售194"
                         android:textSize="@dimen/sp12" />
                 </RelativeLayout>
 
                 <TextView
+                    android:id="@+id/tv_send_address"
                     android:layout_width="wrap_content"
+                    android:layout_marginTop="@dimen/dp5"
                     android:layout_height="wrap_content"
-                    android:text="发货 四川省 成都市" />
+                    android:textSize="@dimen/sp12" />
             </LinearLayout>
 
             <View
@@ -93,6 +96,7 @@
                     android:orientation="horizontal">
 
                     <TextView
+                        android:id="@+id/tv_brand"
                         android:layout_width="@dimen/dp0"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
@@ -100,6 +104,7 @@
                         android:textSize="@dimen/sp12" />
 
                     <TextView
+                        android:id="@+id/tv_sug_price"
                         android:layout_width="@dimen/dp0"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
@@ -114,6 +119,7 @@
                     android:orientation="horizontal">
 
                     <TextView
+                        android:id="@+id/tv_start_num"
                         android:layout_width="@dimen/dp0"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
@@ -121,6 +127,7 @@
                         android:textSize="@dimen/sp12" />
 
                     <TextView
+                        android:id="@+id/tv_bar_code"
                         android:layout_width="@dimen/dp0"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
@@ -141,9 +148,8 @@
                 android:orientation="vertical">
 
                 <RelativeLayout
-                    android:id="@+id/rl_secret"
+                    android:id="@+id/rl_appraise"
                     style="@style/style_setting_rl"
-
                     android:paddingLeft="@dimen/dp10"
                     android:paddingRight="@dimen/dp10">
 
@@ -180,56 +186,68 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical">
+                android:orientation="vertical"
+                android:padding="@dimen/dp10">
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal">
 
-                    <ImageView
+                    <com.makeramen.roundedimageview.RoundedImageView
+                        android:id="@+id/riv_store"
                         android:layout_width="@dimen/dp40"
                         android:layout_height="@dimen/dp40"
-                        android:src="@mipmap/ic_launcher" />
+                        android:scaleType="centerCrop"
+                        app:riv_corner_radius="@dimen/dp5" />
 
                     <LinearLayout
                         android:layout_width="@dimen/dp0"
                         android:layout_height="match_parent"
+                        android:layout_marginLeft="@dimen/dp10"
                         android:layout_weight="1"
                         android:orientation="vertical">
 
                         <TextView
+                            android:id="@+id/tv_store_title"
                             android:layout_width="wrap_content"
                             android:layout_height="@dimen/dp0"
                             android:layout_weight="1"
                             android:gravity="center_vertical"
-                            android:text="四川省天涯大手大脚预先公司"
                             android:textColor="@color/goods_detail_title"
                             android:textSize="@dimen/sp12" />
 
                         <TextView
+                            android:id="@+id/tv_goods_num"
                             android:layout_width="wrap_content"
                             android:layout_height="@dimen/dp0"
                             android:layout_weight="1"
                             android:gravity="center_vertical"
-                            android:text="商品数量  关注"
                             android:textSize="@dimen/sp10" />
                     </LinearLayout>
 
                     <TextView
+                        android:id="@+id/tv_go_store"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_vertical"
                         android:background="@drawable/stroke_bg_revise_nick_name"
-                        android:padding="@dimen/dp5"
-                        android:text="进店逛逛" />
+                        android:paddingLeft="@dimen/dp2"
+                        android:paddingTop="@dimen/dp4"
+                        android:paddingRight="@dimen/dp2"
+                        android:paddingBottom="@dimen/dp4"
+                        android:text="进店逛逛"
+                        android:textSize="@dimen/sp12" />
 
                 </LinearLayout>
 
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/rv_goods_detail"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content" />
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/dp10"
+                    android:overScrollMode="never"
+                    android:scrollbars="none" />
             </LinearLayout>
         </LinearLayout>
     </ScrollView>

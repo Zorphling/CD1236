@@ -55,8 +55,8 @@ public class RevisePswPresenter extends BasePresenter<RevisePswContract.Model, R
         this.mApplication = null;
     }
 
-    public void revisePsw(Context context, String ptj) {
-        RequestUtils.revisePsw(ptj, new BaseCallBack(context) {
+    public void revisePsw(Context context, String name,String pwd) {
+        RequestUtils.revisePsw(name,pwd, new BaseCallBack(context) {
             @Override
             protected void onSuccess(String jsonString) {
                 mRootView.reviseSuccess();

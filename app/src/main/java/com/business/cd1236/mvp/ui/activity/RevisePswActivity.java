@@ -133,7 +133,7 @@ public class RevisePswActivity extends MyBaseActivity<RevisePswPresenter> implem
                     ArmsUtils.snackbarText("密码不匹配");
                     return;
                 }
-                mPresenter.revisePsw(mActivity, ParamsToJson.PTJ(ParamsToJson.PTO("name", "pwd"), name, psw));
+                mPresenter.revisePsw(mActivity,  name, psw);
                 break;
         }
     }

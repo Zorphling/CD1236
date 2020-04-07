@@ -10,11 +10,13 @@ import retrofit2.http.Query;
  * ================================================
  */
 public interface LoginService {
+    //    @FormUrlEncoded
+//    @Multipart
     @GET(LoginApi.REGIST)
-    Observable<ResponseBody> regist(@Query("req") String regist);
+    Observable<ResponseBody> regist(@Query("name") String name, @Query("pwd") String pwd);
 
     @GET(LoginApi.LOGIN)
-    Observable<ResponseBody> login(@Query("req") String login);
+    Observable<ResponseBody> login(@Query("username") String username, @Query("userpwd") String userpwd);
 
     @GET(LoginApi.USER_AGREEMENT)
     Observable<ResponseBody> getUserAgreement();
@@ -23,5 +25,15 @@ public interface LoginService {
     Observable<ResponseBody> getPrivacyPolicy();
 
     @GET(LoginApi.UPDATE)
-    Observable<ResponseBody> updatePassWord(@Query("req") String revisePsw);
+    Observable<ResponseBody> updatePassWord(@Query("name") String name, @Query("pwd") String pwd);
+
+    @GET(LoginApi.PERSONAL)
+    Observable<ResponseBody> getPersonalInfo();
+
+    @GET(LoginApi.UPLOAD)
+    Observable<ResponseBody> uploadAvatar();
+
+    @GET(LoginApi.MEMBER)
+    Observable<ResponseBody> reviseUserInfo(@Query("realname") String realname, @Query("img") String img);
+
 }

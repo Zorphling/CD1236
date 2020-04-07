@@ -17,6 +17,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.business.cd1236.R;
 import com.business.cd1236.adapter.HomeTwoStoreAdapter;
 import com.business.cd1236.base.MyBaseFragment;
+import com.business.cd1236.bean.MoreBean;
 import com.business.cd1236.di.component.DaggerHomeTwoComponent;
 import com.business.cd1236.mvp.contract.HomeTwoContract;
 import com.business.cd1236.mvp.presenter.HomeTwoPresenter;
@@ -26,8 +27,6 @@ import com.chad.library.adapter.base.listener.OnItemClickListener;
 import com.google.android.material.appbar.AppBarLayout;
 import com.jess.arms.di.component.AppComponent;
 import com.jess.arms.utils.ArmsUtils;
-
-import java.util.ArrayList;
 
 import butterknife.BindView;
 
@@ -95,13 +94,8 @@ public class HomeTwoFragment extends MyBaseFragment<HomeTwoPresenter> implements
         homeTwoStoreAdapter = new HomeTwoStoreAdapter(R.layout.item_home_two_store);
         rvContent.setAdapter(homeTwoStoreAdapter);
         homeTwoStoreAdapter.setOnItemClickListener(this);
-        ArrayList<Object> objects = new ArrayList<>();
-        for (int i = 0; i < 20; i++) {
-            objects.add(i);
-        }
-        homeTwoStoreAdapter.setNewInstance(objects);
 
-//        mPresenter.get()
+        mPresenter.getMore(mActivity);
     }
 
     /**
@@ -213,5 +207,10 @@ public class HomeTwoFragment extends MyBaseFragment<HomeTwoPresenter> implements
     @Override
     public void onItemClick(@NonNull BaseQuickAdapter<?, ?> adapter, @NonNull View view, int position) {
 
+    }
+
+    @Override
+    public void setMore(MoreBean moreBean) {
+        homeTwoStoreAdapter.setNewInstance(moreBean.localize_s);
     }
 }

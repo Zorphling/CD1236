@@ -7,4 +7,5 @@ public class Constants {
 
     public static final String LOGIN = "login";//存储是否登录
     public static final String ID = "user_id";//登录成功id
+    public static final String USER_NAME = "user_name";//登录后用户名称
 }

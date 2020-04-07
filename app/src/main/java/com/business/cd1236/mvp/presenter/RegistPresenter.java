@@ -6,7 +6,6 @@ import android.content.Context;
 import com.business.cd1236.mvp.contract.RegistContract;
 import com.business.cd1236.net.BaseCallBack;
 import com.business.cd1236.net.RequestUtils;
-import com.business.cd1236.utils.LogUtils;
 import com.business.cd1236.utils.StringUtils;
 import com.jess.arms.di.scope.ActivityScope;
 import com.jess.arms.http.imageloader.ImageLoader;
@@ -56,9 +55,8 @@ public class RegistPresenter extends BasePresenter<RegistContract.Model, RegistC
         this.mApplication = null;
     }
 
-    public void regist(Context context, String regist) {
-        LogUtils.e("regist ----- ",regist);
-        RequestUtils.regist(regist, new BaseCallBack(context) {
+    public void regist(Context context, String name,String pwd) {
+        RequestUtils.regist(name,pwd, new BaseCallBack(context) {
             @Override
             protected void onSuccess(String jsonString) {
                 mRootView.registSuccess();

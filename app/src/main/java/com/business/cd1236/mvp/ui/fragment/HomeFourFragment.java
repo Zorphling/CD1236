@@ -16,11 +16,14 @@ import androidx.annotation.Nullable;
 
 import com.business.cd1236.R;
 import com.business.cd1236.base.MyBaseFragment;
+import com.business.cd1236.bean.PersonInfoBean;
 import com.business.cd1236.di.component.DaggerHomeFourComponent;
+import com.business.cd1236.globle.Constants;
 import com.business.cd1236.mvp.contract.HomeFourContract;
 import com.business.cd1236.mvp.presenter.HomeFourPresenter;
 import com.business.cd1236.mvp.ui.activity.PersonalInfoActivity;
 import com.business.cd1236.mvp.ui.activity.SettingActivity;
+import com.business.cd1236.utils.SPUtils;
 import com.business.cd1236.utils.SizeUtils;
 import com.business.cd1236.view.PitemView;
 import com.business.cd1236.view.homebtn.CircularRevealButton;
@@ -127,6 +130,8 @@ public class HomeFourFragment extends MyBaseFragment<HomeFourPresenter> implemen
     private void initHeader() {
         ViewGroup.LayoutParams layoutParams = rlHeader.getLayoutParams();
         layoutParams.height = (SizeUtils.getScreenHW(mActivity)[1] / 3) - SizeUtils.dp2px(mActivity, 30);
+
+        mPresenter.getPersonalInfo(mActivity);
     }
 
     /**
@@ -241,5 +246,16 @@ public class HomeFourFragment extends MyBaseFragment<HomeFourPresenter> implemen
                 break;
 
         }
+    }
+
+    @Override
+    public void setInfo(PersonInfoBean personInfoBean) {
+        tvFollowStore.setText(personInfoBean.follow);
+        tvHistory.setText(personInfoBean.browse);
+        tvMyCollect.setText(personInfoBean.collect);
+        String user_name = (String) SPUtils.get(mActivity, Constants.USER_NAME, "");
+        char[] chars = user_name.toCharArray();
+
+        tvName.setText(user_name);
     }
 }

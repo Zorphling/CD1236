@@ -118,14 +118,16 @@
                 android:layout_width="@dimen/dp55"
                 android:layout_height="@dimen/dp55"
                 android:scaleType="centerCrop"
+                app:civ_border_width="@dimen/dp1"
+                app:civ_border_overlay="true"
                 android:src="@mipmap/header_default"
-                app:civ_border_color="@android:color/white"
-                app:civ_border_width="@dimen/dp2" />
+                app:civ_border_color="@android:color/white"/>
 
             <TextView
                 android:id="@+id/tv_name"
-                android:layout_width="@dimen/dp0"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:textSize="@dimen/sp16"
                 android:layout_marginLeft="@dimen/dp10"
                 android:textColor="@android:color/white" />
         </LinearLayout>

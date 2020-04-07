@@ -15,6 +15,10 @@ public class GlideUtil {
         Glide.with(MyApplication.mApp).load(url).into(imageView);
     }
 
+    public static void loadImg(String url,@DrawableRes int placeHolder, ImageView imageView) {
+        Glide.with(MyApplication.mApp).load(url).placeholder(placeHolder).into(imageView);
+    }
+
     public static void loadImg(int url, ImageView imageView) {
         Glide.with(MyApplication.mApp).load(url).into(imageView);
     }

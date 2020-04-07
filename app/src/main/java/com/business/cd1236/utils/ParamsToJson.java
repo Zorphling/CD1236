@@ -7,7 +7,7 @@ import java.util.ArrayList;
 
 public class ParamsToJson {
 
-    public static String PTJ(Object[] names, Object... params) {
+    public static String PTJO(Object[] names, Object... params) {
         //本界面专用 -- 方便参数传递
         JSONObject jsonObject = new JSONObject();
         try {
@@ -21,6 +21,9 @@ public class ParamsToJson {
             e.printStackTrace();
         }
         return jsonObject.toString();
+    }
+    public static void PTJA(){
+
     }
 
     /**

@@ -1,6 +1,7 @@
 <resources>
     <string name="app_name">1236</string>
     <string name="splash">遇事不决\n可问春风</string>
+    <string name="rmb">¥</string>
     //注册
     <string name="regist">注册</string>
     <string name="regist_hint">验证码5分钟内有效，请勿重复提交</string>

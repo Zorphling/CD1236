@@ -21,6 +21,8 @@
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/et_input_number"
                 style="@style/et_input_style"
+                android:paddingTop="@dimen/dp5"
+                android:paddingBottom="@dimen/dp5"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@null"
@@ -42,6 +44,8 @@
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/et_input_psw"
+                android:paddingTop="@dimen/dp5"
+                android:paddingBottom="@dimen/dp5"
                 style="@style/et_input_style"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"

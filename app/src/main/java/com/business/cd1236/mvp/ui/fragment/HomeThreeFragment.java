@@ -6,6 +6,7 @@ import android.os.Message;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -26,6 +27,7 @@ import com.jess.arms.utils.ArmsUtils;
 import java.util.ArrayList;
 
 import butterknife.BindView;
+import butterknife.OnClick;
 
 import static com.jess.arms.utils.Preconditions.checkNotNull;
 
@@ -46,6 +48,10 @@ public class HomeThreeFragment extends MyBaseFragment<HomeThreePresenter> implem
 
     @BindView(R.id.rv_home_three)
     RecyclerView rvHomeThree;
+    @BindView(R.id.tv_right)
+    TextView tvRight;
+    @BindView(R.id.tv_title)
+    TextView tvTitle;
     private HomeThreeAdapter homeThreeAdapter;
 
     public static HomeThreeFragment newInstance() {
@@ -147,6 +153,11 @@ public class HomeThreeFragment extends MyBaseFragment<HomeThreePresenter> implem
 
     @Override
     public void killMyself() {
+
+    }
+
+    @OnClick(R.id.tv_right)
+    public void onViewClicked() {
 
     }
 }

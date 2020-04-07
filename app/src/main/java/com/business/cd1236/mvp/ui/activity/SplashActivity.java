@@ -52,7 +52,7 @@ public class SplashActivity extends MyBaseActivity<SplashPresenter> implements S
         MyApplication.getHandler().postDelayed(() -> {
             launchActivity(new Intent(SplashActivity.this, MainActivity.class));
             killMyself();
-        }, 2000);
+        }, 1000);
     }
 
     @Override

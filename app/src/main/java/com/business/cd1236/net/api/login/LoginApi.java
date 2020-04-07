@@ -6,4 +6,7 @@ public interface LoginApi {
     String USER_AGREEMENT = "user_agreement";
     String PRIVACY_POLICY = "privacy_policy";
     String UPDATE = "update";
+    String PERSONAL = "personal";
+    String MEMBER = "member";
+    String UPLOAD = "upload";
 }

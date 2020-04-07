@@ -10,11 +10,11 @@ import androidx.annotation.Nullable;
 
 import com.business.cd1236.R;
 import com.business.cd1236.base.MyBaseActivity;
+import com.business.cd1236.bean.LoginBean;
 import com.business.cd1236.di.component.DaggerLoginComponent;
 import com.business.cd1236.globle.Constants;
 import com.business.cd1236.mvp.contract.LoginContract;
 import com.business.cd1236.mvp.presenter.LoginPresenter;
-import com.business.cd1236.utils.ParamsToJson;
 import com.business.cd1236.utils.SPUtils;
 import com.business.cd1236.utils.StringUtils;
 import com.google.android.material.textfield.TextInputEditText;
@@ -138,7 +138,7 @@ public class LoginActivity extends MyBaseActivity<LoginPresenter> implements Log
                     ArmsUtils.snackbarText("请输入密码");
                     return;
                 }
-                mPresenter.login(ParamsToJson.PTJ(ParamsToJson.PTO("username", "userpwd"), name, psw), mActivity);
+                mPresenter.login(name, psw, mActivity);
                 break;
             case R.id.tv_login_regist:
                 launchActivity(new Intent(this, RegistActivity.class));
@@ -162,10 +162,11 @@ public class LoginActivity extends MyBaseActivity<LoginPresenter> implements Log
     }
 
     @Override
-    public void loginSuccsee(String jsonString) {
-        SPUtils.put(mActivity, Constants.ID, jsonString);
+    public void loginSuccsee(LoginBean loginBean) {
         if (isSaveInfo) {
+            SPUtils.put(mActivity, Constants.ID, loginBean.id);
             SPUtils.put(mActivity, Constants.LOGIN, true);
+            SPUtils.put(mActivity, Constants.USER_NAME, loginBean.name);
 //            SPUtils.put(mActivity, Constants.SAVE_LOGIN_INFO,isSaveInfo);
         }
         launchActivity(new Intent(mActivity, MainActivity.class));

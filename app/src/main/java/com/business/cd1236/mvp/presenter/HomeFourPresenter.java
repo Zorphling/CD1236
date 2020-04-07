@@ -1,8 +1,13 @@
 package com.business.cd1236.mvp.presenter;
 
 import android.app.Application;
+import android.content.Context;
 
+import com.business.cd1236.bean.PersonInfoBean;
 import com.business.cd1236.mvp.contract.HomeFourContract;
+import com.business.cd1236.net.BaseCallBack;
+import com.business.cd1236.net.RequestUtils;
+import com.business.cd1236.utils.GsonUtils;
 import com.jess.arms.di.scope.FragmentScope;
 import com.jess.arms.http.imageloader.ImageLoader;
 import com.jess.arms.integration.AppManager;
@@ -48,5 +53,15 @@ public class HomeFourPresenter extends BasePresenter<HomeFourContract.Model, Hom
         this.mAppManager = null;
         this.mImageLoader = null;
         this.mApplication = null;
+    }
+
+    public void getPersonalInfo(Context contenxt) {
+        RequestUtils.getPersonalInfo(new BaseCallBack(contenxt) {
+            @Override
+            protected void onSuccess(String jsonString) {
+                PersonInfoBean personInfoBean = GsonUtils.parseJsonWithGson(jsonString, PersonInfoBean.class);
+                mRootView.setInfo(personInfoBean);
+            }
+        });
     }
 }

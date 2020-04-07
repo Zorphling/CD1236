@@ -19,15 +19,18 @@
 
             <androidx.appcompat.widget.AppCompatCheckBox
                 android:id="@+id/item_check_box"
+                android:button="@null"
+                android:background="@android:color/transparent"
+                android:drawableLeft="@drawable/selector_cart_checkbox"
+                android:padding="@dimen/dp10"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
 
             <com.makeramen.roundedimageview.RoundedImageView
                 android:id="@+id/riv_item_src"
                 android:layout_width="@dimen/dp60"
-                android:layout_marginLeft="@dimen/dp10"
                 android:layout_height="@dimen/dp60"
-                android:src="@color/text_select_red"
+                android:src="@mipmap/logo"
                 app:riv_corner_radius="@dimen/dp5" />
 
         </LinearLayout>

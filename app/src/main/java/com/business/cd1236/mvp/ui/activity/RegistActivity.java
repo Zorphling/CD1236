@@ -14,7 +14,6 @@ import com.business.cd1236.base.MyBaseActivity;
 import com.business.cd1236.di.component.DaggerRegistComponent;
 import com.business.cd1236.mvp.contract.RegistContract;
 import com.business.cd1236.mvp.presenter.RegistPresenter;
-import com.business.cd1236.utils.ParamsToJson;
 import com.business.cd1236.utils.StringUtils;
 import com.jess.arms.di.component.AppComponent;
 import com.jess.arms.utils.ArmsUtils;
@@ -136,7 +135,7 @@ public class RegistActivity extends MyBaseActivity<RegistPresenter> implements R
                     ArmsUtils.snackbarText("密码不匹配");
                     return;
                 }
-                mPresenter.regist(mActivity, ParamsToJson.PTJ(ParamsToJson.PTO("name", "pwd"), name, psw));
+                mPresenter.regist(mActivity, name, psw);
                 break;
         }
     }
@@ -149,5 +148,10 @@ public class RegistActivity extends MyBaseActivity<RegistPresenter> implements R
         intent.putExtra("name", name);
         intent.putExtra("psw", psw);
         launchActivity(intent);
+    }
+
+    public class testBean {
+        public String name;
+        public String pwd;
     }
 }

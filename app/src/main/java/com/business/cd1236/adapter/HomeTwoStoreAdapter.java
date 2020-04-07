@@ -1,6 +1,7 @@
 package com.business.cd1236.adapter;
 
 import android.app.Activity;
+import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 
@@ -9,6 +10,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.business.cd1236.R;
+import com.business.cd1236.bean.MoreBean;
 import com.business.cd1236.utils.GlideUtil;
 import com.business.cd1236.utils.SizeUtils;
 import com.business.cd1236.view.SpaceItemDecoration;
@@ -18,17 +20,19 @@ import com.jess.arms.utils.ArmsUtils;
 
 import org.jetbrains.annotations.NotNull;
 
-import java.util.ArrayList;
-
-public class HomeTwoStoreAdapter extends BaseQuickAdapter<Object, BaseViewHolder> {
+public class HomeTwoStoreAdapter extends BaseQuickAdapter<MoreBean.LocalizeSBean, BaseViewHolder> {
     public HomeTwoStoreAdapter(int layoutResId) {
         super(layoutResId);
     }
 
     @Override
-    protected void convert(@NotNull BaseViewHolder baseViewHolder, Object o) {
+    protected void convert(@NotNull BaseViewHolder baseViewHolder, MoreBean.LocalizeSBean data) {
         ImageView iv = baseViewHolder.getView(R.id.riv_store);
-        GlideUtil.loadImg(R.mipmap.p_header, iv);
+        GlideUtil.loadImg(data.logo, R.mipmap.logo, iv);
+        baseViewHolder.setText(R.id.tv_store_name, data.business_name)
+                .setText(R.id.tv_time_and_sales, data.open_time + "-" + data.close_time + " | 销量" + data.sales)
+                .setText(R.id.tv_store_range, data.mi);
+
 
         RecyclerView rvStoreGoods = baseViewHolder.getView(R.id.rv_store_goods);
         ArmsUtils.configRecyclerView(rvStoreGoods, new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false));
@@ -36,21 +40,22 @@ public class HomeTwoStoreAdapter extends BaseQuickAdapter<Object, BaseViewHolder
         rvStoreGoods.addItemDecoration(new SpaceItemDecoration(0, dpRange, SpaceItemDecoration.TYPE.LEFT));
         HomeTwoStoreGoodsAdapter homeTwoStoreGoodsAdapter = new HomeTwoStoreGoodsAdapter(R.layout.item_home_two_goods);
         rvStoreGoods.setAdapter(homeTwoStoreGoodsAdapter);
-        ArrayList<Object> objects = new ArrayList<>();
-        objects.add(1);
-        objects.add(2);
-        objects.add(3);
-        homeTwoStoreGoodsAdapter.setNewInstance(objects);
+        if (data.goods.size() > 0) {
+            homeTwoStoreGoodsAdapter.setNewInstance(data.goods);
+        } else {
+            rvStoreGoods.setVisibility(View.GONE);
+        }
+
     }
 
-    class HomeTwoStoreGoodsAdapter extends BaseQuickAdapter<Object, BaseViewHolder> {
+    class HomeTwoStoreGoodsAdapter extends BaseQuickAdapter<MoreBean.LocalizeSBean.GoodsBean, BaseViewHolder> {
 
         public HomeTwoStoreGoodsAdapter(int layoutResId) {
             super(layoutResId);
         }
 
         @Override
-        protected void convert(@NotNull BaseViewHolder baseViewHolder, Object o) {
+        protected void convert(@NotNull BaseViewHolder baseViewHolder, MoreBean.LocalizeSBean.GoodsBean data) {
             CardView iv = baseViewHolder.getView(R.id.cv_store_goods);
             int dp = SizeUtils.dp2px(getContext(), 60);
             ViewGroup.LayoutParams layoutParams = iv.getLayoutParams();
@@ -60,7 +65,9 @@ public class HomeTwoStoreAdapter extends BaseQuickAdapter<Object, BaseViewHolder
             ImageView ivGoods = baseViewHolder.getView(R.id.iv_goods);
             ViewGroup.LayoutParams ivParams = ivGoods.getLayoutParams();
             ivParams.height = width;
-            GlideUtil.loadImg(R.mipmap.p_header, ivGoods);
+            GlideUtil.loadImg(data.thumb, ivGoods);
+            baseViewHolder.setText(R.id.tv_goods_title, data.title);
+
         }
     }
 }

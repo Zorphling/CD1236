@@ -1,8 +1,13 @@
 package com.business.cd1236.mvp.presenter;
 
 import android.app.Application;
+import android.content.Context;
 
+import com.business.cd1236.bean.MoreBean;
 import com.business.cd1236.mvp.contract.HomeTwoContract;
+import com.business.cd1236.net.BaseCallBack;
+import com.business.cd1236.net.RequestUtils;
+import com.business.cd1236.utils.GsonUtils;
 import com.jess.arms.di.scope.FragmentScope;
 import com.jess.arms.http.imageloader.ImageLoader;
 import com.jess.arms.integration.AppManager;
@@ -48,5 +53,15 @@ public class HomeTwoPresenter extends BasePresenter<HomeTwoContract.Model, HomeT
         this.mAppManager = null;
         this.mImageLoader = null;
         this.mApplication = null;
+    }
+
+    public void getMore(Context context) {
+        RequestUtils.getMore(new BaseCallBack(context) {
+            @Override
+            protected void onSuccess(String jsonString) {
+                MoreBean moreBean = GsonUtils.parseJsonWithGson(jsonString, MoreBean.class);
+                mRootView.setMore(moreBean);
+            }
+        });
     }
 }

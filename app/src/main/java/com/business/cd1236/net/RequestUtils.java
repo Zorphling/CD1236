@@ -21,12 +21,12 @@ public class RequestUtils {
         RetrofitUtils.getService(MainService.class).homeGoods().compose(RxHelper.observableIO2Main(callBack.mContext)).subscribe(callBack);
     }
 
-    public static void regist(String regist, BaseCallBack callBack) {
-        RetrofitUtils.getService(LoginService.class).regist(regist).compose(RxHelper.observableIO2Main(callBack.mContext)).subscribe(callBack);
+    public static void regist(String name, String pwd, BaseCallBack callBack) {
+        RetrofitUtils.getService(LoginService.class).regist(name, pwd).compose(RxHelper.observableIO2Main(callBack.mContext)).subscribe(callBack);
     }
 
-    public static void login(String login, BaseCallBack callBack) {
-        RetrofitUtils.getService(LoginService.class).login(login).compose(RxHelper.observableIO2Main(callBack.mContext)).subscribe(callBack);
+    public static void login(String name, String pwd, BaseCallBack callBack) {
+        RetrofitUtils.getService(LoginService.class).login(name, pwd).compose(RxHelper.observableIO2Main(callBack.mContext)).subscribe(callBack);
     }
 
     public static void getUserAgreement(BaseCallBack callBack) {
@@ -37,13 +37,25 @@ public class RequestUtils {
         RetrofitUtils.getService(LoginService.class).getPrivacyPolicy().compose(RxHelper.observableIO2Main(callBack.mContext)).subscribe(callBack);
     }
 
-    public static void revisePsw(String ptj, BaseCallBack callBack) {
-        RetrofitUtils.getService(LoginService.class).updatePassWord(ptj).compose(RxHelper.observableIO2Main(callBack.mContext)).subscribe(callBack);
+    public static void revisePsw(String name, String pwd, BaseCallBack callBack) {
+        RetrofitUtils.getService(LoginService.class).updatePassWord(name, pwd).compose(RxHelper.observableIO2Main(callBack.mContext)).subscribe(callBack);
 
     }
-   public static void getGoodsDetail(String id, BaseCallBack callBack) {
+
+    public static void getGoodsDetail(String id, BaseCallBack callBack) {
         RetrofitUtils.getService(GoodsService.class).getGoodsDetail(id).compose(RxHelper.observableIO2Main(callBack.mContext)).subscribe(callBack);
 
     }
 
+    public static void getMore(BaseCallBack callBack) {
+        RetrofitUtils.getService(MainService.class).getMore().compose(RxHelper.observableIO2Main(callBack.mContext)).subscribe(callBack);
+    }
+
+    public static void getPersonalInfo(BaseCallBack callBack) {
+        RetrofitUtils.getService(LoginService.class).getPersonalInfo().compose(RxHelper.observableIO2Main(callBack.mContext)).subscribe(callBack);
+    }
+
+    public static void reviseUserInfo(String realname,String img,BaseCallBack callBack) {
+        RetrofitUtils.getService(LoginService.class).reviseUserInfo(realname,img).compose(RxHelper.observableIO2Main(callBack.mContext)).subscribe(callBack);
+    }
 }

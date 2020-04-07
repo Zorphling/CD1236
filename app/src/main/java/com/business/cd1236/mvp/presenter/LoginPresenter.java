@@ -3,9 +3,12 @@ package com.business.cd1236.mvp.presenter;
 import android.app.Application;
 import android.content.Context;
 
+import com.business.cd1236.bean.LoginBean;
 import com.business.cd1236.mvp.contract.LoginContract;
 import com.business.cd1236.net.BaseCallBack;
 import com.business.cd1236.net.RequestUtils;
+import com.business.cd1236.utils.GsonUtils;
+import com.business.cd1236.utils.LogUtils;
 import com.business.cd1236.utils.StringUtils;
 import com.jess.arms.di.scope.ActivityScope;
 import com.jess.arms.http.imageloader.ImageLoader;
@@ -55,11 +58,13 @@ public class LoginPresenter extends BasePresenter<LoginContract.Model, LoginCont
         this.mApplication = null;
     }
 
-    public void login(String req, Context context) {
-        RequestUtils.login(req, new BaseCallBack(context) {
+    public void login(String name, String pwd, Context context) {
+        LogUtils.e("login ---------------------", name + pwd);
+        RequestUtils.login(name, pwd, new BaseCallBack(context) {
             @Override
             protected void onSuccess(String jsonString) {
-                mRootView.loginSuccsee(jsonString);
+                LoginBean loginBean = GsonUtils.parseJsonWithGson(jsonString, LoginBean.class);
+                mRootView.loginSuccsee(loginBean);
             }
 
             @Override
