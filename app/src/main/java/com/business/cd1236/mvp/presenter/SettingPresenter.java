@@ -1,8 +1,11 @@
 package com.business.cd1236.mvp.presenter;
 
 import android.app.Application;
+import android.content.Context;
 
 import com.business.cd1236.mvp.contract.SettingContract;
+import com.business.cd1236.net.BaseCallBack;
+import com.business.cd1236.net.RequestUtils;
 import com.jess.arms.di.scope.ActivityScope;
 import com.jess.arms.http.imageloader.ImageLoader;
 import com.jess.arms.integration.AppManager;
@@ -48,5 +51,14 @@ public class SettingPresenter extends BasePresenter<SettingContract.Model, Setti
         this.mAppManager = null;
         this.mImageLoader = null;
         this.mApplication = null;
+    }
+
+    public void loginOut(Context context) {
+        RequestUtils.loginOut(new BaseCallBack(context) {
+            @Override
+            protected void onSuccess(String jsonString) {
+                mRootView.loginOutSuccess();
+            }
+        });
     }
 }

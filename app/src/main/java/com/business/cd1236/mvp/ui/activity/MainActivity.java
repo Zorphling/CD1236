@@ -82,8 +82,9 @@ public class MainActivity extends MyBaseActivity<MainPresenter> implements MainC
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if (savedInstanceState != null)
-            this.recreate();
+//        if (savedInstanceState != null){
+//            this.recreate();
+//        }
     }
 
     @Override

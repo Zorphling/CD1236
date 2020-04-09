@@ -49,23 +49,18 @@
                     android:textSize="@dimen/sp12" />
             </RelativeLayout>
 
-            <RelativeLayout
-
+            <LinearLayout
                 android:layout_width="wrap_content"
-                android:layout_height="match_parent">
-
-                <TextView
-                    android:id="@+id/tv_store_range"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentBottom="true"
-                    android:textSize="@dimen/sp10" />
+                android:layout_height="match_parent"
+                android:gravity="right"
+                android:orientation="vertical">
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignRight="@id/tv_store_range"
                     android:layout_alignParentTop="true"
+                    android:layout_gravity="right"
                     android:background="@drawable/solid_bg_regist_button"
                     android:paddingLeft="@dimen/dp8"
                     android:paddingTop="@dimen/dp2"
@@ -75,8 +70,16 @@
                     android:textColor="@android:color/white"
                     android:textSize="@dimen/sp10" />
 
+                <TextView
+                    android:id="@+id/tv_store_range"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_alignParentBottom="true"
+                    android:layout_gravity="bottom|right"
+                    android:gravity="bottom|right"
+                    android:textSize="@dimen/sp10" />
 
-            </RelativeLayout>
+            </LinearLayout>
         </LinearLayout>
 
         <androidx.recyclerview.widget.RecyclerView

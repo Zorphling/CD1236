@@ -4,6 +4,10 @@ import com.business.cd1236.base.MyApplication;
 import com.business.cd1236.globle.Constants;
 import com.business.cd1236.utils.SPUtils;
 import com.business.cd1236.utils.StringUtils;
+import com.franmontiel.persistentcookiejar.ClearableCookieJar;
+import com.franmontiel.persistentcookiejar.PersistentCookieJar;
+import com.franmontiel.persistentcookiejar.cache.SetCookieCache;
+import com.franmontiel.persistentcookiejar.persistence.SharedPrefsCookiePersistor;
 
 import java.util.concurrent.TimeUnit;
 
@@ -54,6 +58,8 @@ public class RetrofitUtils {
      *
      * @param baseUrl
      */
+    ClearableCookieJar cookieJar = new PersistentCookieJar(new SetCookieCache(), new SharedPrefsCookiePersistor(MyApplication.mApp));
+
     private Retrofit getRetrofitBaseUrl(String baseUrl) {
         // 初始化okhttp
         OkHttpClient client = new OkHttpClient().newBuilder()
@@ -63,6 +69,7 @@ public class RetrofitUtils {
                 .writeTimeout(DEFAULT_TIME, TimeUnit.SECONDS)//设置写入超时时间
                 .addInterceptor(new LogInterceptor())//添加打印拦截器
                 .retryOnConnectionFailure(true)//设置出现错误进行重新连接。
+                .cookieJar(cookieJar)
                 .sslSocketFactory(SSLSocketClient.getSSLSocketFactory())//忽略证书
                 .hostnameVerifier(SSLSocketClient.getHostnameVerifier())//忽略证书
                 .build();

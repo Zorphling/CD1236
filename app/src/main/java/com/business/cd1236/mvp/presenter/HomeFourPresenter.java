@@ -55,8 +55,8 @@ public class HomeFourPresenter extends BasePresenter<HomeFourContract.Model, Hom
         this.mApplication = null;
     }
 
-    public void getPersonalInfo(Context contenxt) {
-        RequestUtils.getPersonalInfo(new BaseCallBack(contenxt) {
+    public void getPersonalInfo(Context contenxt,boolean showDialog) {
+        RequestUtils.getPersonalInfo(new BaseCallBack(contenxt,showDialog) {
             @Override
             protected void onSuccess(String jsonString) {
                 PersonInfoBean personInfoBean = GsonUtils.parseJsonWithGson(jsonString, PersonInfoBean.class);

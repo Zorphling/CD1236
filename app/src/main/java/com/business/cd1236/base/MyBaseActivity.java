@@ -18,6 +18,7 @@ import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import androidx.annotation.ColorInt;
 import androidx.annotation.ColorRes;
 import androidx.annotation.DrawableRes;
 import androidx.annotation.IdRes;
@@ -31,7 +32,6 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
 import com.business.cd1236.R;
-import com.jaeger.library.StatusBarUtil;
 import com.jess.arms.base.delegate.IActivity;
 import com.jess.arms.integration.cache.Cache;
 import com.jess.arms.integration.cache.CacheType;
@@ -114,6 +114,12 @@ public abstract class MyBaseActivity<P extends IPresenter> extends RxAppCompatAc
     protected void setHeader(CharSequence text) {
         toolBar.setVisibility(View.VISIBLE);
         ((TextView) findViewById(R.id.tv_title)).setText(text);
+    }
+
+    protected void setHeaderColor(@ColorInt @ColorRes int bg, @ColorInt @ColorRes int textColor,@DrawableRes int drawable) {
+        toolBar.setBackgroundColor(bg);
+        ((TextView) toolBar.findViewById(R.id.tv_title)).setTextColor(textColor);
+        toolBar.setNavigationIcon(drawable);
     }
 
     protected void setRightBtn(CharSequence text, @DrawableRes int idRes, View.OnClickListener onClick) {

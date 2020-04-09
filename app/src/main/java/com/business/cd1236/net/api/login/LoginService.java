@@ -18,6 +18,9 @@ public interface LoginService {
     @GET(LoginApi.LOGIN)
     Observable<ResponseBody> login(@Query("username") String username, @Query("userpwd") String userpwd);
 
+    @GET(LoginApi.LOGIN_OUT)
+    Observable<ResponseBody> loginOut();
+
     @GET(LoginApi.USER_AGREEMENT)
     Observable<ResponseBody> getUserAgreement();
 
@@ -35,5 +38,8 @@ public interface LoginService {
 
     @GET(LoginApi.MEMBER)
     Observable<ResponseBody> reviseUserInfo(@Query("realname") String realname, @Query("img") String img);
+
+    @GET(LoginApi.ENTER_TYPE)
+    Observable<ResponseBody> getEnterType();
 
 }

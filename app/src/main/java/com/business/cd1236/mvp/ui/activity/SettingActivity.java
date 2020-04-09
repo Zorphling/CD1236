@@ -20,7 +20,6 @@ import com.jess.arms.di.component.AppComponent;
 import com.jess.arms.utils.ArmsUtils;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 import static com.jess.arms.utils.Preconditions.checkNotNull;
@@ -104,13 +103,6 @@ public class SettingActivity extends MyBaseActivity<SettingPresenter> implements
         finish();
     }
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        // TODO: add setContentView(...) invocation
-        ButterKnife.bind(this);
-    }
-
     @OnClick({R.id.rl_person_info, R.id.rl_login_psw, R.id.rl_clean_cache, R.id.rl_secret, R.id.rl_user_agreement, R.id.tv_login_out})
     public void onViewClicked(View view) {
         Intent intent = new Intent();
@@ -137,11 +129,17 @@ public class SettingActivity extends MyBaseActivity<SettingPresenter> implements
                 break;
             case R.id.tv_login_out:
                 SPUtils.clear(mActivity);
-                Intent intent3 = new Intent(mActivity, MainActivity.class);
-                intent3.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                launchActivity(intent3);
-                killMyself();
+                mPresenter.loginOut(mActivity);
                 break;
         }
     }
+
+    @Override
+    public void loginOutSuccess() {
+        Intent intent3 = new Intent(mActivity, MainActivity.class);
+        intent3.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        launchActivity(intent3);
+        killMyself();
+    }
+
 }

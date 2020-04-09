@@ -29,7 +29,6 @@ import com.luck.picture.lib.entity.LocalMedia;
 import java.util.List;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
 import butterknife.OnClick;
 import de.hdodenhof.circleimageview.CircleImageView;
 
@@ -112,13 +111,6 @@ public class PersonalInfoActivity extends MyBaseActivity<PersonalInfoPresenter> 
         finish();
     }
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        // TODO: add setContentView(...) invocation
-        ButterKnife.bind(this);
-    }
-
     @OnClick({R.id.rl_person_info, R.id.rl_nickname, R.id.rl_harvest_address})
     public void onViewClicked(View view) {
         switch (view.getId()) {
@@ -126,8 +118,10 @@ public class PersonalInfoActivity extends MyBaseActivity<PersonalInfoPresenter> 
                 ShowDialog();
                 break;
             case R.id.rl_nickname:
+                launchActivity(new Intent(mActivity,ReviseNickNameActivity.class));
                 break;
             case R.id.rl_harvest_address:
+                launchActivity(new Intent(mActivity,AddressActivity.class));
                 break;
         }
     }

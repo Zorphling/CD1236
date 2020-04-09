@@ -44,6 +44,7 @@ public class HtmlActivity extends MyBaseActivity<HtmlPresenter> implements HtmlC
     public static final String AGREEMENT_TYPE = "AGREEMENT_TYPE";
     public static final String USER_AGREEMENT = "user_agreement";
     public static final String PRIVACY_POLICY = "privacy_policy";
+    public static final String OPERATION_STEPS = "operation_steps";//入驻协议
     private AgentWeb mAgentWeb;
 
     @Override

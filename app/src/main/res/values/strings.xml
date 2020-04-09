@@ -1,7 +1,8 @@
 <resources>
-    <string name="app_name">1236</string>
+    <string name="app_name">买盐app</string>
     <string name="splash">遇事不决\n可问春风</string>
     <string name="rmb">¥</string>
+    <string name="xx">*</string>
     //注册
     <string name="regist">注册</string>
     <string name="regist_hint">验证码5分钟内有效，请勿重复提交</string>
@@ -27,6 +28,8 @@
     <string name="home_two_ranking_index">综合排序</string>
     <string name="home_two_ranking_sales_volume">销量</string>
     <string name="home_two_ranking_range">距离</string>
+    <string name="enter_agreement"> 勾选即代表同意&#060;&#060;入驻协议&#062;&#062;</string>
+    <string name="about_us">北京买盐网络科技有限公司\nCopyright © 2016 - 2019.All Rights Reserved.</string>
 
 
 </resources>

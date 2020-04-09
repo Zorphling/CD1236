@@ -64,7 +64,11 @@ public abstract class BaseCallBack implements Observer<ResponseBody> {
 
             if (status == 200) {
                 onSuccess(data);
-            } else {
+            }else if (status == 300){//未登录
+                onFailure(msg);
+                onFailure(status);
+                onFailure(msg, status);
+            }else {
                 onFailure(msg);
                 onFailure(status);
                 onFailure(msg, status);

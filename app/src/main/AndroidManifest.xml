@@ -28,6 +28,12 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:replace="android:name,android:allowBackup">
+        <activity android:name=".mvp.ui.activity.AddAddressActivity" />
+        <activity android:name=".mvp.ui.activity.AddressActivity" />
+        <activity android:name=".mvp.ui.activity.FeedBackActivity" />
+        <activity android:name=".mvp.ui.activity.AboutUsActivity" />
+        <activity android:name=".mvp.ui.activity.BusinessCenterActivity" />
+        <activity android:name=".mvp.ui.activity.BusinessEnterActivity" />
         <activity android:name=".mvp.ui.activity.OrderActivity" />
         <activity android:name=".mvp.ui.activity.GoodsDetailActivity" />
         <activity android:name=".mvp.ui.activity.HtmlActivity" />

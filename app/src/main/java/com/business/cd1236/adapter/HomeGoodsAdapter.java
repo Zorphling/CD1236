@@ -1,7 +1,6 @@
 package com.business.cd1236.adapter;
 
 import android.app.Activity;
-import android.text.TextUtils;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 
@@ -33,9 +32,9 @@ public class HomeGoodsAdapter extends BaseQuickAdapter<HomeGoodsBean.DataBean, B
         layoutParams.height = (int) (width * 1.4545);
         GlideUtil.loadImg(dataBean.thumb, iv);
 
-
+//TextUtils.equals("0", jud) ? "¥ " + dataBean.marketprice : "¥ " + dataBean.agent_marketprice
         baseViewHolder.setText(R.id.tv_goods_title, dataBean.title)
-                .setText(R.id.tv_goods_price, TextUtils.equals("0", jud) ? "¥ " + dataBean.marketprice : "¥ " + dataBean.agent_marketprice)
+                .setText(R.id.tv_goods_price, "¥ " +dataBean.marketprice)
                 .setText(R.id.tv_goods_sales, dataBean.sales + "人付款");
     }
 

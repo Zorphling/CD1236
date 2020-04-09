@@ -1,5 +1,6 @@
 package com.business.cd1236.mvp.ui.fragment;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Message;
@@ -21,10 +22,17 @@ import com.business.cd1236.di.component.DaggerHomeFourComponent;
 import com.business.cd1236.globle.Constants;
 import com.business.cd1236.mvp.contract.HomeFourContract;
 import com.business.cd1236.mvp.presenter.HomeFourPresenter;
+import com.business.cd1236.mvp.ui.activity.AboutUsActivity;
+import com.business.cd1236.mvp.ui.activity.AddressActivity;
+import com.business.cd1236.mvp.ui.activity.BusinessCenterActivity;
+import com.business.cd1236.mvp.ui.activity.BusinessEnterActivity;
+import com.business.cd1236.mvp.ui.activity.FeedBackActivity;
 import com.business.cd1236.mvp.ui.activity.PersonalInfoActivity;
 import com.business.cd1236.mvp.ui.activity.SettingActivity;
+import com.business.cd1236.utils.LogUtils;
 import com.business.cd1236.utils.SPUtils;
 import com.business.cd1236.utils.SizeUtils;
+import com.business.cd1236.utils.StringUtils;
 import com.business.cd1236.view.PitemView;
 import com.business.cd1236.view.homebtn.CircularRevealButton;
 import com.jess.arms.di.component.AppComponent;
@@ -50,7 +58,7 @@ import static com.jess.arms.utils.Preconditions.checkNotNull;
  * ================================================
  */
 public class HomeFourFragment extends MyBaseFragment<HomeFourPresenter> implements HomeFourContract.View {
-
+    //TODO 还没判断从商户入驻界面返回 重新请求数据
     @BindView(R.id.rl_header)
     RelativeLayout rlHeader;
     @BindView(R.id.ll_person_info)
@@ -131,7 +139,21 @@ public class HomeFourFragment extends MyBaseFragment<HomeFourPresenter> implemen
         ViewGroup.LayoutParams layoutParams = rlHeader.getLayoutParams();
         layoutParams.height = (SizeUtils.getScreenHW(mActivity)[1] / 3) - SizeUtils.dp2px(mActivity, 30);
 
-        mPresenter.getPersonalInfo(mActivity);
+        mPresenter.getPersonalInfo(mActivity, true);
+    }
+
+    @Override
+    public void onHiddenChanged(boolean hidden) {
+        super.onHiddenChanged(hidden);
+        if (!hidden && mPresenter != null) {
+            mPresenter.getPersonalInfo(mActivity, false);
+        }
+    }
+
+    @Override
+    public void setUserVisibleHint(boolean isVisibleToUser) {
+        super.setUserVisibleHint(isVisibleToUser);
+        LogUtils.e("================  " + isVisibleToUser);
     }
 
     /**
@@ -233,20 +255,43 @@ public class HomeFourFragment extends MyBaseFragment<HomeFourPresenter> implemen
             case R.id.crb_5:
                 break;
             case R.id.piv_address:
+                launchActivity(new Intent(mActivity, AddressActivity.class));
                 break;
             case R.id.piv_cooperation:
+                ArmsUtils.snackbarText("开发中...");
                 break;
             case R.id.piv_seller:
+                if (StringUtils.equals("1", SETTLED_IN)) {
+                    launchActivity(new Intent(mActivity, BusinessCenterActivity.class));
+                } else {
+                    startActivityForResult(new Intent(mActivity, BusinessEnterActivity.class), 100);
+                }
                 break;
             case R.id.piv_fankui:
+                launchActivity(new Intent(mActivity, FeedBackActivity.class));
                 break;
             case R.id.piv_custom_service:
+                ArmsUtils.snackbarText("开发中...");
                 break;
             case R.id.piv_about_us:
+                launchActivity(new Intent(mActivity, AboutUsActivity.class));
                 break;
-
         }
     }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (resultCode == Activity.RESULT_OK) {
+            switch (requestCode) {
+                case 100:
+                    mPresenter.getPersonalInfo(mActivity, false);
+                    break;
+            }
+        }
+    }
+
+    private String SETTLED_IN;
 
     @Override
     public void setInfo(PersonInfoBean personInfoBean) {
@@ -255,7 +300,7 @@ public class HomeFourFragment extends MyBaseFragment<HomeFourPresenter> implemen
         tvMyCollect.setText(personInfoBean.collect);
         String user_name = (String) SPUtils.get(mActivity, Constants.USER_NAME, "");
         char[] chars = user_name.toCharArray();
-
+        SETTLED_IN = personInfoBean.settled_in;
         tvName.setText(user_name);
     }
 }
