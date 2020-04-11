@@ -19,7 +19,8 @@ public class GoodsDetailBean {
     public ShopBean shop;
     public int number;
     public String jud;
-    public String jud_wholesale;
+    public String collect_jud;//0未收藏  1收藏
+    public String jud_wholesale;//是否拥有批发权限  0没有  1 有
     public List<?> option;
     public List<GoodSsBean> good_ss;
     public List<?> comment;

@@ -24,9 +24,12 @@ import com.business.cd1236.mvp.contract.HomeFourContract;
 import com.business.cd1236.mvp.presenter.HomeFourPresenter;
 import com.business.cd1236.mvp.ui.activity.AboutUsActivity;
 import com.business.cd1236.mvp.ui.activity.AddressActivity;
+import com.business.cd1236.mvp.ui.activity.BrowseRecordActivity;
 import com.business.cd1236.mvp.ui.activity.BusinessCenterActivity;
 import com.business.cd1236.mvp.ui.activity.BusinessEnterActivity;
+import com.business.cd1236.mvp.ui.activity.CollectGoodsActivity;
 import com.business.cd1236.mvp.ui.activity.FeedBackActivity;
+import com.business.cd1236.mvp.ui.activity.FollowStoreActivity;
 import com.business.cd1236.mvp.ui.activity.PersonalInfoActivity;
 import com.business.cd1236.mvp.ui.activity.SettingActivity;
 import com.business.cd1236.utils.LogUtils;
@@ -229,10 +232,13 @@ public class HomeFourFragment extends MyBaseFragment<HomeFourPresenter> implemen
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.ll_follow_store:
+                launchActivity(new Intent(mActivity, FollowStoreActivity.class));
                 break;
             case R.id.ll_my_collect:
+                launchActivity(new Intent(mActivity, CollectGoodsActivity.class));
                 break;
             case R.id.ll_history:
+                startActivity(new Intent(mActivity, BrowseRecordActivity.class));
                 break;
             case R.id.ll_person_info:
                 launchActivity(new Intent(mActivity, PersonalInfoActivity.class));

@@ -131,6 +131,10 @@ public abstract class MyBaseActivity<P extends IPresenter> extends RxAppCompatAc
         ((TextView) findViewById(R.id.tv_right)).setCompoundDrawables(null, null, null, null);
     }
 
+    protected void setRightColor(@ColorInt @ColorRes int color) {
+        ((TextView) findViewById(R.id.tv_right)).setTextColor(color);
+    }
+
     protected void hideBackButton() {
         ActionBar actionBar = getSupportActionBar();
         if (actionBar != null) {

@@ -3,17 +3,13 @@ package com.business.cd1236.mvp.presenter;
 import android.app.Application;
 import android.content.Context;
 
-import com.business.cd1236.bean.GoodsDetailBean;
-import com.business.cd1236.mvp.contract.GoodsDetailContract;
+import com.business.cd1236.mvp.contract.BrowseRecordContract;
 import com.business.cd1236.net.BaseCallBack;
 import com.business.cd1236.net.RequestUtils;
-import com.business.cd1236.utils.GsonUtils;
-import com.business.cd1236.utils.StringUtils;
 import com.jess.arms.di.scope.ActivityScope;
 import com.jess.arms.http.imageloader.ImageLoader;
 import com.jess.arms.integration.AppManager;
 import com.jess.arms.mvp.BasePresenter;
-import com.jess.arms.utils.ArmsUtils;
 
 import javax.inject.Inject;
 
@@ -24,7 +20,7 @@ import me.jessyan.rxerrorhandler.core.RxErrorHandler;
  * ================================================
  * Description:
  * <p>
- * Created by MVPArmsTemplate on 04/04/2020 16:22
+ * Created by MVPArmsTemplate on 04/11/2020 17:58
  * <a href="mailto:jess.yan.effort@gmail.com">Contact me</a>
  * <a href="https://github.com/JessYanCoding">Follow me</a>
  * <a href="https://github.com/JessYanCoding/MVPArms">Star me</a>
@@ -33,7 +29,7 @@ import me.jessyan.rxerrorhandler.core.RxErrorHandler;
  * ================================================
  */
 @ActivityScope
-public class GoodsDetailPresenter extends BasePresenter<GoodsDetailContract.Model, GoodsDetailContract.View> {
+public class BrowseRecordPresenter extends BasePresenter<BrowseRecordContract.Model, BrowseRecordContract.View> {
     @Inject
     RxErrorHandler mErrorHandler;
     @Inject
@@ -44,7 +40,7 @@ public class GoodsDetailPresenter extends BasePresenter<GoodsDetailContract.Mode
     AppManager mAppManager;
 
     @Inject
-    public GoodsDetailPresenter(GoodsDetailContract.Model model, GoodsDetailContract.View rootView) {
+    public BrowseRecordPresenter(BrowseRecordContract.Model model, BrowseRecordContract.View rootView) {
         super(model, rootView);
     }
 
@@ -57,30 +53,13 @@ public class GoodsDetailPresenter extends BasePresenter<GoodsDetailContract.Mode
         this.mApplication = null;
     }
 
-    public void getGoodsDetial(String id, Context context) {
-        RequestUtils.getGoodsDetail(id, new BaseCallBack(context) {
+    public void queryBrowse(Context context) {
+        RequestUtils.queryBrowse(new BaseCallBack(context) {
             @Override
             protected void onSuccess(String jsonString) {
-                GoodsDetailBean goodsDetailBean = GsonUtils.parseJsonWithGson(jsonString, GoodsDetailBean.class);
-                mRootView.setGoodsDetail(goodsDetailBean);
-            }
 
-            @Override
-            protected void onFailure(String errorMsg, int status) {
-                super.onFailure(errorMsg, status);
-                if (StringUtils.checkString(errorMsg)){
-                    ArmsUtils.snackbarText(errorMsg);
-                }
             }
         });
-    }
 
-    public void addCollect(String id,String ment,Context context) {
-        RequestUtils.addCollect(id,ment, new BaseCallBack(context) {
-            @Override
-            protected void onSuccess(String jsonString) {
-                mRootView.setCollectSuccess();
-            }
-        });
     }
 }

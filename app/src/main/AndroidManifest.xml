@@ -28,6 +28,10 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:replace="android:name,android:allowBackup">
+        <activity android:name=".mvp.ui.activity.BrowseRecordActivity" />
+        <activity android:name=".mvp.ui.activity.SearchActivity" />
+        <activity android:name=".mvp.ui.activity.CollectGoodsActivity" />
+        <activity android:name=".mvp.ui.activity.FollowStoreActivity" />
         <activity android:name=".mvp.ui.activity.AddAddressActivity" />
         <activity android:name=".mvp.ui.activity.AddressActivity" />
         <activity android:name=".mvp.ui.activity.FeedBackActivity" />

@@ -7,6 +7,7 @@ import android.os.Message;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.CheckedTextView;
 import android.widget.FrameLayout;
 
 import androidx.annotation.NonNull;
@@ -28,7 +29,10 @@ import com.google.android.material.appbar.AppBarLayout;
 import com.jess.arms.di.component.AppComponent;
 import com.jess.arms.utils.ArmsUtils;
 
+import java.util.ArrayList;
+
 import butterknife.BindView;
+import butterknife.OnClick;
 
 import static com.jess.arms.utils.Preconditions.checkNotNull;
 
@@ -60,8 +64,14 @@ public class HomeTwoFragment extends MyBaseFragment<HomeTwoPresenter> implements
     View viewClose;
     @BindView(R.id.rv_content)
     RecyclerView rvContent;
+    @BindView(R.id.tv_1)
+    CheckedTextView tv1;
+    @BindView(R.id.tv_2)
+    CheckedTextView tv2;
+    @BindView(R.id.tv_3)
+    CheckedTextView tv3;
     private HomeTwoStoreAdapter homeTwoStoreAdapter;
-
+    private ArrayList<CheckedTextView> tvs = new ArrayList<>();
 
     public static HomeTwoFragment newInstance() {
         HomeTwoFragment fragment = new HomeTwoFragment();
@@ -94,6 +104,10 @@ public class HomeTwoFragment extends MyBaseFragment<HomeTwoPresenter> implements
         homeTwoStoreAdapter = new HomeTwoStoreAdapter(R.layout.item_home_two_store);
         rvContent.setAdapter(homeTwoStoreAdapter);
         homeTwoStoreAdapter.setOnItemClickListener(this);
+
+        tvs.add(tv1);
+        tvs.add(tv2);
+        tvs.add(tv3);
 
         mPresenter.getMore(mActivity);
     }
@@ -212,5 +226,28 @@ public class HomeTwoFragment extends MyBaseFragment<HomeTwoPresenter> implements
     @Override
     public void setMore(MoreBean moreBean) {
         homeTwoStoreAdapter.setNewInstance(moreBean.localize_s);
+    }
+
+    @OnClick({R.id.tv_1, R.id.tv_2, R.id.tv_3})
+    public void onViewClicked(View view) {
+        switch (view.getId()) {
+            case R.id.tv_1:
+                selectCheck(tv1);
+                break;
+            case R.id.tv_2:
+                selectCheck(tv2);
+                break;
+            case R.id.tv_3:
+                selectCheck(tv3);
+                break;
+        }
+    }
+
+    private void selectCheck(CheckedTextView ctv) {
+        for (CheckedTextView tv : tvs) {
+            tv.setChecked(false);
+        }
+        ctv.setChecked(true);
+        mPresenter.getMore(mActivity);
     }
 }

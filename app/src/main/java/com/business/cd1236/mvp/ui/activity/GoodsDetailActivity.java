@@ -3,6 +3,7 @@ package com.business.cd1236.mvp.ui.activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.SpannableString;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
@@ -25,6 +26,7 @@ import com.business.cd1236.mvp.presenter.GoodsDetailPresenter;
 import com.business.cd1236.utils.GlideUtil;
 import com.business.cd1236.utils.SizeUtils;
 import com.business.cd1236.utils.SpannableStringUtils;
+import com.business.cd1236.utils.StringUtils;
 import com.business.cd1236.view.SpaceItemDecoration;
 import com.jess.arms.di.component.AppComponent;
 import com.jess.arms.utils.ArmsUtils;
@@ -69,7 +71,6 @@ public class GoodsDetailActivity extends MyBaseActivity<GoodsDetailPresenter> im
     ImageView ivCart;
     @BindView(R.id.iv_home)
     ImageView ivHome;
-    public static String GOODS_ID = "goods_id";
     @BindView(R.id.tv_marketprice)
     TextView tvMarketprice;
     @BindView(R.id.tv_sales)
@@ -96,6 +97,7 @@ public class GoodsDetailActivity extends MyBaseActivity<GoodsDetailPresenter> im
     TextView tvGoStore;
     @BindView(R.id.rv_goods_detail)
     RecyclerView rvGoodsDetail;
+    public static String GOODS_ID = "goods_id";
     private String ID;
     private GoodsDetailStoreAdapter goodsDetailStoreAdapter;
 
@@ -176,6 +178,8 @@ public class GoodsDetailActivity extends MyBaseActivity<GoodsDetailPresenter> im
             case R.id.tv_search:
                 break;
             case R.id.iv_collect:
+                if (goodsDetailBean != null && StringUtils.checkString(goodsDetailBean.goods.id))
+                    mPresenter.addCollect(goodsDetailBean.goods.id, TextUtils.equals("0", goodsDetailBean.collect_jud) ? "1" : "0", mActivity);
                 break;
             case R.id.iv_cart:
                 break;
@@ -194,8 +198,22 @@ public class GoodsDetailActivity extends MyBaseActivity<GoodsDetailPresenter> im
         }
     }
 
+    private GoodsDetailBean goodsDetailBean;
+
     @Override
     public void setGoodsDetail(GoodsDetailBean goodsDetailBean) {
+        this.goodsDetailBean = goodsDetailBean;
+        /**
+         * 设置是否收藏
+         */
+        if (StringUtils.equals("0", goodsDetailBean.collect_jud)) {
+            GlideUtil.loadImg(R.mipmap.goods_uncollect, ivCollect);
+        } else {
+            GlideUtil.loadImg(R.mipmap.goods_collect, ivCollect);
+        }
+        /**
+         * 设置banner
+         */
         if (goodsDetailBean.goods.thumb_s != null && goodsDetailBean.goods.thumb_s.size() > 0) {
             ArrayList<HomeBannerBean.BannerBean> bannerBeans = new ArrayList<>();
             for (String thumb : goodsDetailBean.goods.thumb_s) {
@@ -220,5 +238,16 @@ public class GoodsDetailActivity extends MyBaseActivity<GoodsDetailPresenter> im
 
         goodsDetailStoreAdapter.setNewInstance(goodsDetailBean.good_ss);
 
+    }
+
+    @Override
+    public void setCollectSuccess() {
+        if (StringUtils.equals("0", goodsDetailBean.collect_jud)) {
+            this.goodsDetailBean.collect_jud = "1";
+            GlideUtil.loadImg(R.mipmap.goods_collect, ivCollect);
+        } else {
+            this.goodsDetailBean.collect_jud = "0";
+            GlideUtil.loadImg(R.mipmap.goods_uncollect, ivCollect);
+        }
     }
 }
