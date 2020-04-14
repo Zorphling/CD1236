@@ -12,7 +12,7 @@ public class SpaceItemDecoration extends RecyclerView.ItemDecoration {
     private final TYPE type;
 
     public enum TYPE {
-        LEFT, ALL, TOP;
+        LEFT, ALL, TOP, GRID;
     }
 
     @Override
@@ -43,6 +43,15 @@ public class SpaceItemDecoration extends RecyclerView.ItemDecoration {
                 outRect.right = normal;
                 if (parent.getChildLayoutPosition(view) % 1 == 0)
                     outRect.left = margin;
+                break;
+            case GRID:
+                //不是第一个的格子都设一个左边和底部的间距
+                outRect.left = margin;
+                outRect.bottom = margin;
+                //由于每行都只有3个，所以第一个都是3的倍数，把左边距设为0
+                if (parent.getChildLayoutPosition(view) % 3 == 0) {
+                    outRect.left = 0;
+                }
                 break;
         }
 

@@ -32,7 +32,6 @@ import com.business.cd1236.mvp.ui.activity.FeedBackActivity;
 import com.business.cd1236.mvp.ui.activity.FollowStoreActivity;
 import com.business.cd1236.mvp.ui.activity.PersonalInfoActivity;
 import com.business.cd1236.mvp.ui.activity.SettingActivity;
-import com.business.cd1236.utils.LogUtils;
 import com.business.cd1236.utils.SPUtils;
 import com.business.cd1236.utils.SizeUtils;
 import com.business.cd1236.utils.StringUtils;
@@ -151,12 +150,6 @@ public class HomeFourFragment extends MyBaseFragment<HomeFourPresenter> implemen
         if (!hidden && mPresenter != null) {
             mPresenter.getPersonalInfo(mActivity, false);
         }
-    }
-
-    @Override
-    public void setUserVisibleHint(boolean isVisibleToUser) {
-        super.setUserVisibleHint(isVisibleToUser);
-        LogUtils.e("================  " + isVisibleToUser);
     }
 
     /**

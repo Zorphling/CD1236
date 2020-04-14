@@ -3,9 +3,11 @@ package com.business.cd1236.mvp.presenter;
 import android.app.Application;
 import android.content.Context;
 
+import com.business.cd1236.bean.BrowseRecordBean;
 import com.business.cd1236.mvp.contract.BrowseRecordContract;
 import com.business.cd1236.net.BaseCallBack;
 import com.business.cd1236.net.RequestUtils;
+import com.business.cd1236.utils.GsonUtils;
 import com.jess.arms.di.scope.ActivityScope;
 import com.jess.arms.http.imageloader.ImageLoader;
 import com.jess.arms.integration.AppManager;
@@ -57,7 +59,8 @@ public class BrowseRecordPresenter extends BasePresenter<BrowseRecordContract.Mo
         RequestUtils.queryBrowse(new BaseCallBack(context) {
             @Override
             protected void onSuccess(String jsonString) {
-
+                BrowseRecordBean browseRecordBean = GsonUtils.parseJsonWithGson(jsonString, BrowseRecordBean.class);
+                mRootView.queryBrowseSucc(browseRecordBean);
             }
         });
 
