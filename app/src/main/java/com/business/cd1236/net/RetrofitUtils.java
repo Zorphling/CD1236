@@ -47,7 +47,24 @@ public class RetrofitUtils {
             return getRetrofitBaseUrl(RetrofitUtils.BaseUrl);
         }
     }
+    /**
+     * =================================
+     */
+    /**
+     * 单独为商户中心店铺管理创建的接口,由于接口地址更改
+     */
+    public Retrofit getStoreRetrofit() {
+        return getRetrofitBaseUrl(Api.APP_SHOP_DOMAIN);
+    }
 
+    //返回一个泛型类
+    public static <T> T getStoreService(Class<T> service) {
+        return getInstance().getStoreRetrofit().create(service);
+    }
+
+    /**
+     * =================================
+     */
     //返回一个泛型类
     public static <T> T getService(Class<T> service) {
         return getInstance().getRetrofit().create(service);

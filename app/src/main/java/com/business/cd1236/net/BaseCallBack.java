@@ -64,11 +64,12 @@ public abstract class BaseCallBack implements Observer<ResponseBody> {
 
             if (status == 200) {
                 onSuccess(data);
-            }else if (status == 300){//未登录
+                onSuccess(data, msg);
+            } else if (status == 300) {//未登录
                 onFailure(msg);
                 onFailure(status);
                 onFailure(msg, status);
-            }else {
+            } else {
                 onFailure(msg);
                 onFailure(status);
                 onFailure(msg, status);
@@ -83,6 +84,10 @@ public abstract class BaseCallBack implements Observer<ResponseBody> {
 
 
     protected abstract void onSuccess(String jsonString);
+
+    protected void onSuccess(String jsonString, String msg) {
+
+    }
 
     protected void onFailure(String errorMsg) {
         //别在这儿加土司

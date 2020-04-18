@@ -68,12 +68,12 @@
                 android:src="@mipmap/arrow_right" />
 
             <TextView
-                android:text="13.2M"
                 android:id="@+id/tv_cache"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginRight="@dimen/dp5"
                 android:layout_toLeftOf="@id/iv_cache"
+                android:text="13.2M"
                 android:textColor="@color/colorGray2" />
         </RelativeLayout>
 
@@ -91,7 +91,9 @@
                 style="@style/style_setting_arrow"
                 android:src="@mipmap/arrow_right" />
         </RelativeLayout>
+
         <include layout="@layout/layout_margin_line" />
+
         <RelativeLayout
             android:id="@+id/rl_user_agreement"
             style="@style/style_setting_rl">
@@ -119,13 +121,13 @@
             android:id="@+id/tv_login_out"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:background="?android:attr/selectableItemBackground"
             android:gravity="center"
             android:paddingTop="@dimen/dp15"
-            android:background="?android:attr/selectableItemBackground"
             android:paddingBottom="@dimen/dp15"
-            android:textSize="@dimen/sp16"
             android:text="退出登录"
-            android:textColor="@color/colorPrimary" />
+            android:textColor="@color/colorPrimary"
+            android:textSize="@dimen/sp16" />
 
         <include layout="@layout/layout_margin_line" />
     </LinearLayout>

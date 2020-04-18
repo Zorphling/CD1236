@@ -35,21 +35,22 @@
     </declare-styleable>
     <!-- 圆角图片自定义各个角-->
     <declare-styleable name="Custom_Round_Image_View">
-        <attr name="radius" format="dimension"/>
-        <attr name="left_top_radius" format="dimension"/>
-        <attr name="right_top_radius" format="dimension"/>
-        <attr name="right_bottom_radius" format="dimension"/>
-        <attr name="left_bottom_radius" format="dimension"/>
+        <attr name="radius" format="dimension" />
+        <attr name="left_top_radius" format="dimension" />
+        <attr name="right_top_radius" format="dimension" />
+        <attr name="right_bottom_radius" format="dimension" />
+        <attr name="left_bottom_radius" format="dimension" />
     </declare-styleable>
-<!--    我的界面Item-->
+    <!--我的界面Item-->
     <declare-styleable name="P_ItemView">
-        <attr name="title" format="string"/>
-        <attr name="subTitle" format="string"/>
-        <attr name="contents" format="string"/>
-        <attr name="drawable" format="reference"/>
-        <attr name="titleColor" format="reference|color"/>
-        <attr name="subTitleColor" format="reference|color"/>
-        <attr name="contentColor" format="reference|color"/>
-        <attr name="subTextSize" format="dimension"/>
+        <attr name="title" format="string" />
+        <attr name="subTitle" format="string" />
+        <attr name="contents" format="string" />
+        <attr name="drawable" format="reference" />
+        <attr name="titleColor" format="reference|color" />
+        <attr name="subTitleColor" format="reference|color" />
+        <attr name="contentColor" format="reference|color" />
+        <attr name="subTextSize" format="dimension" />
+        <attr name="isVisible" format="dimension|integer" />
     </declare-styleable>
 </resources>

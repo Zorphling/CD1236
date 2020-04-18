@@ -116,7 +116,7 @@ public abstract class MyBaseActivity<P extends IPresenter> extends RxAppCompatAc
         ((TextView) findViewById(R.id.tv_title)).setText(text);
     }
 
-    protected void setHeaderColor(@ColorInt @ColorRes int bg, @ColorInt @ColorRes int textColor,@DrawableRes int drawable) {
+    protected void setHeaderColor(@ColorInt @ColorRes int bg, @ColorInt @ColorRes int textColor, @DrawableRes int drawable) {
         toolBar.setBackgroundColor(bg);
         ((TextView) toolBar.findViewById(R.id.tv_title)).setTextColor(textColor);
         toolBar.setNavigationIcon(drawable);
@@ -231,6 +231,16 @@ public abstract class MyBaseActivity<P extends IPresenter> extends RxAppCompatAc
 
     public void smartReplaceFragment(@IdRes int flId, Fragment toFragment) {
         smartReplaceFragment(flId, toFragment, toFragment.getClass().getSimpleName());
+    }
+
+    public void addFragment(Fragment... fragments) {
+        FragmentManager manager = getSupportFragmentManager();
+        FragmentTransaction transaction = manager.beginTransaction();
+        for (Fragment fragment : fragments) {
+            if (!fragment.isAdded()) {
+                transaction.add(fragment,fragment.getClass().getSimpleName());
+            }
+        }
     }
 
     @Override

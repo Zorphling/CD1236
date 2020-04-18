@@ -9,6 +9,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CheckedTextView;
 import android.widget.FrameLayout;
+import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -22,6 +24,7 @@ import com.business.cd1236.bean.MoreBean;
 import com.business.cd1236.di.component.DaggerHomeTwoComponent;
 import com.business.cd1236.mvp.contract.HomeTwoContract;
 import com.business.cd1236.mvp.presenter.HomeTwoPresenter;
+import com.business.cd1236.mvp.ui.activity.SearchActivity;
 import com.business.cd1236.utils.SizeUtils;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.listener.OnItemClickListener;
@@ -70,6 +73,10 @@ public class HomeTwoFragment extends MyBaseFragment<HomeTwoPresenter> implements
     CheckedTextView tv2;
     @BindView(R.id.tv_3)
     CheckedTextView tv3;
+    @BindView(R.id.tv_location)
+    TextView tvLocation;
+    @BindView(R.id.ll_search)
+    LinearLayout llSearch;
     private HomeTwoStoreAdapter homeTwoStoreAdapter;
     private ArrayList<CheckedTextView> tvs = new ArrayList<>();
 
@@ -228,7 +235,7 @@ public class HomeTwoFragment extends MyBaseFragment<HomeTwoPresenter> implements
         homeTwoStoreAdapter.setNewInstance(moreBean.localize_s);
     }
 
-    @OnClick({R.id.tv_1, R.id.tv_2, R.id.tv_3})
+    @OnClick({R.id.tv_1, R.id.tv_2, R.id.tv_3, R.id.tv_location, R.id.ll_search, R.id.fl_search})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.tv_1:
@@ -239,6 +246,12 @@ public class HomeTwoFragment extends MyBaseFragment<HomeTwoPresenter> implements
                 break;
             case R.id.tv_3:
                 selectCheck(tv3);
+                break;
+            case R.id.tv_location:
+                break;
+            case R.id.ll_search:
+            case R.id.fl_search:
+                launchActivity(new Intent(mActivity, SearchActivity.class));
                 break;
         }
     }

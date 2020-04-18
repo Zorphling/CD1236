@@ -5,6 +5,8 @@ import android.view.View;
 
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.business.cd1236.utils.LogUtils;
+
 public class SpaceItemDecoration extends RecyclerView.ItemDecoration {
 
     private final int normal;
@@ -12,7 +14,7 @@ public class SpaceItemDecoration extends RecyclerView.ItemDecoration {
     private final TYPE type;
 
     public enum TYPE {
-        LEFT, ALL, TOP, GRID;
+        LEFT, ALL, TOP, BOTTOM, GRID;
     }
 
     @Override
@@ -22,7 +24,6 @@ public class SpaceItemDecoration extends RecyclerView.ItemDecoration {
             case LEFT:
                 outRect.top = normal;
                 outRect.bottom = normal;
-
                 outRect.left = normal;
                 outRect.right = normal;
                 if (parent.getChildLayoutPosition(view) >= 1)
@@ -31,11 +32,19 @@ public class SpaceItemDecoration extends RecyclerView.ItemDecoration {
             case TOP:
                 outRect.top = normal;
                 outRect.bottom = normal;
-
                 outRect.left = normal;
                 outRect.right = normal;
                 if (parent.getChildLayoutPosition(view) >= 0)
                     outRect.top = margin;
+                break;
+            case BOTTOM:
+                outRect.top = normal;
+                outRect.bottom = normal;
+                outRect.left = normal;
+                outRect.right = normal;
+                LogUtils.e(parent.getChildLayoutPosition(view)+" ------ "+parent.getChildCount());
+                if (parent.getChildLayoutPosition(view) == parent.getAdapter().getItemCount() - 1)
+                    outRect.bottom = margin;
                 break;
             case ALL:
                 outRect.top = margin;
@@ -49,9 +58,9 @@ public class SpaceItemDecoration extends RecyclerView.ItemDecoration {
                 outRect.left = margin;
                 outRect.bottom = margin;
                 //由于每行都只有3个，所以第一个都是3的倍数，把左边距设为0
-                if (parent.getChildLayoutPosition(view) % 3 == 0) {
-                    outRect.left = 0;
-                }
+//                if (parent.getChildLayoutPosition(view) % 3 == 0) {
+//                    outRect.left = 0;
+//                }
                 break;
         }
 

@@ -1,7 +1,6 @@
 package com.business.cd1236.mvp.ui.activity;
 
 import android.Manifest;
-import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
@@ -82,13 +81,11 @@ public class MainActivity extends MyBaseActivity<MainPresenter> implements MainC
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        if (savedInstanceState != null){
-            savedInstanceState = null;
-            this.recreate();
-        }
         super.onCreate(savedInstanceState);
+        if (savedInstanceState != null){
+//            this.recreate();
+        }
     }
-    @SuppressLint("MissingSuperCall")
     @Override
     protected void onSaveInstanceState(Bundle outState) {
         //super.onSaveInstanceState(outState);
@@ -105,6 +102,7 @@ public class MainActivity extends MyBaseActivity<MainPresenter> implements MainC
         homeTwoFragment = HomeTwoFragment.newInstance();
         homeThreeFragment = HomeThreeFragment.newInstance();
         homeFourFragment = HomeFourFragment.newInstance();
+//        addFragment(homeOneFragment,homeTwoFragment,homeThreeFragment,homeFourFragment);
 
         navs.add(llMain01);
         navs.add(llMain02);

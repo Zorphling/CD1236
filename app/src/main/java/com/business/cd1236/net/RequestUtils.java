@@ -1,10 +1,13 @@
 package com.business.cd1236.net;
 
 
+import android.text.TextUtils;
+
 import com.business.cd1236.net.api.goods.GoodsService;
 import com.business.cd1236.net.api.login.LoginService;
 import com.business.cd1236.net.api.main.MainService;
 import com.business.cd1236.net.api.setting.SettingService;
+import com.business.cd1236.net.api.store.StoreService;
 
 
 public class RequestUtils {
@@ -106,5 +109,37 @@ public class RequestUtils {
 
     public static void queryBrowse(BaseCallBack callBack) {
         RetrofitUtils.getService(GoodsService.class).queryBrowse().compose(RxHelper.observableIO2Main(callBack.mContext)).subscribe(callBack);
+    }
+
+    public static void search(String stringExtra, int page, BaseCallBack callBack) {
+        RetrofitUtils.getService(GoodsService.class).search(stringExtra, page).compose(RxHelper.observableIO2Main(callBack.mContext)).subscribe(callBack);
+    }
+
+    /**
+     * stroe 店铺管理  换了请求接口地址
+     *
+     * @param callBack
+     */
+    public static void getBusinessDetail(BaseCallBack callBack) {
+        RetrofitUtils.getStoreService(StoreService.class).getBusinessDetail().compose(RxHelper.observableIO2Main(callBack.mContext)).subscribe(callBack);
+    }
+
+    public static void getBusinessInfo(BaseCallBack callBack) {
+        RetrofitUtils.getStoreService(StoreService.class).getBusinessInfo().compose(RxHelper.observableIO2Main(callBack.mContext)).subscribe(callBack);
+    }
+
+    public static void businessTime(String type, String string, String string1, String string2, String string3, BaseCallBack callBack) {
+        RetrofitUtils.getStoreService(StoreService.class).businessInfoChange(type, string, string1, string2, string3).compose(RxHelper.observableIO2Main(callBack.mContext)).subscribe(callBack);
+    }
+
+    public static void updateNotice(String type, String notice, BaseCallBack callBack) {
+        if (TextUtils.equals("culture", type))
+            RetrofitUtils.getStoreService(StoreService.class).businessInfoChange_culture(type, notice).compose(RxHelper.observableIO2Main(callBack.mContext)).subscribe(callBack);
+        else
+            RetrofitUtils.getStoreService(StoreService.class).businessInfoChange_introduction(type, notice).compose(RxHelper.observableIO2Main(callBack.mContext)).subscribe(callBack);
+    }
+
+    public static void modifyBusinessTitle(String type, String editText, BaseCallBack callBack) {
+        RetrofitUtils.getStoreService(StoreService.class).businessInfoChange_business_name(type,editText).compose(RxHelper.observableIO2Main(callBack.mContext)).subscribe(callBack);
     }
 }

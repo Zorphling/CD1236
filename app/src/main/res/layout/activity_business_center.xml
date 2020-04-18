@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -46,6 +47,7 @@
                 android:text="余额" />
 
             <TextView
+                android:id="@+id/tv_balance"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="0.00"
@@ -66,6 +68,7 @@
                 android:text="待发货" />
 
             <TextView
+                android:id="@+id/tv_wait_send_goods"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="0"
@@ -85,11 +88,99 @@
                 android:text="今日订单" />
 
             <TextView
+                android:id="@+id/tv_today_order"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="0"
                 android:textColor="@color/goods_detail_title" />
         </LinearLayout>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingLeft="@dimen/dp10"
+        android:paddingRight="@dimen/dp10"
+        android:layout_marginTop="@dimen/dp15"
+        android:orientation="horizontal">
+
+        <com.business.cd1236.view.StoreItemView
+            android:id="@+id/item_store_data"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="?android:attr/selectableItemBackground"
+            app:contents="编辑门店营业信息"
+            app:drawable="@mipmap/icon_store_edit"
+            app:title="店铺资料" />
+
+        <com.business.cd1236.view.StoreItemView
+            android:id="@+id/item_store_goods"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="?android:attr/selectableItemBackground"
+            app:contents="商品属性设置"
+            app:drawable="@mipmap/icon_store_goods"
+            app:title="全部商品" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingLeft="@dimen/dp10"
+        android:paddingRight="@dimen/dp10"
+        android:layout_marginTop="@dimen/dp10"
+        android:orientation="horizontal">
+
+        <com.business.cd1236.view.StoreItemView
+            android:id="@+id/item_store_manage"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="?android:attr/selectableItemBackground"
+            app:contents="查看管理订单"
+            app:drawable="@mipmap/icon_store_manage"
+            app:title="订单管理" />
+
+        <com.business.cd1236.view.StoreItemView
+            android:id="@+id/item_store_trans"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="?android:attr/selectableItemBackground"
+            app:contents="物流服务随心选择"
+            app:drawable="@mipmap/icon_store_trans"
+            app:title="配送管理" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingLeft="@dimen/dp10"
+        android:paddingRight="@dimen/dp10"
+        android:layout_marginTop="@dimen/dp10"
+        android:orientation="horizontal">
+
+        <com.business.cd1236.view.StoreItemView
+            android:id="@+id/item_store_feedback"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="?android:attr/selectableItemBackground"
+            app:contents="好的评价"
+            app:drawable="@mipmap/icon_store_feeback"
+            app:title="口碑评价" />
+
+        <com.business.cd1236.view.StoreItemView
+            android:id="@+id/item_store_service"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="?android:attr/selectableItemBackground"
+            app:contents="装饰店铺、产品定制"
+            app:drawable="@mipmap/icon_store_service"
+            app:title="定制服务" />
     </LinearLayout>
 
 </LinearLayout>

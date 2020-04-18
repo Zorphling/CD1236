@@ -30,6 +30,30 @@
     <string name="home_two_ranking_range">距离</string>
     <string name="enter_agreement"> 勾选即代表同意&#060;&#060;入驻协议&#062;&#062;</string>
     <string name="about_us">北京买盐网络科技有限公司\nCopyright © 2016 - 2019.All Rights Reserved.</string>
+    //商户中心管理
+    <string name="business_time">是否开启24小时营业</string>
+    <string name="business_notice">门店公告字数不可超过120字</string>
+    <string name="business_summary">门店简介字数不可超过120字</string>
+    <string name="business_title_hint">请输入您要修改的门店名称，并上传举证照片</string>
+    <string name="business_qualifications_hint">请注意证件照片上的文字能够清晰可见</string>
+    <string name="business_qualifications_1">营业执照正本</string>
+    <string name="business_qualifications_2">营业执照副本</string>
+    <string name="business_qualifications_hint_1">·营业执照正本</string>
+    <string name="business_qualifications_hint_2">·营业执照副本</string>
+    <string name="business_qualifications_3">身份证人像面</string>
+    <string name="business_qualifications_4">身份证国徽面</string>
+    <string name="business_qualifications_hint_3">·身份证人像面</string>
+    <string name="business_qualifications_hint_4">·身份证国徽面</string>
+    <string name="business_qualifications_5">食盐生产许可\n证正本</string>
+    <string name="business_qualifications_6">食盐生产许可\n证副本</string>
+    <string name="business_qualifications_7">食盐批发许可\n证正本</string>
+    <string name="business_qualifications_8">食盐批发许可\n证副本</string>
+    <string name="business_qualifications_9">食盐准运证</string>
+    <string name="business_qualifications_hint_5">·食盐生产许可证正本</string>
+    <string name="business_qualifications_hint_6">·食盐生产许可证副本</string>
+    <string name="business_qualifications_hint_7">·食盐批发许可证正本</string>
+    <string name="business_qualifications_hint_8">·食盐批发许可证副本</string>
+    <string name="business_qualifications_hint_9">·食盐准运证</string>
 
 
 </resources>

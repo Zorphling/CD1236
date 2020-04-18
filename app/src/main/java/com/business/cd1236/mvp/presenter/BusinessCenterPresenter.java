@@ -1,8 +1,13 @@
 package com.business.cd1236.mvp.presenter;
 
 import android.app.Application;
+import android.content.Context;
 
+import com.business.cd1236.bean.BusinessCenterBean;
 import com.business.cd1236.mvp.contract.BusinessCenterContract;
+import com.business.cd1236.net.BaseCallBack;
+import com.business.cd1236.net.RequestUtils;
+import com.business.cd1236.utils.GsonUtils;
 import com.jess.arms.di.scope.ActivityScope;
 import com.jess.arms.http.imageloader.ImageLoader;
 import com.jess.arms.integration.AppManager;
@@ -48,5 +53,15 @@ public class BusinessCenterPresenter extends BasePresenter<BusinessCenterContrac
         this.mAppManager = null;
         this.mImageLoader = null;
         this.mApplication = null;
+    }
+
+    public void getBusinessDetail(Context context) {
+        RequestUtils.getBusinessDetail(new BaseCallBack(context) {
+            @Override
+            protected void onSuccess(String jsonString) {
+                BusinessCenterBean businessCenterBean = GsonUtils.parseJsonWithGson(jsonString, BusinessCenterBean.class);
+                mRootView.getStoreDetailSucc(businessCenterBean);
+            }
+        });
     }
 }

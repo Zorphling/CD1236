@@ -27,6 +27,10 @@ public interface GoodsService {
 
     @GET(GoodsApi.COLLECT_DELETE)
     Observable<ResponseBody> deleteCollectGoods(@Query("id") String ids);
+
     @GET(GoodsApi.BROWSE)
     Observable<ResponseBody> queryBrowse();
+
+    @GET(GoodsApi.SEARCH)
+    Observable<ResponseBody> search(@Query("name") String name, @Query("db") int page);
 }

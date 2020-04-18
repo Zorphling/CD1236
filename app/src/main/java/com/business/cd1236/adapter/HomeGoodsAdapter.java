@@ -41,6 +41,6 @@ public class HomeGoodsAdapter extends BaseQuickAdapter<HomeGoodsBean.DataBean, B
 
     public void loadData(String jud, List<HomeGoodsBean.DataBean> data) {
         this.jud = jud;
-        setNewInstance(data);
+        setList(data);
     }
 }

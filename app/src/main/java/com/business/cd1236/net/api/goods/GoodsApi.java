@@ -7,4 +7,5 @@ public interface GoodsApi {
     String COLLECT_GOODS = "collect";
     String COLLECT_DELETE = "collect_delete";
     String BROWSE = "browse";
+    String SEARCH = "search";
 }

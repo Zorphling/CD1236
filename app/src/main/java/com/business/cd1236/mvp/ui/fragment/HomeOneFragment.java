@@ -26,7 +26,9 @@ import com.business.cd1236.bean.HomeGoodsBean;
 import com.business.cd1236.di.component.DaggerHomeOneComponent;
 import com.business.cd1236.mvp.contract.HomeOneContract;
 import com.business.cd1236.mvp.presenter.HomeOnePresenter;
+import com.business.cd1236.mvp.ui.activity.CategoryActivity;
 import com.business.cd1236.mvp.ui.activity.GoodsDetailActivity;
+import com.business.cd1236.mvp.ui.activity.SearchActivity;
 import com.business.cd1236.utils.GlideUtil;
 import com.business.cd1236.utils.SizeUtils;
 import com.business.cd1236.view.SpaceItemDecoration;
@@ -40,6 +42,7 @@ import com.youth.banner.transformer.DepthPageTransformer;
 import com.youth.banner.transformer.ZoomOutPageTransformer;
 
 import butterknife.BindView;
+import butterknife.OnClick;
 
 import static com.jess.arms.utils.Preconditions.checkNotNull;
 
@@ -72,6 +75,10 @@ public class HomeOneFragment extends MyBaseFragment<HomeOnePresenter> implements
     ImageView ivTransport;
     @BindView(R.id.tv_transport_content)
     TextView ivTransportContent;
+    @BindView(R.id.ll_search)
+    LinearLayout llSearch;
+    @BindView(R.id.iv_message)
+    ImageView ivMessage;
     private HomeCategrayAdapter homeCategrayAdapter;
     private HomeGoodsAdapter homeGoodsAdapter;
 
@@ -198,7 +205,7 @@ public class HomeOneFragment extends MyBaseFragment<HomeOnePresenter> implements
     public void getBannerSuccess(HomeBannerBean homeBannerBean) {
         banner.setAdapter(new HomeBannerAdapter(homeBannerBean.banner)).start();
         llCategory.setVisibility(View.VISIBLE);
-        homeCategrayAdapter.setNewInstance(homeBannerBean.category);
+        homeCategrayAdapter.setList(homeBannerBean.category);
         GlideUtil.loadImg(homeBannerBean.transport, ivTransport);
         ivTransportContent.setText(homeBannerBean.transport_content);
     }
@@ -213,11 +220,23 @@ public class HomeOneFragment extends MyBaseFragment<HomeOnePresenter> implements
     public void onItemClick(@NonNull BaseQuickAdapter<?, ?> adapter, @NonNull View view, int position) {
         Intent intent = new Intent();
         if (adapter instanceof HomeCategrayAdapter) {
-            ArmsUtils.snackbarText(((HomeBannerBean.CategoryBean) adapter.getData().get(position)).content);
+            intent.setClass(mActivity, CategoryActivity.class);//TODO 这里分类不是搜索接口，需要单独传递分类id 进行分类查询，赶时间暂时写这样
+            intent.putExtra(CategoryActivity.SEARCH_STRING, ((HomeBannerBean.CategoryBean) adapter.getData().get(position)).name);
         } else {
             intent.setClass(mActivity, GoodsDetailActivity.class);
             intent.putExtra(GoodsDetailActivity.GOODS_ID, ((HomeGoodsBean.DataBean) adapter.getData().get(position)).id);
-            launchActivity(intent);
+        }
+        launchActivity(intent);
+    }
+
+    @OnClick({R.id.ll_search, R.id.iv_message})
+    public void onViewClicked(View view) {
+        switch (view.getId()) {
+            case R.id.ll_search:
+                launchActivity(new Intent(mActivity, SearchActivity.class));
+                break;
+            case R.id.iv_message:
+                break;
         }
     }
 }

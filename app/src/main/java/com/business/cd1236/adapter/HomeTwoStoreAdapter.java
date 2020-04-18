@@ -45,7 +45,6 @@ public class HomeTwoStoreAdapter extends BaseQuickAdapter<MoreBean.LocalizeSBean
         } else {
             rvStoreGoods.setVisibility(View.GONE);
         }
-
     }
 
     class HomeTwoStoreGoodsAdapter extends BaseQuickAdapter<MoreBean.LocalizeSBean.GoodsBean, BaseViewHolder> {
@@ -65,7 +64,7 @@ public class HomeTwoStoreAdapter extends BaseQuickAdapter<MoreBean.LocalizeSBean
             ImageView ivGoods = baseViewHolder.getView(R.id.iv_goods);
             ViewGroup.LayoutParams ivParams = ivGoods.getLayoutParams();
             ivParams.height = width;
-            GlideUtil.loadImg(data.thumb, ivGoods);
+            GlideUtil.loadImg(data.thumb, R.mipmap.logo, ivGoods);
             baseViewHolder.setText(R.id.tv_goods_title, data.title);
 
         }

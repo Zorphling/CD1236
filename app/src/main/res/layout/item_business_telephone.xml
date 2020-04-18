@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:background="@android:color/white"
+    android:layout_marginBottom="@dimen/dp10"
+    android:layout_height="wrap_content">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:padding="@dimen/dp10"
+        android:layout_height="wrap_content">
+<TextView
+    android:layout_width="wrap_content"
+    android:text="号码"
+    android:textColor="@color/goods_detail_title"
+    android:layout_height="wrap_content"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:id="@+id/tv_telephone"
+            android:textColor="@color/goods_detail_title"
+            android:layout_alignParentRight="true"
+            android:text="13088888888"
+            android:layout_height="wrap_content"/>
+    </RelativeLayout>
+    <include layout="@layout/layout_margin_line"/>
+    <TextView
+        android:layout_width="match_parent"
+        android:text="删除"
+        android:gravity="center"
+        android:paddingTop="@dimen/dp10"
+        android:foreground="?android:attr/selectableItemBackground"
+        android:paddingBottom="@dimen/dp10"
+        android:textColor="@color/text_select_red"
+        android:layout_height="wrap_content"/>
+</LinearLayout>

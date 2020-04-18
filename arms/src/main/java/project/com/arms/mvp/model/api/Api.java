@@ -11,6 +11,7 @@ package project.com.arms.mvp.model.api;
  */
 public interface Api {
     String APP_DOMAIN = "http://my.1236sc.com/index.php/android/";
+    String APP_SHOP_DOMAIN = "http://my.1236sc.com/index.php/AndroidShop/";
     String APP_IMG_ADDRESS = "";
     String APP_IMG = "";
 }

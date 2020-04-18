@@ -18,7 +18,6 @@ import com.business.cd1236.bean.PinnedHeaderEntity;
 import com.business.cd1236.di.component.DaggerBrowseRecordComponent;
 import com.business.cd1236.mvp.contract.BrowseRecordContract;
 import com.business.cd1236.mvp.presenter.BrowseRecordPresenter;
-import com.business.cd1236.utils.LogUtils;
 import com.business.cd1236.utils.SizeUtils;
 import com.business.cd1236.utils.TimeUtils;
 import com.business.cd1236.view.SpaceItemDecoration;
@@ -113,7 +112,6 @@ public class BrowseRecordActivity extends MyBaseActivity<BrowseRecordPresenter> 
         List<PinnedHeaderEntity<CollectGoodsBean.NewBean>> data = new ArrayList<>();
         for (String key : mapData.keySet()) {
             String time = TimeUtils.millis2String(Long.parseLong(key) * 1000, "yyyy-MM-dd");
-            LogUtils.e("time ====== " + time);
             data.add(new PinnedHeaderEntity(null, BaseHeaderAdapter.TYPE_HEADER, time));
             List<CollectGoodsBean.NewBean> newBeans = mapData.get(key);
             for (CollectGoodsBean.NewBean newBean : newBeans) {

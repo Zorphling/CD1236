@@ -28,6 +28,17 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:replace="android:name,android:allowBackup">
+        <activity android:name=".mvp.ui.activity.BusinessQualificationsUploadActivity" />
+        <activity android:name=".mvp.ui.activity.BusinessQualificationsActivity" />
+        <activity android:name=".mvp.ui.activity.BusinessTelephoneActivity" />
+        <activity android:name=".mvp.ui.activity.BusinessTitleActivity" />
+        <activity android:name=".mvp.ui.activity.BusinessNoticeActivity" />
+        <activity android:name=".mvp.ui.activity.BusinessTimeActivity" />
+        <activity android:name=".mvp.ui.activity.BusinessBusinessInfoActivity" />
+        <activity android:name=".mvp.ui.activity.BusinessBasicInfoActivity" />
+        <activity android:name=".mvp.ui.activity.BusinessInfoActivity" />
+        <activity android:name=".mvp.ui.activity.StoreActivity" />
+        <activity android:name=".mvp.ui.activity.CategoryActivity" />
         <activity android:name=".mvp.ui.activity.BrowseRecordActivity" />
         <activity android:name=".mvp.ui.activity.SearchActivity" />
         <activity android:name=".mvp.ui.activity.CollectGoodsActivity" />
