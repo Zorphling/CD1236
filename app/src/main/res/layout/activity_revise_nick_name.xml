@@ -13,10 +13,11 @@
         android:layout_marginLeft="@dimen/dp20"
         android:layout_marginRight="@dimen/dp20"
         android:background="@drawable/stroke_bg_revise_nick_name"
+        android:textSize="@dimen/sp14"
         android:hint="请输入昵称"
-        android:paddingLeft="@dimen/dp5"
+        android:paddingLeft="@dimen/dp15"
         android:paddingTop="@dimen/dp10"
-        android:paddingRight="@dimen/dp5"
+        android:paddingRight="@dimen/dp15"
         android:paddingBottom="@dimen/dp10"
         android:textColorHint="@color/colorGray_hintcolor" />
 </LinearLayout>

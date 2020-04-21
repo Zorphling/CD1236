@@ -1,17 +1,21 @@
 package com.business.cd1236.mvp.presenter;
 
 import android.app.Application;
+import android.content.Context;
 
-import com.jess.arms.integration.AppManager;
+import com.business.cd1236.bean.BusinessInfoBean;
+import com.business.cd1236.mvp.contract.BusinessTelephoneContract;
+import com.business.cd1236.net.BaseCallBack;
+import com.business.cd1236.net.RequestUtils;
+import com.business.cd1236.utils.GsonUtils;
 import com.jess.arms.di.scope.ActivityScope;
-import com.jess.arms.mvp.BasePresenter;
 import com.jess.arms.http.imageloader.ImageLoader;
-
-import me.jessyan.rxerrorhandler.core.RxErrorHandler;
+import com.jess.arms.integration.AppManager;
+import com.jess.arms.mvp.BasePresenter;
 
 import javax.inject.Inject;
 
-import com.business.cd1236.mvp.contract.BusinessTelephoneContract;
+import me.jessyan.rxerrorhandler.core.RxErrorHandler;
 
 
 /**
@@ -49,5 +53,31 @@ public class BusinessTelephonePresenter extends BasePresenter<BusinessTelephoneC
         this.mAppManager = null;
         this.mImageLoader = null;
         this.mApplication = null;
+    }
+
+    public void getBusinessInfo(Context context) {
+        RequestUtils.getBusinessInfo(new BaseCallBack(context) {
+            @Override
+            protected void onSuccess(String jsonString) {
+                BusinessInfoBean businessInfoBean = GsonUtils.parseJsonWithGson(jsonString, BusinessInfoBean.class);
+                mRootView.setBusinessInfo(businessInfoBean);
+            }
+        });
+    }
+
+    public void addBusinessTelephone(String type, String telephone, Context context) {
+        RequestUtils.addBusinessTelephone(type, telephone, new BaseCallBack(context) {
+            @Override
+            protected void onSuccess(String jsonString) {
+
+            }
+
+            @Override
+            protected void onSuccess(String jsonString, String msg) {
+                super.onSuccess(jsonString, msg);
+                mRootView.businessTeleSucc(msg);
+            }
+        });
+
     }
 }

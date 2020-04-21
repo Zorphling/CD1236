@@ -78,11 +78,13 @@ public class BusinessBasicInfoActivity extends MyBaseActivity<BusinessBasicInfoP
         businessInfoBean = getIntent().getParcelableExtra(BusinessInfoActivity.INFO);
 
     }
+
     @Override
     protected void onResume() {
         super.onResume();
         mPresenter.getBusinessInfo(mActivity);
     }
+
     @Override
     public void showLoading() {
 
@@ -117,7 +119,7 @@ public class BusinessBasicInfoActivity extends MyBaseActivity<BusinessBasicInfoP
             case R.id.item1:
                 break;
             case R.id.item2:
-                intent.setClass(mActivity,BusinessTitleActivity.class);
+                intent.setClass(mActivity, BusinessTitleActivity.class);
                 launchActivity(intent);
                 break;
             case R.id.item3:
@@ -125,6 +127,8 @@ public class BusinessBasicInfoActivity extends MyBaseActivity<BusinessBasicInfoP
             case R.id.item4:
                 break;
             case R.id.item5:
+                intent.setClass(mActivity, BusinessTelephoneActivity.class);
+                launchActivity(intent);
                 break;
             case R.id.item6:
                 break;
@@ -136,15 +140,18 @@ public class BusinessBasicInfoActivity extends MyBaseActivity<BusinessBasicInfoP
     @Override
     public void setBusinessInfo(BusinessInfoBean businessInfoBean) {
         if (businessInfoBean != null) {
-            if (StringUtils.checkString(businessInfoBean.business_name))item2.setSubTitleText(businessInfoBean.business_name);
-            if (StringUtils.checkString(businessInfoBean.id))item3.setSubTitleText(businessInfoBean.id);
-            if (StringUtils.checkString(businessInfoBean.address))item4.setSubTitleText(businessInfoBean.address);
-            if (businessInfoBean.telephone != null){
+            if (StringUtils.checkString(businessInfoBean.business_name))
+                item2.setSubTitleText(businessInfoBean.business_name);
+            if (StringUtils.checkString(businessInfoBean.id))
+                item3.setSubTitleText(businessInfoBean.id);
+            if (StringUtils.checkString(businessInfoBean.address))
+                item4.setSubTitleText(businessInfoBean.address);
+            if (businessInfoBean.telephone != null) {
                 StringBuilder builder = new StringBuilder();
                 for (String s : businessInfoBean.telephone) {
                     builder.append(s).append(",");
                 }
-                item5.setSubTitleText(builder.substring(0,builder.length() - 1));
+                item5.setSubTitleText(builder.substring(0, builder.length() - 1));
             }
         }
 

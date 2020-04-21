@@ -17,6 +17,7 @@ import androidx.annotation.Nullable;
 
 import com.business.cd1236.R;
 import com.business.cd1236.base.MyBaseFragment;
+import com.business.cd1236.bean.EventBusBean;
 import com.business.cd1236.bean.PersonInfoBean;
 import com.business.cd1236.di.component.DaggerHomeFourComponent;
 import com.business.cd1236.globle.Constants;
@@ -40,9 +41,13 @@ import com.business.cd1236.view.homebtn.CircularRevealButton;
 import com.jess.arms.di.component.AppComponent;
 import com.jess.arms.utils.ArmsUtils;
 
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
+
 import butterknife.BindView;
 import butterknife.OnClick;
 import de.hdodenhof.circleimageview.CircleImageView;
+import project.com.arms.app.EventBusTags;
 
 import static com.jess.arms.utils.Preconditions.checkNotNull;
 
@@ -149,6 +154,15 @@ public class HomeFourFragment extends MyBaseFragment<HomeFourPresenter> implemen
         super.onHiddenChanged(hidden);
         if (!hidden && mPresenter != null) {
             mPresenter.getPersonalInfo(mActivity, false);
+        }
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onMessageEvent(EventBusBean event) {
+        switch (event.what) {
+            case EventBusTags.NICK_NAME:
+                tvName.setText(event.message);
+                break;
         }
     }
 
@@ -298,8 +312,10 @@ public class HomeFourFragment extends MyBaseFragment<HomeFourPresenter> implemen
         tvHistory.setText(personInfoBean.browse);
         tvMyCollect.setText(personInfoBean.collect);
         String user_name = (String) SPUtils.get(mActivity, Constants.USER_NAME, "");
-        char[] chars = user_name.toCharArray();
         SETTLED_IN = personInfoBean.settled_in;
-        tvName.setText(user_name);
+        if (personInfoBean.personal != null && StringUtils.checkString(personInfoBean.personal.realname))
+            tvName.setText(personInfoBean.personal.realname);
+        else
+            tvName.setText(user_name.substring(0, 3) + "****" + user_name.substring(7, user_name.length()));
     }
 }

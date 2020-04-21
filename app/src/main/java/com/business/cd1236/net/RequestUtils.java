@@ -12,8 +12,8 @@ import com.business.cd1236.net.api.store.StoreService;
 
 public class RequestUtils {
 
-    public static void reviseNickName(BaseCallBack callBack) {
-        RetrofitUtils.getService(SettingService.class).reviseNickName().compose(RxHelper.observableIO2Main(callBack.mContext)).subscribe(callBack);
+    public static void reviseNickName(String nickName,BaseCallBack callBack) {
+        RetrofitUtils.getService(SettingService.class).reviseNickName(nickName).compose(RxHelper.observableIO2Main(callBack.mContext)).subscribe(callBack);
     }
 
     public static void getBanner(BaseCallBack callBack) {
@@ -140,6 +140,10 @@ public class RequestUtils {
     }
 
     public static void modifyBusinessTitle(String type, String editText, BaseCallBack callBack) {
-        RetrofitUtils.getStoreService(StoreService.class).businessInfoChange_business_name(type,editText).compose(RxHelper.observableIO2Main(callBack.mContext)).subscribe(callBack);
+        RetrofitUtils.getStoreService(StoreService.class).businessInfoChange_business_name(type, editText).compose(RxHelper.observableIO2Main(callBack.mContext)).subscribe(callBack);
+    }
+
+    public static void addBusinessTelephone(String type, String telephone, BaseCallBack callBack) {
+        RetrofitUtils.getStoreService(StoreService.class).businessInfoChange_telephone(type, telephone).compose(RxHelper.observableIO2Main(callBack.mContext)).subscribe(callBack);
     }
 }

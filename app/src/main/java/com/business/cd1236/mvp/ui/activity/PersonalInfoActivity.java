@@ -16,7 +16,6 @@ import com.business.cd1236.mvp.contract.PersonalInfoContract;
 import com.business.cd1236.mvp.presenter.PersonalInfoPresenter;
 import com.business.cd1236.utils.GlideEngine;
 import com.business.cd1236.utils.GlideUtil;
-import com.business.cd1236.utils.LogUtils;
 import com.business.cd1236.utils.StringUtils;
 import com.business.cd1236.view.dialog.SetHeaderDialog;
 import com.jess.arms.di.component.AppComponent;
@@ -118,10 +117,10 @@ public class PersonalInfoActivity extends MyBaseActivity<PersonalInfoPresenter> 
                 ShowDialog();
                 break;
             case R.id.rl_nickname:
-                launchActivity(new Intent(mActivity,ReviseNickNameActivity.class));
+                startActivityForResult(new Intent(mActivity, ReviseNickNameActivity.class), 100);
                 break;
             case R.id.rl_harvest_address:
-                launchActivity(new Intent(mActivity,AddressActivity.class));
+                launchActivity(new Intent(mActivity, AddressActivity.class));
                 break;
         }
     }
@@ -183,10 +182,12 @@ public class PersonalInfoActivity extends MyBaseActivity<PersonalInfoPresenter> 
                             }
                         }
                     }
-                    LogUtils.e("path -------------------------- " + path);
-                    if (StringUtils.checkString(path)){
-                        GlideUtil.loadImg(path,ivSrc);
+                    if (StringUtils.checkString(path)) {
+                        GlideUtil.loadImg(path, ivSrc);
                     }
+                    break;
+                case 100://修改昵称
+
                     break;
             }
         }

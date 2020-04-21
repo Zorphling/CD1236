@@ -2,6 +2,8 @@ package com.business.cd1236.net.api.setting;
 
 import io.reactivex.Observable;
 import okhttp3.ResponseBody;
+import retrofit2.http.GET;
+import retrofit2.http.Multipart;
 import retrofit2.http.POST;
 import retrofit2.http.Query;
 
@@ -11,8 +13,12 @@ import retrofit2.http.Query;
  * ================================================
  */
 public interface SettingService {
+    @GET(SettingApi.REVISE_NICK_NAME)
+    Observable<ResponseBody> reviseNickName(@Query("realname") String realname);
+
+    @Multipart
     @POST(SettingApi.REVISE_NICK_NAME)
-    Observable<ResponseBody> reviseNickName();
+    Observable<ResponseBody> reviseUserImg(@Query("img") String img);
 
     @POST(SettingApi.GET_ADDRESS)
     Observable<ResponseBody> getAddress();

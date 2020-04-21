@@ -48,7 +48,7 @@
     <string name="business_qualifications_6">食盐生产许可\n证副本</string>
     <string name="business_qualifications_7">食盐批发许可\n证正本</string>
     <string name="business_qualifications_8">食盐批发许可\n证副本</string>
-    <string name="business_qualifications_9">食盐准运证</string>
+    <string name="business_qualifications_9">食盐准运证&#160;&#160;&#160;&#160;</string>
     <string name="business_qualifications_hint_5">·食盐生产许可证正本</string>
     <string name="business_qualifications_hint_6">·食盐生产许可证副本</string>
     <string name="business_qualifications_hint_7">·食盐批发许可证正本</string>

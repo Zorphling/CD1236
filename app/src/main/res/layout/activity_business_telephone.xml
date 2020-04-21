@@ -1,8 +1,50 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/bg_gray"
     android:orientation="vertical">
 
+    <include layout="@layout/layout_line" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rv_telephone"
+
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+    </RelativeLayout>
+
+    <TextView
+        android:id="@+id/tv_add"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@android:color/white"
+        android:foreground="?android:attr/selectableItemBackground"
+        android:paddingLeft="@dimen/dp15"
+        android:paddingTop="@dimen/dp10"
+        android:paddingBottom="@dimen/dp10"
+        android:text="新增号码（最多三个）"
+        android:textColor="@color/colorPrimary" />
+
+    <TextView
+        android:id="@+id/btn_submit"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_marginLeft="@dimen/dp15"
+        android:layout_marginTop="@dimen/dp40"
+        android:layout_marginRight="@dimen/dp15"
+        android:background="@drawable/solid_bg_regist_button"
+        android:foreground="?android:attr/selectableItemBackground"
+        android:gravity="center"
+        android:paddingTop="@dimen/dp10"
+        android:paddingBottom="@dimen/dp10"
+        android:text="提交保存"
+        android:textColor="@android:color/white" />
 </LinearLayout>

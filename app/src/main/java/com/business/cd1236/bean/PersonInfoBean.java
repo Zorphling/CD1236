@@ -8,11 +8,17 @@ public class PersonInfoBean {
      * browse : 0
      * settled_in : 1
      * type : 1
+     * personal
      */
-
     public String collect;
     public String follow;
     public String browse;
     public String settled_in;
     public String type;
+    public personalBean personal;
+
+    public class personalBean {
+        public String img;
+        public String realname;
+    }
 }

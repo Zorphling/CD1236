@@ -13,6 +13,6 @@ package project.com.arms.app;
  */
 public interface EventBusTags {
     int ON_OPEN = 100; //
-
+    int NICK_NAME = 10;//修改昵称
 
 }

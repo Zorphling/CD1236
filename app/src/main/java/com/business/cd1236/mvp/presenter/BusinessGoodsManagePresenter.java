@@ -1,11 +1,8 @@
 package com.business.cd1236.mvp.presenter;
 
 import android.app.Application;
-import android.content.Context;
 
-import com.business.cd1236.mvp.contract.ReviseNickNameContract;
-import com.business.cd1236.net.BaseCallBack;
-import com.business.cd1236.net.RequestUtils;
+import com.business.cd1236.mvp.contract.BusinessGoodsManageContract;
 import com.jess.arms.di.scope.ActivityScope;
 import com.jess.arms.http.imageloader.ImageLoader;
 import com.jess.arms.integration.AppManager;
@@ -20,7 +17,7 @@ import me.jessyan.rxerrorhandler.core.RxErrorHandler;
  * ================================================
  * Description:
  * <p>
- * Created by MVPArmsTemplate on 04/01/2020 14:36
+ * Created by MVPArmsTemplate on 04/21/2020 15:16
  * <a href="mailto:jess.yan.effort@gmail.com">Contact me</a>
  * <a href="https://github.com/JessYanCoding">Follow me</a>
  * <a href="https://github.com/JessYanCoding/MVPArms">Star me</a>
@@ -29,7 +26,7 @@ import me.jessyan.rxerrorhandler.core.RxErrorHandler;
  * ================================================
  */
 @ActivityScope
-public class ReviseNickNamePresenter extends BasePresenter<ReviseNickNameContract.Model, ReviseNickNameContract.View> {
+public class BusinessGoodsManagePresenter extends BasePresenter<BusinessGoodsManageContract.Model, BusinessGoodsManageContract.View> {
     @Inject
     RxErrorHandler mErrorHandler;
     @Inject
@@ -40,7 +37,7 @@ public class ReviseNickNamePresenter extends BasePresenter<ReviseNickNameContrac
     AppManager mAppManager;
 
     @Inject
-    public ReviseNickNamePresenter(ReviseNickNameContract.Model model, ReviseNickNameContract.View rootView) {
+    public BusinessGoodsManagePresenter(BusinessGoodsManageContract.Model model, BusinessGoodsManageContract.View rootView) {
         super(model, rootView);
     }
 
@@ -51,19 +48,5 @@ public class ReviseNickNamePresenter extends BasePresenter<ReviseNickNameContrac
         this.mAppManager = null;
         this.mImageLoader = null;
         this.mApplication = null;
-    }
-    public void reviseNickName(String nickName,Context context){
-        RequestUtils.reviseNickName(nickName,new BaseCallBack(context) {
-            @Override
-            protected void onSuccess(String jsonString) {
-
-            }
-
-            @Override
-            protected void onSuccess(String jsonString, String msg) {
-                super.onSuccess(jsonString, msg);
-                mRootView.reviseNickNameSucc(msg);
-            }
-        });
     }
 }

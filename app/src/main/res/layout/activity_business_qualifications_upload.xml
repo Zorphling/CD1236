@@ -22,7 +22,6 @@
                 android:layout_marginTop="@dimen/dp15"
                 android:text="请上传" />
 
-            <include layout="@layout/layout_line" />
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/rv_hints"
@@ -31,6 +30,7 @@
                 android:layout_marginTop="@dimen/dp5"
                 android:nestedScrollingEnabled="false" />
 
+            <include layout="@layout/layout_line" />
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/rv_qualifications"
