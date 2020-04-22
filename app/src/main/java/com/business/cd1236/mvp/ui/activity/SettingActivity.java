@@ -12,6 +12,7 @@ import androidx.annotation.Nullable;
 
 import com.business.cd1236.R;
 import com.business.cd1236.base.MyBaseActivity;
+import com.business.cd1236.bean.PersonInfoBean;
 import com.business.cd1236.di.component.DaggerSettingComponent;
 import com.business.cd1236.mvp.contract.SettingContract;
 import com.business.cd1236.mvp.presenter.SettingPresenter;
@@ -56,6 +57,10 @@ public class SettingActivity extends MyBaseActivity<SettingPresenter> implements
     @BindView(R.id.tv_login_out)
     TextView tvLoginOut;
 
+    public static String PERSON_INFO_BEAN = "personInfoBean";
+    private PersonInfoBean.personalBean personalBean ;
+
+
     @Override
     public void setupActivityComponent(@NonNull AppComponent appComponent) {
         DaggerSettingComponent //如找不到该类,请编译一下项目
@@ -74,6 +79,7 @@ public class SettingActivity extends MyBaseActivity<SettingPresenter> implements
     @Override
     public void initData(@Nullable Bundle savedInstanceState) {
         setHeader("设置");
+        personalBean = getIntent().getParcelableExtra(PERSON_INFO_BEAN);
     }
 
     @Override
@@ -108,7 +114,9 @@ public class SettingActivity extends MyBaseActivity<SettingPresenter> implements
         Intent intent = new Intent();
         switch (view.getId()) {
             case R.id.rl_person_info:
-                launchActivity(new Intent(mActivity, PersonalInfoActivity.class));
+                intent.setClass(mActivity,PersonalInfoActivity.class);
+                intent.putExtra(SettingActivity.PERSON_INFO_BEAN,personalBean);
+                launchActivity(intent);
                 break;
             case R.id.rl_login_psw:
                 launchActivity(new Intent(mActivity, RevisePswActivity.class));
@@ -141,5 +149,4 @@ public class SettingActivity extends MyBaseActivity<SettingPresenter> implements
         launchActivity(intent3);
         killMyself();
     }
-
 }

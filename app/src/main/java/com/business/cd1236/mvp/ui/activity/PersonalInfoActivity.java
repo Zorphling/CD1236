@@ -11,11 +11,14 @@ import androidx.annotation.Nullable;
 
 import com.business.cd1236.R;
 import com.business.cd1236.base.MyBaseActivity;
+import com.business.cd1236.bean.EventBusBean;
+import com.business.cd1236.bean.PersonInfoBean;
 import com.business.cd1236.di.component.DaggerPersonalInfoComponent;
 import com.business.cd1236.mvp.contract.PersonalInfoContract;
 import com.business.cd1236.mvp.presenter.PersonalInfoPresenter;
 import com.business.cd1236.utils.GlideEngine;
 import com.business.cd1236.utils.GlideUtil;
+import com.business.cd1236.utils.MyToastUtils;
 import com.business.cd1236.utils.StringUtils;
 import com.business.cd1236.view.dialog.SetHeaderDialog;
 import com.jess.arms.di.component.AppComponent;
@@ -25,11 +28,19 @@ import com.luck.picture.lib.config.PictureConfig;
 import com.luck.picture.lib.config.PictureMimeType;
 import com.luck.picture.lib.entity.LocalMedia;
 
+import org.greenrobot.eventbus.EventBus;
+
+import java.io.File;
+import java.net.URLEncoder;
 import java.util.List;
 
 import butterknife.BindView;
 import butterknife.OnClick;
 import de.hdodenhof.circleimageview.CircleImageView;
+import okhttp3.MediaType;
+import okhttp3.MultipartBody;
+import okhttp3.RequestBody;
+import project.com.arms.app.EventBusTags;
 
 import static com.jess.arms.utils.Preconditions.checkNotNull;
 
@@ -62,6 +73,7 @@ public class PersonalInfoActivity extends MyBaseActivity<PersonalInfoPresenter> 
     ImageView ivArrow2;
     @BindView(R.id.rl_harvest_address)
     RelativeLayout rlHarvestAddress;
+    private PersonInfoBean.personalBean personalBean;
 
     @Override
     public void setupActivityComponent(@NonNull AppComponent appComponent) {
@@ -81,6 +93,9 @@ public class PersonalInfoActivity extends MyBaseActivity<PersonalInfoPresenter> 
     @Override
     public void initData(@Nullable Bundle savedInstanceState) {
         setHeader("个人信息");
+        personalBean = getIntent().getParcelableExtra(SettingActivity.PERSON_INFO_BEAN);
+        if (personalBean != null)
+            GlideUtil.loadImg(personalBean.img, R.mipmap.header_default, ivSrc);
     }
 
     @Override
@@ -117,7 +132,7 @@ public class PersonalInfoActivity extends MyBaseActivity<PersonalInfoPresenter> 
                 ShowDialog();
                 break;
             case R.id.rl_nickname:
-                startActivityForResult(new Intent(mActivity, ReviseNickNameActivity.class), 100);
+                launchActivity(new Intent(mActivity, ReviseNickNameActivity.class));
                 break;
             case R.id.rl_harvest_address:
                 launchActivity(new Intent(mActivity, AddressActivity.class));
@@ -180,16 +195,36 @@ public class PersonalInfoActivity extends MyBaseActivity<PersonalInfoPresenter> 
                             } else { // 原图
                                 path = media.getPath();
                             }
+                            uploadImg(media, path);
                         }
                     }
-                    if (StringUtils.checkString(path)) {
-                        GlideUtil.loadImg(path, ivSrc);
-                    }
-                    break;
-                case 100://修改昵称
-
                     break;
             }
         }
+    }
+
+    private void uploadImg(LocalMedia media, String path) {
+        try {
+            if (StringUtils.checkString(path)) {
+                GlideUtil.loadImg(path, ivSrc);
+                File file = new File(path);
+                RequestBody requestBody = RequestBody.create(MediaType.parse(media.getMimeType()), file);
+                MultipartBody.Part part = MultipartBody.Part.createFormData("file", URLEncoder.encode(file.getName(), "UTF-8"), requestBody);
+                mPresenter.uploadImg(part, mActivity);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Override
+    public void updateImgSucc(String msg) {
+        MyToastUtils.showShort(msg);
+        EventBus.getDefault().post(new EventBusBean(EventBusTags.USER_HEADER));
+    }
+
+    @Override
+    public void uploadImgSucc(String msg) {
+        mPresenter.updateImg(msg, mActivity);
     }
 }

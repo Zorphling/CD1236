@@ -202,6 +202,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@android:color/white"
+        android:foreground="?android:attr/selectableItemBackground"
         android:gravity="center"
         android:paddingTop="@dimen/dp10"
         android:paddingBottom="@dimen/dp10"

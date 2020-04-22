@@ -1,6 +1,5 @@
 package com.business.cd1236.mvp.contract;
 
-import com.business.cd1236.bean.BusinessInfoBean;
 import com.jess.arms.mvp.IView;
 import com.jess.arms.mvp.IModel;
 
@@ -9,7 +8,7 @@ import com.jess.arms.mvp.IModel;
  * ================================================
  * Description:
  * <p>
- * Created by MVPArmsTemplate on 04/16/2020 10:37
+ * Created by MVPArmsTemplate on 04/22/2020 16:58
  * <a href="mailto:jess.yan.effort@gmail.com">Contact me</a>
  * <a href="https://github.com/JessYanCoding">Follow me</a>
  * <a href="https://github.com/JessYanCoding/MVPArms">Star me</a>
@@ -17,15 +16,9 @@ import com.jess.arms.mvp.IModel;
  * <a href="https://github.com/JessYanCoding/MVPArmsTemplate">模版请保持更新</a>
  * ================================================
  */
-public interface BusinessBasicInfoContract {
+public interface BusinessAddGoodsContract {
     //对于经常使用的关于UI的方法可以定义到IView中,如显示隐藏进度条,和显示文字消息
     interface View extends IView {
-
-        void setBusinessInfo(BusinessInfoBean businessInfoBean);
-
-        void uploadImgSucc(String jsonString);
-
-        void updateLogoSucc(String logo, String jsonString);
 
     }
 

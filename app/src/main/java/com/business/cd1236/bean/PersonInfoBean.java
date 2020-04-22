@@ -1,5 +1,8 @@
 package com.business.cd1236.bean;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 public class PersonInfoBean {
 
     /**
@@ -17,8 +20,39 @@ public class PersonInfoBean {
     public String type;
     public personalBean personal;
 
-    public class personalBean {
+
+
+    public static class personalBean implements Parcelable {
         public String img;
         public String realname;
+
+
+        protected personalBean(Parcel in) {
+            img = in.readString();
+            realname = in.readString();
+        }
+
+        public static final Creator<personalBean> CREATOR = new Creator<personalBean>() {
+            @Override
+            public personalBean createFromParcel(Parcel in) {
+                return new personalBean(in);
+            }
+
+            @Override
+            public personalBean[] newArray(int size) {
+                return new personalBean[size];
+            }
+        };
+
+        @Override
+        public int describeContents() {
+            return 0;
+        }
+
+        @Override
+        public void writeToParcel(Parcel dest, int flags) {
+            dest.writeString(img);
+            dest.writeString(realname);
+        }
     }
 }

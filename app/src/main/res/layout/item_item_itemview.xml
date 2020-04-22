@@ -46,6 +46,7 @@
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
             android:visibility="gone"
+            android:scaleType="centerCrop"
             app:riv_corner_radius="@dimen/dp5" />
     </RelativeLayout>
 

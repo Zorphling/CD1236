@@ -48,4 +48,7 @@ public interface StoreService {
 
     @GET(StoreApi.BUSINESS_INFO_MODIFY)
     Observable<ResponseBody> businessInfoChange_shop_logo(@Query("type") String type, @Query("logo") String logo);
+
+    @GET(StoreApi.BUSINESS_GOODS)
+    Observable<ResponseBody> businessGoodsManage();
 }

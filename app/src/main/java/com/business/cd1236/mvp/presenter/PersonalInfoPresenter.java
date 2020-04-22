@@ -1,8 +1,11 @@
 package com.business.cd1236.mvp.presenter;
 
 import android.app.Application;
+import android.content.Context;
 
 import com.business.cd1236.mvp.contract.PersonalInfoContract;
+import com.business.cd1236.net.BaseCallBack;
+import com.business.cd1236.net.RequestUtils;
 import com.jess.arms.di.scope.ActivityScope;
 import com.jess.arms.http.imageloader.ImageLoader;
 import com.jess.arms.integration.AppManager;
@@ -11,6 +14,7 @@ import com.jess.arms.mvp.BasePresenter;
 import javax.inject.Inject;
 
 import me.jessyan.rxerrorhandler.core.RxErrorHandler;
+import okhttp3.MultipartBody;
 
 
 /**
@@ -48,5 +52,33 @@ public class PersonalInfoPresenter extends BasePresenter<PersonalInfoContract.Mo
         this.mAppManager = null;
         this.mImageLoader = null;
         this.mApplication = null;
+    }
+
+    public void updateImg(String img, Context context) {
+        RequestUtils.reviseUserImg(img, new BaseCallBack(context) {
+            @Override
+            protected void onSuccess(String jsonString) {
+            }
+
+            @Override
+            protected void onSuccess(String jsonString, String msg) {
+                super.onSuccess(jsonString, msg);
+                mRootView.updateImgSucc(msg);
+            }
+        });
+    }
+
+    public void uploadImg(MultipartBody.Part part, Context context) {
+        RequestUtils.uploadImg(part, new BaseCallBack(context) {
+            @Override
+            protected void onSuccess(String jsonString) {
+                mRootView.uploadImgSucc(jsonString);
+            }
+
+            @Override
+            protected void onSuccess(String jsonString, String msg) {
+                super.onSuccess(jsonString, msg);
+            }
+        });
     }
 }

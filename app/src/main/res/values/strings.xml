@@ -55,5 +55,8 @@
     <string name="business_qualifications_hint_8">·食盐批发许可证副本</string>
     <string name="business_qualifications_hint_9">·食盐准运证</string>
 
+    <string name="business_add_goods_sugg">建议照片大小:375*450(1M以内)</string>
+    <string name="business_add_goods_detail">请上传商品详情图</string>
+
 
 </resources>

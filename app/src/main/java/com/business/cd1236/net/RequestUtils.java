@@ -9,11 +9,21 @@ import com.business.cd1236.net.api.main.MainService;
 import com.business.cd1236.net.api.setting.SettingService;
 import com.business.cd1236.net.api.store.StoreService;
 
+import okhttp3.MultipartBody;
+
 
 public class RequestUtils {
 
-    public static void reviseNickName(String nickName,BaseCallBack callBack) {
+    public static void reviseNickName(String nickName, BaseCallBack callBack) {
         RetrofitUtils.getService(SettingService.class).reviseNickName(nickName).compose(RxHelper.observableIO2Main(callBack.mContext)).subscribe(callBack);
+    }
+
+    public static void reviseUserImg(String img, BaseCallBack callBack) {
+        RetrofitUtils.getService(SettingService.class).reviseUserImg(img).compose(RxHelper.observableIO2Main(callBack.mContext)).subscribe(callBack);
+    }
+
+    public static void uploadImg(MultipartBody.Part part, BaseCallBack callBack) {
+        RetrofitUtils.getService(SettingService.class).uploadImg(part).compose(RxHelper.observableIO2Main(callBack.mContext)).subscribe(callBack);
     }
 
     public static void getBanner(BaseCallBack callBack) {
@@ -145,5 +155,13 @@ public class RequestUtils {
 
     public static void addBusinessTelephone(String type, String telephone, BaseCallBack callBack) {
         RetrofitUtils.getStoreService(StoreService.class).businessInfoChange_telephone(type, telephone).compose(RxHelper.observableIO2Main(callBack.mContext)).subscribe(callBack);
+    }
+
+    public static void updateBusinessLogo(String type, String logo, BaseCallBack callBack) {
+        RetrofitUtils.getStoreService(StoreService.class).businessInfoChange_shop_logo(type, logo).compose(RxHelper.observableIO2Main(callBack.mContext)).subscribe(callBack);
+    }
+
+    public static void businessGoodsManage(BaseCallBack callBack) {
+        RetrofitUtils.getStoreService(StoreService.class).businessGoodsManage().compose(RxHelper.observableIO2Main(callBack.mContext)).subscribe(callBack);
     }
 }

@@ -21,7 +21,6 @@ import com.business.cd1236.mvp.contract.BusinessQualificationsUploadContract;
 import com.business.cd1236.mvp.presenter.BusinessQualificationsUploadPresenter;
 import com.business.cd1236.utils.GlideEngine;
 import com.business.cd1236.utils.GlideUtil;
-import com.business.cd1236.utils.LogUtils;
 import com.business.cd1236.utils.SizeUtils;
 import com.business.cd1236.utils.StringUtils;
 import com.business.cd1236.view.SpaceItemDecoration;
@@ -243,7 +242,6 @@ public class BusinessQualificationsUploadActivity extends MyBaseActivity<Busines
                             }
                         }
                     }
-                    LogUtils.e("path -------------------------- " + path);
                     if (StringUtils.checkString(path)) {
                         GlideUtil.loadImg(path, imageView);
                     }

@@ -6,4 +6,5 @@ public interface SettingApi {
     String ADD_ADDRESS = "add_title";
     String SET_ADDRESS_DEF = "addr_default";
     String DELETE_ADDRESS = "addr_delete";
+    String UPLOAD_IMG = "upload";
 }

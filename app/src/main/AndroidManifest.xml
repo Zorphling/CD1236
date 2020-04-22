@@ -28,6 +28,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:replace="android:name,android:allowBackup">
+        <activity android:name=".mvp.ui.activity.BusinessAddGoodsActivity" />
         <activity android:name=".mvp.ui.activity.BusinessGoodsManageActivity" />
         <activity android:name=".mvp.ui.activity.BusinessQualificationsUploadActivity" />
         <activity android:name=".mvp.ui.activity.BusinessQualificationsActivity" />

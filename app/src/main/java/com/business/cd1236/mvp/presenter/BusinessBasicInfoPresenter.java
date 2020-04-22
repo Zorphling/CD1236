@@ -16,6 +16,7 @@ import com.jess.arms.mvp.BasePresenter;
 import javax.inject.Inject;
 
 import me.jessyan.rxerrorhandler.core.RxErrorHandler;
+import okhttp3.MultipartBody;
 
 
 /**
@@ -54,12 +55,36 @@ public class BusinessBasicInfoPresenter extends BasePresenter<BusinessBasicInfoC
         this.mImageLoader = null;
         this.mApplication = null;
     }
+
     public void getBusinessInfo(Context context) {
         RequestUtils.getBusinessInfo(new BaseCallBack(context) {
             @Override
             protected void onSuccess(String jsonString) {
                 BusinessInfoBean businessInfoBean = GsonUtils.parseJsonWithGson(jsonString, BusinessInfoBean.class);
                 mRootView.setBusinessInfo(businessInfoBean);
+            }
+        });
+    }
+
+    public void uploadImg(MultipartBody.Part part, Context context) {
+        RequestUtils.uploadImg(part, new BaseCallBack(context) {
+            @Override
+            protected void onSuccess(String jsonString) {
+                mRootView.uploadImgSucc(jsonString);
+            }
+
+            @Override
+            protected void onSuccess(String jsonString, String msg) {
+                super.onSuccess(jsonString, msg);
+            }
+        });
+    }
+
+    public void updateImg(String type, String logo, Context context) {
+        RequestUtils.updateBusinessLogo(type, logo, new BaseCallBack(context) {
+            @Override
+            protected void onSuccess(String jsonString) {
+                mRootView.updateLogoSucc(logo,jsonString);
             }
         });
     }

@@ -5,4 +5,5 @@ public interface StoreApi {
     String BUSINESS_BASIS = "shop_basis";
     String BUSINESS_INFO_CHANGE = "shop";
     String BUSINESS_INFO_MODIFY = "shopInfo_modify";
+    String BUSINESS_GOODS = "goods";
 }

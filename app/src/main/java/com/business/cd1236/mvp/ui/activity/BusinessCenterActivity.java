@@ -118,6 +118,7 @@ public class BusinessCenterActivity extends MyBaseActivity<BusinessCenterPresent
                 launchActivity(new Intent(mActivity, BusinessInfoActivity.class));
                 break;
             case R.id.item_store_goods:
+                launchActivity(new Intent(mActivity, BusinessGoodsManageActivity.class));
                 break;
             case R.id.item_store_manage:
                 break;

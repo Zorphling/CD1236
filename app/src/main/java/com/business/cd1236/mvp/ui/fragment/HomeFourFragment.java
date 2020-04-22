@@ -33,6 +33,7 @@ import com.business.cd1236.mvp.ui.activity.FeedBackActivity;
 import com.business.cd1236.mvp.ui.activity.FollowStoreActivity;
 import com.business.cd1236.mvp.ui.activity.PersonalInfoActivity;
 import com.business.cd1236.mvp.ui.activity.SettingActivity;
+import com.business.cd1236.utils.GlideUtil;
 import com.business.cd1236.utils.SPUtils;
 import com.business.cd1236.utils.SizeUtils;
 import com.business.cd1236.utils.StringUtils;
@@ -163,6 +164,9 @@ public class HomeFourFragment extends MyBaseFragment<HomeFourPresenter> implemen
             case EventBusTags.NICK_NAME:
                 tvName.setText(event.message);
                 break;
+            case EventBusTags.USER_HEADER:
+                mPresenter.getPersonalInfo(mActivity, false);
+                break;
         }
     }
 
@@ -237,6 +241,7 @@ public class HomeFourFragment extends MyBaseFragment<HomeFourPresenter> implemen
     @OnClick({R.id.ll_follow_store, R.id.ll_my_collect, R.id.ll_history, R.id.ll_person_info, R.id.iv_setting, R.id.iv_notice, R.id.crb_1, R.id.crb_2, R.id.crb_3, R.id.crb_4, R.id.crb_5, R.id.rl_my_order
             , R.id.piv_address, R.id.piv_cooperation, R.id.piv_seller, R.id.piv_fankui, R.id.piv_custom_service, R.id.piv_about_us})
     public void onViewClicked(View view) {
+        Intent intent = new Intent();
         switch (view.getId()) {
             case R.id.ll_follow_store:
                 launchActivity(new Intent(mActivity, FollowStoreActivity.class));
@@ -248,10 +253,14 @@ public class HomeFourFragment extends MyBaseFragment<HomeFourPresenter> implemen
                 startActivity(new Intent(mActivity, BrowseRecordActivity.class));
                 break;
             case R.id.ll_person_info:
-                launchActivity(new Intent(mActivity, PersonalInfoActivity.class));
+                intent.setClass(mActivity, PersonalInfoActivity.class);
+                intent.putExtra(SettingActivity.PERSON_INFO_BEAN, personInfoBean.personal);
+                launchActivity(intent);
                 break;
             case R.id.iv_setting:
-                launchActivity(new Intent(mActivity, SettingActivity.class));
+                intent.setClass(mActivity, SettingActivity.class);
+                intent.putExtra(SettingActivity.PERSON_INFO_BEAN, personInfoBean.personal);
+                launchActivity(intent);
                 break;
             case R.id.iv_notice:
                 break;
@@ -305,9 +314,11 @@ public class HomeFourFragment extends MyBaseFragment<HomeFourPresenter> implemen
     }
 
     private String SETTLED_IN;
+    private PersonInfoBean personInfoBean;
 
     @Override
     public void setInfo(PersonInfoBean personInfoBean) {
+        this.personInfoBean = personInfoBean;
         tvFollowStore.setText(personInfoBean.follow);
         tvHistory.setText(personInfoBean.browse);
         tvMyCollect.setText(personInfoBean.collect);
@@ -317,5 +328,7 @@ public class HomeFourFragment extends MyBaseFragment<HomeFourPresenter> implemen
             tvName.setText(personInfoBean.personal.realname);
         else
             tvName.setText(user_name.substring(0, 3) + "****" + user_name.substring(7, user_name.length()));
+        if (personInfoBean.personal != null)
+            GlideUtil.loadImg(personInfoBean.personal.img, R.mipmap.header_default, ivHeader);
     }
 }
