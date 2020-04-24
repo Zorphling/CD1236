@@ -57,7 +57,6 @@ public class BusinessGoodsCategoryPresenter extends BasePresenter<BusinessGoodsC
         RequestUtils.businessCategotyChange(name, content, id, new BaseCallBack(context) {
             @Override
             protected void onSuccess(String jsonString) {
-
             }
 
             @Override

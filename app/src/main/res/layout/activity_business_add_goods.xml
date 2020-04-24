@@ -93,6 +93,57 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:text="商品分类"
+                    android:textColor="@color/goods_detail_title"
+                    android:textSize="@dimen/sp14" />
+            </LinearLayout>
+
+            <EditText
+                android:id="@+id/et_goods_category"
+                android:layout_width="@dimen/dp0"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/dp15"
+                android:layout_marginRight="@dimen/dp15"
+                android:layout_weight="6.5"
+                android:background="?attr/selectableItemBackground"
+                android:cursorVisible="false"
+                android:drawableRight="@mipmap/arrow_right"
+                android:focusable="false"
+                android:focusableInTouchMode="false"
+                android:hint="请选择商品分类"
+                android:paddingTop="@dimen/dp7"
+                android:paddingBottom="@dimen/dp7"
+                android:textSize="@dimen/sp14" />
+        </LinearLayout>
+
+        <include layout="@layout/layout_line" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:paddingTop="@dimen/dp5"
+            android:paddingBottom="@dimen/dp5">
+
+            <LinearLayout
+                android:layout_width="@dimen/dp0"
+                android:layout_height="wrap_content"
+                android:layout_weight="3.5"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/dp15"
+                    android:text="@string/xx"
+                    android:textColor="@color/text_select_red"
+                    android:textSize="@dimen/sp16"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
                     android:text="名称"
                     android:textColor="@color/goods_detail_title"
                     android:textSize="@dimen/sp14" />

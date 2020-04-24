@@ -17,8 +17,13 @@ public class BusinessGoodsShowBean {
     public String good;
     public List<String> unit;
     public List<CategoryBean> category;
-    public List<?> category_ss;
+    public List<CategorySsBean> category_ss;
     public List<FormatBeanX> format;
+
+    public static class CategorySsBean{
+        public String name;
+        public String id;
+    }
 
     public static class CategoryBean implements IPickerViewData {
         /**

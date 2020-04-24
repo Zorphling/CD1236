@@ -13,6 +13,7 @@ import com.jess.arms.http.imageloader.ImageLoader;
 import com.jess.arms.integration.AppManager;
 import com.jess.arms.mvp.BasePresenter;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -74,7 +75,7 @@ public class BusinessAddGoodsPresenter extends BasePresenter<BusinessAddGoodsCon
         RequestUtils.uploadImg(part, new BaseCallBack(context) {
             @Override
             protected void onSuccess(String jsonString) {
-                mRootView.uploadImgSucc(jsonString);
+//                mRootView.uploadImgSucc(jsonString);
             }
 
             @Override
@@ -83,11 +84,26 @@ public class BusinessAddGoodsPresenter extends BasePresenter<BusinessAddGoodsCon
             }
         });
     }
+
     public void uploadImgs(Map<String, RequestBody> map, Context context) {
         RequestUtils.uploadImgs(map, new BaseCallBack(context) {
             @Override
-            protected void onSuccess(String jsonString) {
-                mRootView.uploadImgSucc(jsonString);
+            protected void onSuccess(String jsonString) {//多图返回是个字符串数组
+                //["http:\/\/my.1236sc.com\/Public\/Uploads\/2020-04\/5ea2900177b969.84523706.jpg","http:\/\/my.1236sc.com\/Public\/Uploads\/2020-04\/5ea2900178ea98.80881714.jpg"]
+//                List<String> list = GsonUtils.parseJsonArrayWithGson(jsonString, String.class);
+
+                if (jsonString.startsWith("[") || jsonString.startsWith("{")) {
+                    jsonString = jsonString.substring(1);
+                }
+                if (jsonString.endsWith("]") || jsonString.endsWith("}")) {
+                    jsonString = jsonString.substring(0, jsonString.length() - 1);
+                }
+                String[] array = jsonString.split(",");
+                ArrayList<String> list = new ArrayList<String>();
+                for (String temp : array) {
+                    list.add(temp);
+                }
+                mRootView.uploadImgSucc(list);
             }
 
             @Override
@@ -96,16 +112,32 @@ public class BusinessAddGoodsPresenter extends BasePresenter<BusinessAddGoodsCon
             }
         });
     }
+
     public void uploadImgs(List<MultipartBody.Part> partList, Context context) {
         RequestUtils.uploadImgs(partList, new BaseCallBack(context) {
             @Override
             protected void onSuccess(String jsonString) {
-                mRootView.uploadImgSucc(jsonString);
+//                mRootView.uploadImgSucc(jsonString);
             }
 
             @Override
             protected void onSuccess(String jsonString, String msg) {
                 super.onSuccess(jsonString, msg);
+            }
+        });
+    }
+
+    public void addGoods(String typeId, String brandId, String categoryId, String editText, String editText1, String editText2, String editText3, String editText4, String formatId, String s, String s1, String editText5, String editText6, String editText7, String editText8, String s2, Context context) {
+        RequestUtils.businessAddGoods(typeId, brandId, categoryId, editText, editText1, editText2, editText3, editText4, formatId, s, s1, editText5, editText6, editText7, editText8, s2, new BaseCallBack(context) {
+            @Override
+            protected void onSuccess(String jsonString) {
+
+            }
+
+            @Override
+            protected void onSuccess(String jsonString, String msg) {
+                super.onSuccess(jsonString, msg);
+                mRootView.addGoodsSucc(msg);
             }
         });
     }

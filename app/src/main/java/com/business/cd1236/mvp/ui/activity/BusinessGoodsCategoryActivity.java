@@ -11,9 +11,11 @@ import androidx.annotation.Nullable;
 
 import com.business.cd1236.R;
 import com.business.cd1236.base.MyBaseActivity;
+import com.business.cd1236.bean.BusinessCategoryBean;
 import com.business.cd1236.di.component.DaggerBusinessGoodsCategoryComponent;
 import com.business.cd1236.mvp.contract.BusinessGoodsCategoryContract;
 import com.business.cd1236.mvp.presenter.BusinessGoodsCategoryPresenter;
+import com.business.cd1236.utils.MyToastUtils;
 import com.business.cd1236.utils.StringUtils;
 import com.jess.arms.di.component.AppComponent;
 import com.jess.arms.utils.ArmsUtils;
@@ -43,6 +45,8 @@ public class BusinessGoodsCategoryActivity extends MyBaseActivity<BusinessGoodsC
     EditText etCategoryDes;
     @BindView(R.id.tv_category_save)
     TextView tvCategorySave;
+    public static String isEdit = "isEdit";
+    private BusinessCategoryBean businessCategoryBean;
 
     @Override
     public void setupActivityComponent(@NonNull AppComponent appComponent) {
@@ -61,14 +65,17 @@ public class BusinessGoodsCategoryActivity extends MyBaseActivity<BusinessGoodsC
 
     @Override
     public void initData(@Nullable Bundle savedInstanceState) {
-        setHeader("新建分类");
+        businessCategoryBean = getIntent().getParcelableExtra(isEdit);
+        setHeader(businessCategoryBean == null ? "新建分类" : "编辑分类");
         setHeaderColor(getResources().getColor(android.R.color.white), getResources().getColor(android.R.color.black), R.mipmap.arrow_left_black);
         setStatusColor(mActivity, false, true, android.R.color.white);
         setRightBtn("保存", 0, v -> {
             checkSave();
         });
         setRightColor(getResources().getColor(android.R.color.black));
-
+        if (businessCategoryBean != null) {
+            etCategoryName.setText(businessCategoryBean.name);
+        }
     }
 
     private void checkSave() {
@@ -80,7 +87,11 @@ public class BusinessGoodsCategoryActivity extends MyBaseActivity<BusinessGoodsC
             ArmsUtils.snackbarText("请输入分类描述");
             return;
         }
-        mPresenter.categorySave(StringUtils.getEditText(etCategoryName),StringUtils.getEditText(etCategoryDes),null,mActivity);
+        if (businessCategoryBean != null && StringUtils.checkString(businessCategoryBean.id)) {
+            mPresenter.categorySave(StringUtils.getEditText(etCategoryName), StringUtils.getEditText(etCategoryDes), businessCategoryBean.id, mActivity);
+        } else {
+            mPresenter.categorySave(StringUtils.getEditText(etCategoryName), StringUtils.getEditText(etCategoryDes), null, mActivity);
+        }
     }
 
     @Override
@@ -121,6 +132,8 @@ public class BusinessGoodsCategoryActivity extends MyBaseActivity<BusinessGoodsC
 
     @Override
     public void categorySaveSucc(String msg) {
-
+        MyToastUtils.showShort(msg);
+        setResult(RESULT_OK);
+        killMyself();
     }
 }

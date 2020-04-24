@@ -63,6 +63,9 @@ public interface StoreService {
             , @Query("productprice") String productprice, @Query("total") String total, @Query("thumb_url") String thumb_url);
 
 
+    @GET(StoreApi.BUSINESS_CATEGORY)
+    Observable<ResponseBody> businessCategoty();
+
     @GET(StoreApi.BUSINESS_CATEGORY_CHANGE)
     Observable<ResponseBody> businessCategotyChange(@Query("name") String name, @Query("content") String content, @Query("id") String id);
 

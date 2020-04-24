@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.appcompat.widget.AppCompatCheckedTextView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/tv_category"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/slc_bg_business_goods_manage_category"
+    android:gravity="center_vertical"
+    android:paddingLeft="@dimen/dp10"
+    android:paddingTop="@dimen/dp15"
+    android:paddingBottom="@dimen/dp15"
+    android:textColor="@color/slc_business_goods_manage_category">
+
+</androidx.appcompat.widget.AppCompatCheckedTextView>

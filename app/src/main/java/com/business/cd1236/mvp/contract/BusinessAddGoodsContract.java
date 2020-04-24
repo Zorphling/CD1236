@@ -4,6 +4,8 @@ import com.business.cd1236.bean.BusinessGoodsShowBean;
 import com.jess.arms.mvp.IView;
 import com.jess.arms.mvp.IModel;
 
+import java.util.List;
+
 
 /**
  * ================================================
@@ -23,7 +25,9 @@ public interface BusinessAddGoodsContract {
 
         void getGoodsTypesSucc(BusinessGoodsShowBean businessGoodsShowBean);
 
-        void uploadImgSucc(String jsonString);
+        void uploadImgSucc(List<String> jsonString);
+
+        void addGoodsSucc(String msg);
     }
 
     //Model层定义接口,外部只需关心Model返回的数据,无需关心内部细节,即是否使用缓存

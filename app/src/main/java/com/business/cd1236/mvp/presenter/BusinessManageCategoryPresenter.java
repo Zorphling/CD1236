@@ -1,17 +1,23 @@
 package com.business.cd1236.mvp.presenter;
 
 import android.app.Application;
+import android.content.Context;
 
-import com.jess.arms.integration.AppManager;
+import com.business.cd1236.bean.BusinessCategoryBean;
+import com.business.cd1236.mvp.contract.BusinessManageCategoryContract;
+import com.business.cd1236.net.BaseCallBack;
+import com.business.cd1236.net.RequestUtils;
+import com.business.cd1236.utils.GsonUtils;
 import com.jess.arms.di.scope.ActivityScope;
-import com.jess.arms.mvp.BasePresenter;
 import com.jess.arms.http.imageloader.ImageLoader;
+import com.jess.arms.integration.AppManager;
+import com.jess.arms.mvp.BasePresenter;
 
-import me.jessyan.rxerrorhandler.core.RxErrorHandler;
+import java.util.ArrayList;
 
 import javax.inject.Inject;
 
-import com.business.cd1236.mvp.contract.BusinessManageCategoryContract;
+import me.jessyan.rxerrorhandler.core.RxErrorHandler;
 
 
 /**
@@ -49,5 +55,30 @@ public class BusinessManageCategoryPresenter extends BasePresenter<BusinessManag
         this.mAppManager = null;
         this.mImageLoader = null;
         this.mApplication = null;
+    }
+
+    public void businessCategoty(Context context) {
+        RequestUtils.businessCategoty(new BaseCallBack(context) {
+            @Override
+            protected void onSuccess(String jsonString) {
+                ArrayList<BusinessCategoryBean> businessCategoryBeans = GsonUtils.parseJsonArrayWithGson(jsonString, BusinessCategoryBean.class);
+                mRootView.businessCategotySucc(businessCategoryBeans);
+            }
+        });
+    }
+
+    public void businessCategotyDelete(String id, Context context) {
+        RequestUtils.businessCategotyDelete(id, new BaseCallBack(context) {
+            @Override
+            protected void onSuccess(String jsonString) {
+
+            }
+
+            @Override
+            protected void onSuccess(String jsonString, String msg) {
+                super.onSuccess(jsonString, msg);
+                mRootView.categotyDeleteSucc(msg);
+            }
+        });
     }
 }

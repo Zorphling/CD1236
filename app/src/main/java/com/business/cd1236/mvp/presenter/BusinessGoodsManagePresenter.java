@@ -3,9 +3,11 @@ package com.business.cd1236.mvp.presenter;
 import android.app.Application;
 import android.content.Context;
 
+import com.business.cd1236.bean.BusinessGoodsManageBean;
 import com.business.cd1236.mvp.contract.BusinessGoodsManageContract;
 import com.business.cd1236.net.BaseCallBack;
 import com.business.cd1236.net.RequestUtils;
+import com.business.cd1236.utils.GsonUtils;
 import com.jess.arms.di.scope.ActivityScope;
 import com.jess.arms.http.imageloader.ImageLoader;
 import com.jess.arms.integration.AppManager;
@@ -57,7 +59,8 @@ public class BusinessGoodsManagePresenter extends BasePresenter<BusinessGoodsMan
         RequestUtils.businessGoodsManage(new BaseCallBack(context) {
             @Override
             protected void onSuccess(String jsonString) {
-//                mRootView.getAllGoodsSucc();
+                BusinessGoodsManageBean businessGoodsManageBean = GsonUtils.parseJsonWithGson(jsonString, BusinessGoodsManageBean.class);
+                mRootView.getAllGoodsSucc(businessGoodsManageBean);
             }
         });
     }
