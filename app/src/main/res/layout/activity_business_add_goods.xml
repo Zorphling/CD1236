@@ -48,7 +48,7 @@
             </LinearLayout>
 
             <EditText
-                android:id="@+id/et_enter_type"
+                android:id="@+id/et_goods_type"
                 android:layout_width="@dimen/dp0"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="@dimen/dp15"
@@ -99,7 +99,7 @@
             </LinearLayout>
 
             <EditText
-                android:id="@+id/et_business_name"
+                android:id="@+id/et_goods_name"
                 android:layout_width="@dimen/dp0"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="@dimen/dp15"
@@ -195,7 +195,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="商品原件"
+                    android:text="商品原价"
                     android:textColor="@color/goods_detail_title"
                     android:textSize="@dimen/sp14" />
             </LinearLayout>
@@ -209,7 +209,7 @@
                 android:layout_weight="6.5"
                 android:background="@null"
                 android:hint="请输入原价"
-                android:inputType="number"
+                android:inputType="numberDecimal"
                 android:paddingTop="@dimen/dp5"
                 android:paddingBottom="@dimen/dp5"
                 android:textSize="@dimen/sp14" />
@@ -257,7 +257,7 @@
                 android:layout_weight="6.5"
                 android:background="@null"
                 android:hint="请输入商品现价"
-                android:inputType="number"
+                android:inputType="numberDecimal"
                 android:paddingTop="@dimen/dp5"
                 android:paddingBottom="@dimen/dp5"
                 android:textSize="@dimen/sp14" />
@@ -305,7 +305,7 @@
                 android:layout_weight="6.5"
                 android:background="@null"
                 android:hint="请输入商品批发价"
-                android:inputType="number"
+                android:inputType="numberDecimal"
                 android:paddingTop="@dimen/dp5"
                 android:paddingBottom="@dimen/dp5"
                 android:textSize="@dimen/sp14" />
@@ -393,7 +393,7 @@
             </LinearLayout>
 
             <EditText
-                android:id="@+id/et_sell_type"
+                android:id="@+id/et_sell_unit"
                 android:layout_width="@dimen/dp0"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="@dimen/dp15"
@@ -537,6 +537,57 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:text="商品规格"
+                    android:textColor="@color/goods_detail_title"
+                    android:textSize="@dimen/sp14" />
+            </LinearLayout>
+
+            <EditText
+                android:id="@+id/et_Goods_spec"
+                android:layout_width="@dimen/dp0"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/dp15"
+                android:layout_marginRight="@dimen/dp15"
+                android:layout_weight="6.5"
+                android:background="?attr/selectableItemBackground"
+                android:cursorVisible="false"
+                android:drawableRight="@mipmap/arrow_right"
+                android:focusable="false"
+                android:focusableInTouchMode="false"
+                android:hint="请选择商品规格"
+                android:paddingTop="@dimen/dp7"
+                android:paddingBottom="@dimen/dp7"
+                android:textSize="@dimen/sp14" />
+        </LinearLayout>
+
+        <include layout="@layout/layout_line" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:paddingTop="@dimen/dp5"
+            android:paddingBottom="@dimen/dp5">
+
+            <LinearLayout
+                android:layout_width="@dimen/dp0"
+                android:layout_height="wrap_content"
+                android:layout_weight="3.5"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/dp15"
+                    android:text="@string/xx"
+                    android:textColor="@color/text_select_red"
+                    android:textSize="@dimen/sp16"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
                     android:text="商品库存"
                     android:textColor="@color/goods_detail_title"
                     android:textSize="@dimen/sp14" />
@@ -611,6 +662,8 @@
                 android:textSize="@dimen/sp14" />
         </LinearLayout>
 
+        <include layout="@layout/layout_line" />
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -651,11 +704,13 @@
                 android:layout_weight="6.5"
                 android:background="@null"
                 android:hint="请输入商品标准号"
-                android:inputType="number"
+                android:inputType="text"
                 android:paddingTop="@dimen/dp5"
                 android:paddingBottom="@dimen/dp5"
                 android:textSize="@dimen/sp14" />
         </LinearLayout>
+
+        <include layout="@layout/layout_line" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -702,5 +757,19 @@
                 android:paddingBottom="@dimen/dp5"
                 android:textSize="@dimen/sp14" />
         </LinearLayout>
+
+        <include layout="@layout/layout_line" />
+
+        <TextView
+            android:id="@+id/tv_goods_delete"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dp20"
+            android:foreground="?android:attr/selectableItemBackground"
+            android:gravity="center"
+            android:paddingTop="@dimen/dp10"
+            android:paddingBottom="@dimen/dp10"
+            android:text="删除商品"
+            android:textColor="@color/text_select_red" />
     </LinearLayout>
 </androidx.core.widget.NestedScrollView>

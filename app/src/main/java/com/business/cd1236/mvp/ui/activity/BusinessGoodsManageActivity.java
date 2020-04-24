@@ -136,6 +136,7 @@ public class BusinessGoodsManageActivity extends MyBaseActivity<BusinessGoodsMan
                 selectCheck(tv3);
                 break;
             case R.id.ll_goods_category:
+                launchActivity(new Intent(mActivity,BusinessManageCategoryActivity.class));
                 break;
             case R.id.ll_goods_sort:
                 break;

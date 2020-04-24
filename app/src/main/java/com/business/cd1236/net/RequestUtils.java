@@ -9,7 +9,11 @@ import com.business.cd1236.net.api.main.MainService;
 import com.business.cd1236.net.api.setting.SettingService;
 import com.business.cd1236.net.api.store.StoreService;
 
+import java.util.List;
+import java.util.Map;
+
 import okhttp3.MultipartBody;
+import okhttp3.RequestBody;
 
 
 public class RequestUtils {
@@ -26,6 +30,12 @@ public class RequestUtils {
         RetrofitUtils.getService(SettingService.class).uploadImg(part).compose(RxHelper.observableIO2Main(callBack.mContext)).subscribe(callBack);
     }
 
+    public static void uploadImgs(Map<String, RequestBody> maps, BaseCallBack callBack) {
+        RetrofitUtils.getService(SettingService.class).uploadImgs(maps).compose(RxHelper.observableIO2Main(callBack.mContext)).subscribe(callBack);
+    }
+    public static void uploadImgs(List<MultipartBody.Part> partList, BaseCallBack callBack) {
+        RetrofitUtils.getService(SettingService.class).uploadImgs(partList).compose(RxHelper.observableIO2Main(callBack.mContext)).subscribe(callBack);
+    }
     public static void getBanner(BaseCallBack callBack) {
         RetrofitUtils.getService(MainService.class).homeBanner().compose(RxHelper.observableIO2Main(callBack.mContext)).subscribe(callBack);
     }
@@ -163,5 +173,17 @@ public class RequestUtils {
 
     public static void businessGoodsManage(BaseCallBack callBack) {
         RetrofitUtils.getStoreService(StoreService.class).businessGoodsManage().compose(RxHelper.observableIO2Main(callBack.mContext)).subscribe(callBack);
+    }
+
+    public static void businessGoodsShow(BaseCallBack callBack) {
+        RetrofitUtils.getStoreService(StoreService.class).businessGoodsShow().compose(RxHelper.observableIO2Main(callBack.mContext)).subscribe(callBack);
+    }
+
+    public static void businessCategotyChange(String name, String content, String id, BaseCallBack callBack) {
+        RetrofitUtils.getStoreService(StoreService.class).businessCategotyChange(name, content, id).compose(RxHelper.observableIO2Main(callBack.mContext)).subscribe(callBack);
+    }
+
+    public static void businessCategotyDelete(String id, BaseCallBack callBack) {
+        RetrofitUtils.getStoreService(StoreService.class).businessCategotyDelete(id).compose(RxHelper.observableIO2Main(callBack.mContext)).subscribe(callBack);
     }
 }

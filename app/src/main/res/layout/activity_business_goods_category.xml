@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorGray1"
+    android:orientation="vertical">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/colorGray1"
+        android:paddingLeft="@dimen/dp15"
+        android:paddingTop="@dimen/dp5"
+        android:paddingBottom="@dimen/dp5"
+        android:text="分类名称" />
+
+    <androidx.appcompat.widget.AppCompatEditText
+        android:id="@+id/et_category_name"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@android:color/white"
+        android:hint="请输入分类名称(最多10次)"
+        android:paddingLeft="@dimen/dp20"
+        android:paddingTop="@dimen/dp15"
+        android:paddingBottom="@dimen/dp15"
+        android:textSize="@dimen/sp14" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/colorGray1"
+        android:paddingLeft="@dimen/dp15"
+        android:paddingTop="@dimen/dp5"
+        android:paddingBottom="@dimen/dp5"
+        android:text="分类描述" />
+
+    <androidx.appcompat.widget.AppCompatEditText
+        android:id="@+id/et_category_des"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp150"
+        android:background="@android:color/white"
+        android:gravity="top|left"
+        android:hint="请输入分类描述(最多200字)"
+        android:inputType="text"
+        android:paddingLeft="@dimen/dp20"
+        android:paddingTop="@dimen/dp15"
+        android:paddingBottom="@dimen/dp15"
+        android:textSize="@dimen/sp14" />
+
+    <TextView
+        android:id="@+id/tv_category_save"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/dp20"
+        android:layout_marginTop="@dimen/dp30"
+        android:layout_marginRight="@dimen/dp20"
+        android:background="@drawable/solid_bg_revise_button"
+        android:foreground="?android:attr/selectableItemBackground"
+        android:gravity="center"
+        android:paddingTop="@dimen/dp10"
+        android:paddingBottom="@dimen/dp10"
+        android:text="保存"
+        android:textColor="@android:color/white" />
+</LinearLayout>

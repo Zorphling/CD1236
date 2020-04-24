@@ -51,4 +51,21 @@ public interface StoreService {
 
     @GET(StoreApi.BUSINESS_GOODS)
     Observable<ResponseBody> businessGoodsManage();
+
+    @GET(StoreApi.BUSINESS_GOODS_SHOW)
+    Observable<ResponseBody> businessGoodsShow();
+
+    @GET(StoreApi.BUSINESS_ADD_GOODS)
+    Observable<ResponseBody> businessAddGoods(@Query("ccate") String ccate, @Query("pcate") String pcate, @Query("category") String category, @Query("title") String title,
+                                              @Query("weight") String weight, @Query("unit") String unit, @Query("agent_weight") String agent_weight,
+                                              @Query("agent_unit") String agent_unit, @Query("format") String format, @Query("thumb") String thumb
+            , @Query("content") String content, @Query("marketprice") String marketprice, @Query("agent_marketprice") String agent_marketprice
+            , @Query("productprice") String productprice, @Query("total") String total, @Query("thumb_url") String thumb_url);
+
+
+    @GET(StoreApi.BUSINESS_CATEGORY_CHANGE)
+    Observable<ResponseBody> businessCategotyChange(@Query("name") String name, @Query("content") String content, @Query("id") String id);
+
+    @GET(StoreApi.BUSINESS_CATEGORY_DELETE)
+    Observable<ResponseBody> businessCategotyDelete(@Query("id") String id);
 }
