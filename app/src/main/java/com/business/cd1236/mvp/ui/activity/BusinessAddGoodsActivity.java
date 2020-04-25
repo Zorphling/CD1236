@@ -218,6 +218,7 @@ public class BusinessAddGoodsActivity extends MyBaseActivity<BusinessAddGoodsPre
                                                                         ArmsUtils.snackbarText("请选择另一张图片");
                                                                     } else {
                                                                         uploadImg();
+
                                                                     }
                                                                 } else {
                                                                     uploadImg();
