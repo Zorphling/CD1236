@@ -64,4 +64,19 @@ public class BusinessGoodsManagePresenter extends BasePresenter<BusinessGoodsMan
             }
         });
     }
+
+    public void businessGoodsQuick(String id, String type, String name, Context context) {
+        RequestUtils.businessGoodsQuick(id, type, name, new BaseCallBack(context) {
+            @Override
+            protected void onSuccess(String jsonString) {
+//                mRootView.businessGoodsQuickSucc(msg);
+            }
+
+            @Override
+            protected void onSuccess(String jsonString, String msg) {
+                super.onSuccess(jsonString, msg);
+//                mRootView.businessGoodsQuickSucc(msg);
+            }
+        });
+    }
 }

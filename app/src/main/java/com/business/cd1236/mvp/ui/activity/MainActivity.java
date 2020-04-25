@@ -32,6 +32,7 @@ import com.luck.picture.lib.permissions.PermissionChecker;
 import com.luck.picture.lib.tools.PictureFileUtils;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import butterknife.BindView;

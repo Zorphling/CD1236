@@ -17,9 +17,10 @@ import com.business.cd1236.bean.BusinessCategoryBean;
 import com.business.cd1236.di.component.DaggerBusinessManageCategoryComponent;
 import com.business.cd1236.mvp.contract.BusinessManageCategoryContract;
 import com.business.cd1236.mvp.presenter.BusinessManageCategoryPresenter;
+import com.business.cd1236.view.dialog.AlertDialog;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.listener.OnItemChildClickListener;
-import com.chad.library.adapter.base.listener.OnItemChildLongClickListener;
+import com.chad.library.adapter.base.listener.OnItemLongClickListener;
 import com.jess.arms.di.component.AppComponent;
 import com.jess.arms.utils.ArmsUtils;
 
@@ -43,7 +44,7 @@ import static com.jess.arms.utils.Preconditions.checkNotNull;
  * <a href="https://github.com/JessYanCoding/MVPArmsTemplate">模版请保持更新</a>
  * ================================================
  */
-public class BusinessManageCategoryActivity extends MyBaseActivity<BusinessManageCategoryPresenter> implements BusinessManageCategoryContract.View, OnItemChildClickListener, OnItemChildLongClickListener {
+public class BusinessManageCategoryActivity extends MyBaseActivity<BusinessManageCategoryPresenter> implements BusinessManageCategoryContract.View, OnItemChildClickListener, OnItemLongClickListener {
     @BindView(R.id.rv_category)
     RecyclerView rvCategory;
     @BindView(R.id.tv_add_category)
@@ -75,7 +76,7 @@ public class BusinessManageCategoryActivity extends MyBaseActivity<BusinessManag
         businessCategoryAdapter = new BusinessCategoryAdapter(R.layout.item_business_manage_category);
         businessCategoryAdapter.addChildClickViewIds(R.id.tv_edit);
         businessCategoryAdapter.setOnItemChildClickListener(this);
-        businessCategoryAdapter.setOnItemChildLongClickListener(this);
+        businessCategoryAdapter.setOnItemLongClickListener(this);
         rvCategory.setAdapter(businessCategoryAdapter);
     }
 
@@ -137,9 +138,11 @@ public class BusinessManageCategoryActivity extends MyBaseActivity<BusinessManag
     BusinessCategoryBean businessCategoryBean;
 
     @Override
-    public boolean onItemChildLongClick(@NonNull BaseQuickAdapter adapter, @NonNull View view, int position) {
-        businessCategoryBean = (BusinessCategoryBean) adapter.getItem(position);
-        mPresenter.businessCategotyDelete(businessCategoryBean.id, mActivity);
+    public boolean onItemLongClick(@NonNull BaseQuickAdapter adapter, @NonNull View view, int position) {
+        new AlertDialog(mActivity).builder().setMsg("是否删除该分类").setNegativeButton("取消", null).setPositiveButton("确定", v -> {
+            businessCategoryBean = (BusinessCategoryBean) adapter.getItem(position);
+            mPresenter.businessCategotyDelete(businessCategoryBean.id, mActivity);
+        }).show();
         return true;
     }
 }

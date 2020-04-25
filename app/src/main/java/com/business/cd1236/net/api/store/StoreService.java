@@ -62,6 +62,11 @@ public interface StoreService {
             , @Query("content") String content, @Query("marketprice") String marketprice, @Query("agent_marketprice") String agent_marketprice
             , @Query("productprice") String productprice, @Query("total") String total, @Query("thumb_url") String thumb_url);
 
+    @GET(StoreApi.BUSINESS_GOODS_DELETE)
+    Observable<ResponseBody> businessGoodsDelete(@Query("id") String id);
+
+    @GET(StoreApi.BUSINESS_GOODS_QUICK)
+    Observable<ResponseBody> businessGoodsQuick(@Query("id") String id, @Query("type") String type, @Query("name") String name);
 
     @GET(StoreApi.BUSINESS_CATEGORY)
     Observable<ResponseBody> businessCategoty();

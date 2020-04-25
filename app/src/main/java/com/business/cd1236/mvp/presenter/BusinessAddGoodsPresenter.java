@@ -13,7 +13,7 @@ import com.jess.arms.http.imageloader.ImageLoader;
 import com.jess.arms.integration.AppManager;
 import com.jess.arms.mvp.BasePresenter;
 
-import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 
@@ -92,18 +92,19 @@ public class BusinessAddGoodsPresenter extends BasePresenter<BusinessAddGoodsCon
                 //["http:\/\/my.1236sc.com\/Public\/Uploads\/2020-04\/5ea2900177b969.84523706.jpg","http:\/\/my.1236sc.com\/Public\/Uploads\/2020-04\/5ea2900178ea98.80881714.jpg"]
 //                List<String> list = GsonUtils.parseJsonArrayWithGson(jsonString, String.class);
 
-                if (jsonString.startsWith("[") || jsonString.startsWith("{")) {
-                    jsonString = jsonString.substring(1);
-                }
-                if (jsonString.endsWith("]") || jsonString.endsWith("}")) {
-                    jsonString = jsonString.substring(0, jsonString.length() - 1);
-                }
-                String[] array = jsonString.split(",");
-                ArrayList<String> list = new ArrayList<String>();
-                for (String temp : array) {
-                    list.add(temp);
-                }
-                mRootView.uploadImgSucc(list);
+//                这种方法不行呀!!!
+//                if (jsonString.startsWith("[") || jsonString.startsWith("{")) {
+//                    jsonString = jsonString.substring(1);
+//                }
+//                if (jsonString.endsWith("]") || jsonString.endsWith("}")) {
+//                    jsonString = jsonString.substring(0, jsonString.length() - 1);
+//                }
+//                String[] array = jsonString.split(",");
+//                ArrayList<String> list = new ArrayList<String>();
+//                for (String temp : array) {
+//                    list.add(temp);
+//                }
+                mRootView.uploadImgSucc(Arrays.asList(jsonString.split(",")));
             }
 
             @Override
@@ -138,6 +139,20 @@ public class BusinessAddGoodsPresenter extends BasePresenter<BusinessAddGoodsCon
             protected void onSuccess(String jsonString, String msg) {
                 super.onSuccess(jsonString, msg);
                 mRootView.addGoodsSucc(msg);
+            }
+        });
+    }
+    public void deleteGoods(String id, Context context) {
+        RequestUtils.businessGoodsDelete(id, new BaseCallBack(context) {
+            @Override
+            protected void onSuccess(String jsonString) {
+
+            }
+
+            @Override
+            protected void onSuccess(String jsonString, String msg) {
+                super.onSuccess(jsonString, msg);
+                mRootView.deleteGoodsSucc(msg);
             }
         });
     }

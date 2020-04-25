@@ -29,6 +29,7 @@ import com.business.cd1236.utils.GlideUtil;
 import com.business.cd1236.utils.MyToastUtils;
 import com.business.cd1236.utils.SoftKeyboardUtils;
 import com.business.cd1236.utils.StringUtils;
+import com.business.cd1236.view.dialog.AlertDialog;
 import com.business.cd1236.view.dialog.SetHeaderDialog;
 import com.jess.arms.di.component.AppComponent;
 import com.jess.arms.utils.ArmsUtils;
@@ -114,7 +115,9 @@ public class BusinessAddGoodsActivity extends MyBaseActivity<BusinessAddGoodsPre
     private Map<Integer, Map<String, LocalMedia>> listMap = new HashMap<>();
     private ArrayList<Integer> index = new ArrayList<>();
     public static String CATEGORY_INTENT = "category_intent";
+    public static String GOODS_INTENT = "goods_intent";
     private ArrayList<BusinessGoodsManageBean.CategoryBean> categorys;
+    private BusinessGoodsManageBean.GoodsBean goodsBean;
     private String categoryId;
     private String formatId;
 
@@ -135,7 +138,7 @@ public class BusinessAddGoodsActivity extends MyBaseActivity<BusinessAddGoodsPre
 
     @Override
     public void initData(@Nullable Bundle savedInstanceState) {
-        setHeader("编辑商品");
+        setHeader("新建商品");
         setRightColor(getResources().getColor(R.color.black));
         setHeaderColor(getResources().getColor(android.R.color.white), getResources().getColor(android.R.color.black), R.mipmap.arrow_left_black);
         setStatusColor(mActivity, false, true, android.R.color.white);
@@ -143,9 +146,43 @@ public class BusinessAddGoodsActivity extends MyBaseActivity<BusinessAddGoodsPre
             checkAdd();
         });
         categorys = getIntent().getParcelableArrayListExtra(CATEGORY_INTENT);
+        goodsBean = getIntent().getParcelableExtra(GOODS_INTENT);
+
         if (categorys != null && categorys.size() > 0) {
-            etGoodsCategory.setText(categorys.get(0).name);
-            categoryId = categorys.get(0).id;
+            if (goodsBean == null) {
+                etGoodsCategory.setText(categorys.get(0).name);
+                categoryId = categorys.get(0).id;
+            } else {
+                for (BusinessGoodsManageBean.CategoryBean category : categorys) {
+                    if (StringUtils.equals(goodsBean.category, category.id)) {
+                        etGoodsCategory.setText(category.name);
+                        categoryId = category.id;
+                    }
+                }
+            }
+        }
+
+        if (goodsBean != null) {
+            setHeader("编辑商品");
+            tvGoodsDelete.setVisibility(View.VISIBLE);
+
+            etGoodsName.setText(goodsBean.title);
+            GlideUtil.loadImg(goodsBean.thumb, ivGoods);
+            GlideUtil.loadImg(goodsBean.thumb_url, ivGoodsDetail);
+            etGoodsCostPrice.setText(goodsBean.productprice);
+            etGoodsNowPrice.setText(goodsBean.marketprice);
+            etGoodsWholesalePrice.setText(goodsBean.agent_marketprice);
+            etSellNum.setText(goodsBean.weight);
+            etSellUnit.setText(goodsBean.unit);
+            etWholesaleNum.setText(goodsBean.agent_weight);
+            etWholesaleUnit.setText(goodsBean.agent_unit);
+            etGoodsSpec.setText(goodsBean.formatname);
+            formatId = goodsBean.formatid;
+            etGoodsStock.setText(goodsBean.total);
+            etGoodsBrand.setText(goodsBean.brand);
+            brandId = goodsBean.cate_id;
+            etGoodsStandardNumber.setText(goodsBean.standard);
+            etGoodsBarCode.setText(goodsBean.bar_code);
         }
         mPresenter.getGoodsTypes(mActivity);
     }
@@ -171,33 +208,50 @@ public class BusinessAddGoodsActivity extends MyBaseActivity<BusinessAddGoodsPre
                                                     if (check(etGoodsSpec, "请选额商品规格"))
                                                         if (check(etGoodsStock, "请输入商品库存"))
                                                             if (check(etGoodsBrand, "请选择商品品牌")) {
-                                                                /**
-                                                                 * 多张图片上传的两种方式
-                                                                 */
-                                                                Map<String, RequestBody> maps = new HashMap<>();
-                                                                for (Map.Entry<Integer, Map<String, LocalMedia>> integerMapEntry : listMap.entrySet()) {
-                                                                    Map<String, LocalMedia> value = integerMapEntry.getValue();
-                                                                    for (Map.Entry<String, LocalMedia> localMediaStringEntry : value.entrySet()) {
-                                                                        maps.put("file[]\";filename=\"" +
-                                                                                        (localMediaStringEntry.getValue().getFileName() == null ? String.valueOf(new Random().nextInt(1000)) + ".jpg" : localMediaStringEntry.getValue().getFileName()),
-                                                                                RequestBody.create(MediaType.parse(localMediaStringEntry.getValue().getMimeType()),
-                                                                                        new File(localMediaStringEntry.getKey())));
+                                                                if (goodsBean != null) {//编辑商品，并且没有更换图片就不用传图
+                                                                    if (listMap.size() == 0) {
+                                                                        ArrayList<String> imgList = new ArrayList<>();
+                                                                        imgList.add(goodsBean.thumb);
+                                                                        imgList.add(goodsBean.thumb_url);
+                                                                        uploadImgSucc(imgList);
+                                                                    } else if (listMap.size() == 1) {
+                                                                        ArmsUtils.snackbarText("请选择另一张图片");
+                                                                    } else {
+                                                                        uploadImg();
                                                                     }
+                                                                } else {
+                                                                    uploadImg();
                                                                 }
-                                                                mPresenter.uploadImgs(maps, mActivity);
-
-//                                                            MultipartBody.Builder builder = new MultipartBody.Builder().setType(MultipartBody.FORM);
-//                                                            for (Map.Entry<String, LocalMedia> localMediaStringEntry : files.entrySet()) {
-//                                                                File file = new File(localMediaStringEntry.getKey());
-//                                                                RequestBody requestBody = RequestBody.create(MediaType.parse(localMediaStringEntry.getValue().getMimeType()), file);
-//                                                                builder.addFormDataPart("file[]", file.getName(), requestBody);
-//                                                            }
-//                                                            List<MultipartBody.Part> parts = builder.build().parts();
-//                                                            mPresenter.uploadImgs(parts, mActivity);
                                                             }
                         }
                     }
             }
+    }
+
+    private void uploadImg() {
+        /**
+         * 多张图片上传的两种方式
+         */
+        Map<String, RequestBody> maps = new HashMap<>();
+        for (Map.Entry<Integer, Map<String, LocalMedia>> integerMapEntry : listMap.entrySet()) {
+            Map<String, LocalMedia> value = integerMapEntry.getValue();
+            for (Map.Entry<String, LocalMedia> localMediaStringEntry : value.entrySet()) {
+                maps.put("file[]\";filename=\"" +
+                                (localMediaStringEntry.getValue().getFileName() == null ? String.valueOf(new Random().nextInt(1000)) + ".jpg" : localMediaStringEntry.getValue().getFileName()),
+                        RequestBody.create(MediaType.parse(localMediaStringEntry.getValue().getMimeType()),
+                                new File(localMediaStringEntry.getKey())));
+            }
+        }
+
+//        MultipartBody.Builder builder = new MultipartBody.Builder().setType(MultipartBody.FORM);
+//        for (Map.Entry<String, LocalMedia> localMediaStringEntry : files.entrySet()) {
+//            File file = new File(localMediaStringEntry.getKey());
+//            RequestBody requestBody = RequestBody.create(MediaType.parse(localMediaStringEntry.getValue().getMimeType()), file);
+//            builder.addFormDataPart("file[]", file.getName(), requestBody);
+//        }
+//        List<MultipartBody.Part> parts = builder.build().parts();
+//        mPresenter.uploadImgs(parts, mActivity);
+        mPresenter.uploadImgs(maps, mActivity);
     }
 
     private boolean check(EditText ed, String toast) {
@@ -259,13 +313,19 @@ public class BusinessAddGoodsActivity extends MyBaseActivity<BusinessAddGoodsPre
         killMyself();
     }
 
+    @Override
+    public void deleteGoodsSucc(String msg) {
+        MyToastUtils.showShort(msg);
+        killMyself();
+    }
+
     private void initTypesDialog(BusinessGoodsShowBean businessGoodsShowBean) {
         if (businessGoodsShowBean == null) return;
         opvType = new OptionsPickerBuilder(this, (options1, option2, options3, v) -> {
             //返回的分别是三个级别的选中位置
             String tx = businessGoodsShowBean.category.get(options1).getPickerViewText();
-            typeId = businessGoodsShowBean.category.get(options1).id;
             etGoodsType.setText(tx);
+            typeId = businessGoodsShowBean.category.get(options1).id;
             initOtherDialog(businessGoodsShowBean);
         }).setLayoutRes(R.layout.dialog_business_enter, v -> {
             final TextView tvConfirm = v.findViewById(R.id.tv_confirm);
@@ -279,6 +339,13 @@ public class BusinessAddGoodsActivity extends MyBaseActivity<BusinessAddGoodsPre
             tvCancel.setOnClickListener(v12 -> opvType.dismiss());
         }).build();
         opvType.setPicker(businessGoodsShowBean.category);//添加数据
+
+        if (businessGoodsShowBean.category != null && businessGoodsShowBean.category.size() > 0) {
+            etGoodsType.setText(businessGoodsShowBean.category.get(0).name);
+            typeId = businessGoodsShowBean.category.get(0).id;
+            initOtherDialog(businessGoodsShowBean);
+        }
+
 
         if (categorys != null) {
             opvCategory = new OptionsPickerBuilder(this, (options1, option2, options3, v) -> {
@@ -409,13 +476,21 @@ public class BusinessAddGoodsActivity extends MyBaseActivity<BusinessAddGoodsPre
                 if (opvGoodsBrand != null) opvGoodsBrand.show();
                 break;
             case R.id.tv_goods_delete:
-
+                if (goodsBean != null) {
+                    new AlertDialog(mActivity).builder().setMsg("是否删除该商品").setNegativeButton("取消", null).setPositiveButton("确定", v -> {
+                        mPresenter.deleteGoods(goodsBean.id, mActivity);
+                    }).show();
+                }
                 break;
             case R.id.iv_goods:
                 imageView = R.id.iv_goods;
                 ShowDialog();
                 break;
             case R.id.iv_goods_detail:
+                if (ivGoods.getDrawable().getCurrent().getConstantState() == null || imageView != R.id.iv_goods) {
+                    ArmsUtils.snackbarText("请先上传主图");
+                    return;
+                }
                 imageView = R.id.iv_goods_detail;
                 ShowDialog();
                 break;

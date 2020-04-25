@@ -14,18 +14,23 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.business.cd1236.R;
 import com.business.cd1236.adapter.BusinessGoodsManageCategoryAdapter;
+import com.business.cd1236.adapter.BusinessGoodsManageGoodsAdapter;
 import com.business.cd1236.base.MyBaseActivity;
 import com.business.cd1236.bean.BusinessGoodsManageBean;
 import com.business.cd1236.di.component.DaggerBusinessGoodsManageComponent;
 import com.business.cd1236.mvp.contract.BusinessGoodsManageContract;
 import com.business.cd1236.mvp.presenter.BusinessGoodsManagePresenter;
+import com.business.cd1236.utils.StringUtils;
 import com.chad.library.adapter.base.BaseQuickAdapter;
+import com.chad.library.adapter.base.listener.OnItemChildClickListener;
 import com.chad.library.adapter.base.listener.OnItemClickListener;
 import com.jess.arms.di.component.AppComponent;
 import com.jess.arms.utils.ArmsUtils;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -45,7 +50,7 @@ import static com.jess.arms.utils.Preconditions.checkNotNull;
  * <a href="https://github.com/JessYanCoding/MVPArmsTemplate">模版请保持更新</a>
  * ================================================
  */
-public class BusinessGoodsManageActivity extends MyBaseActivity<BusinessGoodsManagePresenter> implements BusinessGoodsManageContract.View, OnItemClickListener {
+public class BusinessGoodsManageActivity extends MyBaseActivity<BusinessGoodsManagePresenter> implements BusinessGoodsManageContract.View, OnItemClickListener, OnItemChildClickListener {
 
     @BindView(R.id.tv_1)
     CheckedTextView tv1;
@@ -67,6 +72,7 @@ public class BusinessGoodsManageActivity extends MyBaseActivity<BusinessGoodsMan
     TextView tvEmpty;
     private ArrayList<CheckedTextView> tvs = new ArrayList<>();
     private BusinessGoodsManageCategoryAdapter categoryAdapter;
+    private BusinessGoodsManageGoodsAdapter businessGoodsManageGoodsAdapter;
 
     @Override
     public void setupActivityComponent(@NonNull AppComponent appComponent) {
@@ -97,6 +103,15 @@ public class BusinessGoodsManageActivity extends MyBaseActivity<BusinessGoodsMan
         categoryAdapter = new BusinessGoodsManageCategoryAdapter(R.layout.item_business_goods_manage_category);
         categoryAdapter.setOnItemClickListener(this);
         rvLeftCategory.setAdapter(categoryAdapter);
+
+        ArmsUtils.configRecyclerView(rvRightGoods, new LinearLayoutManager(mActivity));
+        businessGoodsManageGoodsAdapter = new BusinessGoodsManageGoodsAdapter(R.layout.item_business_goods_manage_goods);
+        View emptyView = View.inflate(mActivity,R.layout.layout_rv_empty,null);
+        ((TextView)emptyView.findViewById(R.id.tv)).setText("快去添加商品吧~");
+        businessGoodsManageGoodsAdapter.setEmptyView(emptyView);
+        businessGoodsManageGoodsAdapter.addChildClickViewIds(R.id.tv_goods_cancel, R.id.tv_revise_price, R.id.tv_revise_stock, R.id.tv_edit_goods);
+        businessGoodsManageGoodsAdapter.setOnItemChildClickListener(this);
+        rvRightGoods.setAdapter(businessGoodsManageGoodsAdapter);
     }
 
     @Override
@@ -160,19 +175,47 @@ public class BusinessGoodsManageActivity extends MyBaseActivity<BusinessGoodsMan
                 break;
             case R.id.ll_goods_add:
                 intent.setClass(mActivity, BusinessAddGoodsActivity.class);
-                intent.putExtra(BusinessAddGoodsActivity.CATEGORY_INTENT,categorys);
+                intent.putExtra(BusinessAddGoodsActivity.CATEGORY_INTENT, categorys);
                 launchActivity(intent);
                 break;
         }
     }
-    private ArrayList<BusinessGoodsManageBean.CategoryBean> categorys = new ArrayList<>();
+
+    private ArrayList<BusinessGoodsManageBean.CategoryBean> categorys;
+    private String CATEGORY_ID;
+    private Map<String, List<BusinessGoodsManageBean.GoodsBean>> goodsBeanMap;
+
     @Override
     public void getAllGoodsSucc(BusinessGoodsManageBean businessGoodsManageBean) {
+        categorys = new ArrayList<>();
+        goodsBeanMap = new HashMap<>();
         if (businessGoodsManageBean.category.size() > 0) {
             businessGoodsManageBean.category.get(0).isChecked = true;
+            CATEGORY_ID = businessGoodsManageBean.category.get(0).id;
             categorys.addAll(businessGoodsManageBean.category);
         }
         categoryAdapter.setList(businessGoodsManageBean.category);
+
+        if (businessGoodsManageBean.goods != null && businessGoodsManageBean.goods.size() > 0) {
+            for (BusinessGoodsManageBean.CategoryBean categoryBean : businessGoodsManageBean.category) {
+                ArrayList<BusinessGoodsManageBean.GoodsBean> list = new ArrayList<>();
+                for (BusinessGoodsManageBean.GoodsBean goods : businessGoodsManageBean.goods) {
+                    if (StringUtils.equals(categoryBean.id, goods.category)) {
+                        list.add(goods);
+                    }
+                }
+                goodsBeanMap.put(categoryBean.id, list);
+            }
+        }
+        clickCategoty();
+    }
+
+    private void clickCategoty() {
+        for (Map.Entry<String, List<BusinessGoodsManageBean.GoodsBean>> stringListEntry : goodsBeanMap.entrySet()) {
+            if (StringUtils.equals(CATEGORY_ID, stringListEntry.getKey())) {
+                businessGoodsManageGoodsAdapter.setList(stringListEntry.getValue());
+            }
+        }
     }
 
     @Override
@@ -182,9 +225,42 @@ public class BusinessGoodsManageActivity extends MyBaseActivity<BusinessGoodsMan
                 bean.isChecked = false;
             }
             ((BusinessGoodsManageBean.CategoryBean) adapter.getItem(position)).isChecked = true;
+            CATEGORY_ID = ((BusinessGoodsManageBean.CategoryBean) adapter.getItem(position)).id;
             adapter.notifyDataSetChanged();
+            clickCategoty();
         } else {
 
         }
+    }
+
+    @Override
+    public void onItemChildClick(@NonNull BaseQuickAdapter adapter, @NonNull View view, int position) {
+        BusinessGoodsManageBean.GoodsBean goodsBean = (BusinessGoodsManageBean.GoodsBean) adapter.getItem(position);
+        if (adapter instanceof BusinessGoodsManageGoodsAdapter) {
+            switch (view.getId()) {
+                case R.id.tv_goods_cancel: //下架0，上架1    name
+
+                    break;
+                case R.id.tv_revise_price:
+
+                    break;
+                case R.id.tv_revise_stock:
+
+                    break;
+                case R.id.tv_edit_goods:
+                    Intent intent = new Intent(mActivity, BusinessAddGoodsActivity.class);
+                    intent.putExtra(BusinessAddGoodsActivity.GOODS_INTENT, goodsBean);
+                    intent.putExtra(BusinessAddGoodsActivity.CATEGORY_INTENT,categorys);
+                    launchActivity(intent);
+                    break;
+            }
+        } else {
+
+        }
+    }
+
+    @Override
+    public void businessGoodsQuickSucc(String msg) {
+
     }
 }

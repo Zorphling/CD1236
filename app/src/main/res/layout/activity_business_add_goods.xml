@@ -821,6 +821,7 @@
             android:paddingTop="@dimen/dp10"
             android:paddingBottom="@dimen/dp10"
             android:text="删除商品"
+            android:visibility="gone"
             android:textColor="@color/text_select_red" />
     </LinearLayout>
 </androidx.core.widget.NestedScrollView>
