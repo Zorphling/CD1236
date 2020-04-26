@@ -50,13 +50,13 @@ public interface StoreService {
     Observable<ResponseBody> businessInfoChange_shop_logo(@Query("type") String type, @Query("logo") String logo);
 
     @GET(StoreApi.BUSINESS_GOODS)
-    Observable<ResponseBody> businessGoodsManage();
+    Observable<ResponseBody> businessGoodsManage(@Query("type")String type);
 
     @GET(StoreApi.BUSINESS_GOODS_SHOW)
     Observable<ResponseBody> businessGoodsShow();
 
     @GET(StoreApi.BUSINESS_ADD_GOODS)
-    Observable<ResponseBody> businessAddGoods(@Query("ccate") String ccate, @Query("pcate") String pcate, @Query("category") String category, @Query("title") String title,
+    Observable<ResponseBody> businessAddGoods(@Query("id") String id, @Query("ccate") String ccate, @Query("pcate") String pcate, @Query("category") String category, @Query("title") String title,
                                               @Query("weight") String weight, @Query("unit") String unit, @Query("agent_weight") String agent_weight,
                                               @Query("agent_unit") String agent_unit, @Query("format") String format, @Query("thumb") String thumb
             , @Query("content") String content, @Query("marketprice") String marketprice, @Query("agent_marketprice") String agent_marketprice
@@ -76,4 +76,7 @@ public interface StoreService {
 
     @GET(StoreApi.BUSINESS_CATEGORY_DELETE)
     Observable<ResponseBody> businessCategotyDelete(@Query("id") String id);
+
+    @GET(StoreApi.BUSINESS_DISPLAYORDER)
+    Observable<ResponseBody> businessDisplayorder(@Query("type") String type, @Query("row") String row);
 }

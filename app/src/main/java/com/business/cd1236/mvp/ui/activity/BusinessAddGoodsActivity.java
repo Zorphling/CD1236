@@ -218,7 +218,6 @@ public class BusinessAddGoodsActivity extends MyBaseActivity<BusinessAddGoodsPre
                                                                         ArmsUtils.snackbarText("请选择另一张图片");
                                                                     } else {
                                                                         uploadImg();
-
                                                                     }
                                                                 } else {
                                                                     uploadImg();
@@ -299,7 +298,7 @@ public class BusinessAddGoodsActivity extends MyBaseActivity<BusinessAddGoodsPre
     @Override
     public void uploadImgSucc(List<String> imgs) {
         if (imgs != null && imgs.size() > 1) {
-            mPresenter.addGoods(typeId, brandId, categoryId, StringUtils.getEditText(etGoodsName)
+            mPresenter.addGoods(goodsBean == null ? "" : goodsBean.id, typeId, brandId, categoryId, StringUtils.getEditText(etGoodsName)
                     , StringUtils.getEditText(etSellNum), StringUtils.getEditText(etSellUnit),
                     StringUtils.getEditText(etWholesaleNum), StringUtils.getEditText(etWholesaleUnit),
                     formatId, imgs.get(0), imgs.get(1), StringUtils.getEditText(etGoodsNowPrice),
@@ -488,7 +487,7 @@ public class BusinessAddGoodsActivity extends MyBaseActivity<BusinessAddGoodsPre
                 ShowDialog();
                 break;
             case R.id.iv_goods_detail:
-                if (ivGoods.getDrawable().getCurrent().getConstantState() == null || imageView != R.id.iv_goods) {
+                if (ivGoods.getDrawable().getCurrent().getConstantState() == null || imageView != R.id.iv_goods || listMap.size() != 1) {
                     ArmsUtils.snackbarText("请先上传主图");
                     return;
                 }

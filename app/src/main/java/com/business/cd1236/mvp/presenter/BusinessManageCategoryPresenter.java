@@ -12,6 +12,7 @@ import com.jess.arms.di.scope.ActivityScope;
 import com.jess.arms.http.imageloader.ImageLoader;
 import com.jess.arms.integration.AppManager;
 import com.jess.arms.mvp.BasePresenter;
+import com.jess.arms.utils.ArmsUtils;
 
 import java.util.ArrayList;
 
@@ -78,6 +79,15 @@ public class BusinessManageCategoryPresenter extends BasePresenter<BusinessManag
             protected void onSuccess(String jsonString, String msg) {
                 super.onSuccess(jsonString, msg);
                 mRootView.categotyDeleteSucc(msg);
+            }
+        });
+    }
+
+    public void categorySort(String type, String builder, Context context) {
+        RequestUtils.businessDisplayorder(type, builder, new BaseCallBack(context,false) {
+            @Override
+            protected void onSuccess(String jsonString) {
+                ArmsUtils.snackbarText(jsonString);
             }
         });
     }

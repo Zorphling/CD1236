@@ -21,6 +21,8 @@ import com.business.cd1236.di.component.DaggerBusinessGoodsManageComponent;
 import com.business.cd1236.mvp.contract.BusinessGoodsManageContract;
 import com.business.cd1236.mvp.presenter.BusinessGoodsManagePresenter;
 import com.business.cd1236.utils.StringUtils;
+import com.business.cd1236.view.dialog.AlertDialog;
+import com.business.cd1236.view.dialog.AlertEditDialog;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.listener.OnItemChildClickListener;
 import com.chad.library.adapter.base.listener.OnItemClickListener;
@@ -50,7 +52,7 @@ import static com.jess.arms.utils.Preconditions.checkNotNull;
  * <a href="https://github.com/JessYanCoding/MVPArmsTemplate">模版请保持更新</a>
  * ================================================
  */
-public class BusinessGoodsManageActivity extends MyBaseActivity<BusinessGoodsManagePresenter> implements BusinessGoodsManageContract.View, OnItemClickListener, OnItemChildClickListener {
+public class BusinessGoodsManageActivity extends MyBaseActivity<BusinessGoodsManagePresenter> implements BusinessGoodsManageContract.View, OnItemClickListener, OnItemChildClickListener, AlertEditDialog.OnPosClickListener {
 
     @BindView(R.id.tv_1)
     CheckedTextView tv1;
@@ -106,8 +108,8 @@ public class BusinessGoodsManageActivity extends MyBaseActivity<BusinessGoodsMan
 
         ArmsUtils.configRecyclerView(rvRightGoods, new LinearLayoutManager(mActivity));
         businessGoodsManageGoodsAdapter = new BusinessGoodsManageGoodsAdapter(R.layout.item_business_goods_manage_goods);
-        View emptyView = View.inflate(mActivity,R.layout.layout_rv_empty,null);
-        ((TextView)emptyView.findViewById(R.id.tv)).setText("快去添加商品吧~");
+        View emptyView = View.inflate(mActivity, R.layout.layout_rv_empty, null);
+        ((TextView) emptyView.findViewById(R.id.tv)).setText("快去添加商品吧~");
         businessGoodsManageGoodsAdapter.setEmptyView(emptyView);
         businessGoodsManageGoodsAdapter.addChildClickViewIds(R.id.tv_goods_cancel, R.id.tv_revise_price, R.id.tv_revise_stock, R.id.tv_edit_goods);
         businessGoodsManageGoodsAdapter.setOnItemChildClickListener(this);
@@ -117,7 +119,12 @@ public class BusinessGoodsManageActivity extends MyBaseActivity<BusinessGoodsMan
     @Override
     protected void onResume() {
         super.onResume();
-        mPresenter.getAllGoods(mActivity);
+        getAllGoods("all");
+
+    }
+
+    private void getAllGoods(String type) {
+        mPresenter.getAllGoods(type, mActivity);
     }
 
     private void selectCheck(CheckedTextView ctv) {
@@ -161,17 +168,21 @@ public class BusinessGoodsManageActivity extends MyBaseActivity<BusinessGoodsMan
         switch (view.getId()) {
             case R.id.tv_1:
                 selectCheck(tv1);
+                getAllGoods("all");
                 break;
             case R.id.tv_2:
                 selectCheck(tv2);
+                getAllGoods("upper");
                 break;
             case R.id.tv_3:
                 selectCheck(tv3);
+                getAllGoods("under");
                 break;
             case R.id.ll_goods_category:
                 launchActivity(new Intent(mActivity, BusinessManageCategoryActivity.class));
                 break;
             case R.id.ll_goods_sort:
+                launchActivity(new Intent(mActivity, BusinessGoodsManageSortActivity.class));
                 break;
             case R.id.ll_goods_add:
                 intent.setClass(mActivity, BusinessAddGoodsActivity.class);
@@ -211,6 +222,7 @@ public class BusinessGoodsManageActivity extends MyBaseActivity<BusinessGoodsMan
     }
 
     private void clickCategoty() {
+        businessGoodsManageGoodsAdapter.setList(null);
         for (Map.Entry<String, List<BusinessGoodsManageBean.GoodsBean>> stringListEntry : goodsBeanMap.entrySet()) {
             if (StringUtils.equals(CATEGORY_ID, stringListEntry.getKey())) {
                 businessGoodsManageGoodsAdapter.setList(stringListEntry.getValue());
@@ -239,18 +251,20 @@ public class BusinessGoodsManageActivity extends MyBaseActivity<BusinessGoodsMan
         if (adapter instanceof BusinessGoodsManageGoodsAdapter) {
             switch (view.getId()) {
                 case R.id.tv_goods_cancel: //下架0，上架1    name
-
+                    new AlertDialog(mActivity).builder().setMsg("确定" + (StringUtils.equals("0", goodsBean.status) ? "上架" : "下架") + "该商品吗").setNegativeButton("取消", null).setPositiveButton("确定", v -> {
+                        mPresenter.businessGoodsQuick(goodsBean.id, "status", StringUtils.equals("0", goodsBean.status) ? "1" : "0", position, mActivity);
+                    }).show();
                     break;
                 case R.id.tv_revise_price:
-
+                    new AlertEditDialog(mActivity, goodsBean, "marketprice", position, this);
                     break;
                 case R.id.tv_revise_stock:
-
+                    new AlertEditDialog(mActivity, goodsBean, "total", position, this);
                     break;
                 case R.id.tv_edit_goods:
                     Intent intent = new Intent(mActivity, BusinessAddGoodsActivity.class);
                     intent.putExtra(BusinessAddGoodsActivity.GOODS_INTENT, goodsBean);
-                    intent.putExtra(BusinessAddGoodsActivity.CATEGORY_INTENT,categorys);
+                    intent.putExtra(BusinessAddGoodsActivity.CATEGORY_INTENT, categorys);
                     launchActivity(intent);
                     break;
             }
@@ -260,7 +274,26 @@ public class BusinessGoodsManageActivity extends MyBaseActivity<BusinessGoodsMan
     }
 
     @Override
-    public void businessGoodsQuickSucc(String msg) {
+    public void businessGoodsQuickSucc(String type, String name, String msg, int position) {
+        ArmsUtils.snackbarText(msg);
+        BusinessGoodsManageBean.GoodsBean bean = businessGoodsManageGoodsAdapter.getItem(position);
+        switch (type) {
+            case "status":
+                bean.status = name;
+                break;
+            case "marketprice":
+                bean.marketprice = name;
+                break;
+            case "total":
+                bean.total = name;
+                break;
+        }
+        businessGoodsManageGoodsAdapter.notifyItemChanged(position);
 
+    }
+
+    @Override
+    public void onPosClick(Object obj, String type, int position, String editText) {
+        mPresenter.businessGoodsQuick(((BusinessGoodsManageBean.GoodsBean) obj).id, type, editText, position, mActivity);
     }
 }

@@ -7,6 +7,7 @@ public class BusinessCategoryBean implements Parcelable {
     public String id;
     public String name;
     public String displayorder;
+    public boolean isDrag;
 
     protected BusinessCategoryBean(Parcel in) {
         id = in.readString();

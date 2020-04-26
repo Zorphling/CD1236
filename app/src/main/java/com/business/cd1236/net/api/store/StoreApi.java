@@ -13,4 +13,5 @@ public interface StoreApi {
     String BUSINESS_CATEGORY = "category";
     String BUSINESS_CATEGORY_CHANGE = "category_change";
     String BUSINESS_CATEGORY_DELETE = "category_delete";
+    String BUSINESS_DISPLAYORDER = "displayorder";//排序
 }

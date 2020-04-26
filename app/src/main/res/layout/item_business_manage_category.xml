@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:layout_marginBottom="1dp"
     android:background="@android:color/white"
     android:foreground="?android:attr/selectableItemBackground"
-    android:orientation="vertical">
+    android:orientation="horizontal">
 
     <TextView
         android:id="@+id/tv_name"
@@ -12,15 +13,33 @@
         android:layout_height="wrap_content"
         android:layout_centerVertical="true"
         android:layout_marginLeft="@dimen/dp15"
+        android:padding="@dimen/dp15"
         android:textColor="@color/goods_detail_title" />
 
-    <TextView
-        android:id="@+id/tv_edit"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentRight="true"
-        android:foreground="?android:attr/selectableItemBackground"
-        android:padding="@dimen/dp15"
-        android:text="编辑"
-        android:textColor="@color/colorPrimary" />
-</RelativeLayout>
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <TextView
+            android:id="@+id/tv_edit"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_gravity="right|center_vertical"
+            android:foreground="?android:attr/selectableItemBackground"
+            android:padding="@dimen/dp15"
+            android:text="编辑"
+            android:textColor="@color/colorPrimary"
+            android:visibility="visible" />
+
+        <ImageView
+            android:id="@+id/iv_drag"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_gravity="right|center_vertical"
+            android:paddingLeft="@dimen/dp15"
+            android:paddingRight="@dimen/dp25"
+            android:src="@mipmap/icon_drag"
+            android:visibility="gone" />
+
+    </FrameLayout>
+</LinearLayout>

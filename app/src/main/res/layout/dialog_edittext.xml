@@ -1,11 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/lLayout_bg"
     android:layout_width="match_parent"
-    app:cardElevation="@dimen/dp0"
-    app:cardCornerRadius="@dimen/dp15"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    app:cardCornerRadius="@dimen/dp5"
+    app:cardElevation="@dimen/dp0">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -13,28 +12,37 @@
         android:orientation="vertical">
 
         <TextView
-            android:id="@+id/txt_title"
-            android:layout_width="match_parent"
+            android:id="@+id/tv_title"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="15dp"
-            android:layout_marginTop="15dp"
-            android:layout_marginRight="15dp"
-            android:gravity="center"
-            android:textColor="@color/black"
-            android:textSize="18sp"
-            android:textStyle="bold" />
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="@dimen/dp10"
+            android:text="标题"
+            android:textColor="@android:color/black"
+            android:visibility="gone" />
 
-        <TextView
-            android:id="@+id/txt_msg"
+        <com.google.android.material.textfield.TextInputLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="15dp"
-            android:layout_marginTop="15dp"
-            android:layout_marginRight="15dp"
-            android:gravity="center"
-            android:lineSpacingMultiplier="1.2"
-            android:textColor="@color/black"
-            android:textSize="16sp" />
+            android:layout_marginLeft="@dimen/dp20"
+            android:layout_marginTop="@dimen/dp20"
+            android:layout_marginRight="@dimen/dp20">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/et_input_content"
+                style="@style/et_input_style"
+                android:textSize="@dimen/sp16"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:hint="请输入"
+                android:inputType="numberDecimal"
+                android:maxLines="1"
+                android:paddingLeft="@dimen/dp10"
+                android:paddingTop="@dimen/dp10"
+                android:paddingRight="@dimen/dp10"
+                android:paddingBottom="@dimen/dp10" />
+        </com.google.android.material.textfield.TextInputLayout>
 
         <View
             android:layout_width="match_parent"
@@ -55,10 +63,11 @@
                 android:layout_weight="1"
                 android:background="@color/bg_change_item_press"
                 android:gravity="center"
+                android:text="取消"
                 android:textColor="@color/colorPrimary"
                 android:textSize="16sp" />
 
-            <ImageView
+            <View
                 android:id="@+id/img_line"
                 android:layout_width="0.5dp"
                 android:layout_height="43dp"
@@ -66,6 +75,7 @@
 
             <Button
                 android:id="@+id/btn_pos"
+                android:text="确定"
                 style="?android:attr/borderlessButtonStyle"
                 android:layout_width="wrap_content"
                 android:layout_height="43dp"
@@ -75,6 +85,5 @@
                 android:textColor="@color/colorPrimary"
                 android:textSize="16sp" />
         </LinearLayout>
-
     </LinearLayout>
 </androidx.cardview.widget.CardView>

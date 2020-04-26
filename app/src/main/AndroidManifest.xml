@@ -28,6 +28,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:replace="android:name,android:allowBackup">
+        <activity android:name=".mvp.ui.activity.BusinessGoodsManageSortActivity" />
         <activity android:name=".mvp.ui.activity.BusinessManageCategoryActivity" />
         <activity android:name=".mvp.ui.activity.BusinessGoodsSortActivity" />
         <activity android:name=".mvp.ui.activity.BusinessGoodsCategoryActivity" />
@@ -82,8 +83,7 @@
             android:value="640" />
         <meta-data
             android:name="project.com.arms.app.GlobalConfiguration"
-            android:value="ConfigModule" />
-        <!-- 定义FileProvider -->
+            android:value="ConfigModule" /> <!-- 定义FileProvider -->
         <provider
             android:name="androidx.core.content.FileProvider"
             android:authorities="${applicationId}.fileProvider"

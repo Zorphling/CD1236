@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:padding="@dimen/dp10">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_marginBottom="@dimen/dp10"
+        android:layout_height="wrap_content">
+
+        <include layout="@layout/item_layout_business_manage_goods" />
+
+        <ImageView
+            android:id="@+id/iv_drag"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:paddingLeft="@dimen/dp15"
+            android:paddingRight="@dimen/dp25"
+            android:src="@mipmap/icon_drag" />
+    </RelativeLayout>
+
+    <include layout="@layout/layout_line" />
+</LinearLayout>

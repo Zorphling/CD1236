@@ -11,40 +11,36 @@
         android:orientation="horizontal"
         android:padding="@dimen/dp10">
 
-        <ImageView
-            android:id="@+id/iv_goods"
+        <FrameLayout
             android:layout_width="@dimen/dp50"
-            android:layout_height="@dimen/dp50"
-            android:layout_gravity="center_vertical"
-            android:src="@mipmap/logo" />
+                android:layout_gravity="center_vertical"
+            android:layout_height="@dimen/dp50">
 
-        <LinearLayout
+            <ImageView
+                android:id="@+id/iv_goods"
+                android:layout_width="@dimen/dp50"
+                android:scaleType="centerCrop"
+                android:layout_height="@dimen/dp50"
+                android:src="@mipmap/logo" />
+
+            <TextView
+                android:id="@+id/tv_iscancel"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="#8000"
+                android:gravity="center"
+                android:text="下架了"
+                android:textColor="@android:color/white"
+                android:visibility="gone" />
+        </FrameLayout>
+
+        <include
+            layout="@layout/item_layout_business_manage_goods"
             android:layout_width="@dimen/dp0"
             android:layout_height="wrap_content"
             android:layout_marginLeft="@dimen/dp10"
-            android:layout_weight="1"
-            android:orientation="vertical">
-
-            <TextView
-                android:id="@+id/tv_goods_name"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textColor="@color/goods_detail_title" />
-
-            <TextView
-                android:id="@+id/tv_sales_stock"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/dp5"
-                android:textSize="@dimen/sp12" />
-
-            <TextView
-                android:id="@+id/tv_goods_price"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/dp3"
-                android:textColor="@color/text_select_red" />
-        </LinearLayout>
+            android:layout_marginRight="@dimen/dp10"
+            android:layout_weight="1" />
 
         <TextView
             android:id="@+id/tv_goods_cancel"
@@ -53,12 +49,12 @@
             android:layout_gravity="bottom"
             android:background="@drawable/stroke_bg_business_goods_manage"
             android:foreground="?android:attr/selectableItemBackground"
-            android:paddingLeft="@dimen/dp13"
+            android:paddingLeft="@dimen/dp10"
             android:paddingTop="@dimen/dp3"
-            android:paddingRight="@dimen/dp13"
+            android:paddingRight="@dimen/dp10"
             android:paddingBottom="@dimen/dp3"
-            android:text="下架"
-            android:textColor="@color/colorPrimary" />
+            android:textColor="@color/colorPrimary"
+            android:textSize="@dimen/sp12" />
     </LinearLayout>
 
     <include layout="@layout/layout_line" />
@@ -115,8 +111,9 @@
             android:paddingBottom="@dimen/dp10"
             android:text="编辑商品" />
     </LinearLayout>
+
     <View
         android:layout_width="match_parent"
-        android:background="@color/colorGray1"
-        android:layout_height="@dimen/dp5"/>
+        android:layout_height="@dimen/dp5"
+        android:background="@color/colorGray1" />
 </LinearLayout>

@@ -4,7 +4,7 @@ import android.app.Application;
 import android.content.Context;
 
 import com.business.cd1236.bean.BusinessGoodsManageBean;
-import com.business.cd1236.mvp.contract.BusinessGoodsManageContract;
+import com.business.cd1236.mvp.contract.BusinessGoodsManageSortContract;
 import com.business.cd1236.net.BaseCallBack;
 import com.business.cd1236.net.RequestUtils;
 import com.business.cd1236.utils.GsonUtils;
@@ -22,7 +22,7 @@ import me.jessyan.rxerrorhandler.core.RxErrorHandler;
  * ================================================
  * Description:
  * <p>
- * Created by MVPArmsTemplate on 04/21/2020 15:16
+ * Created by MVPArmsTemplate on 04/26/2020 11:00
  * <a href="mailto:jess.yan.effort@gmail.com">Contact me</a>
  * <a href="https://github.com/JessYanCoding">Follow me</a>
  * <a href="https://github.com/JessYanCoding/MVPArms">Star me</a>
@@ -31,7 +31,7 @@ import me.jessyan.rxerrorhandler.core.RxErrorHandler;
  * ================================================
  */
 @ActivityScope
-public class BusinessGoodsManagePresenter extends BasePresenter<BusinessGoodsManageContract.Model, BusinessGoodsManageContract.View> {
+public class BusinessGoodsManageSortPresenter extends BasePresenter<BusinessGoodsManageSortContract.Model, BusinessGoodsManageSortContract.View> {
     @Inject
     RxErrorHandler mErrorHandler;
     @Inject
@@ -42,7 +42,7 @@ public class BusinessGoodsManagePresenter extends BasePresenter<BusinessGoodsMan
     AppManager mAppManager;
 
     @Inject
-    public BusinessGoodsManagePresenter(BusinessGoodsManageContract.Model model, BusinessGoodsManageContract.View rootView) {
+    public BusinessGoodsManageSortPresenter(BusinessGoodsManageSortContract.Model model, BusinessGoodsManageSortContract.View rootView) {
         super(model, rootView);
     }
 
@@ -54,9 +54,8 @@ public class BusinessGoodsManagePresenter extends BasePresenter<BusinessGoodsMan
         this.mImageLoader = null;
         this.mApplication = null;
     }
-
-    public void getAllGoods(String type, Context context) {
-        RequestUtils.businessGoodsManage(type, new BaseCallBack(context) {
+    public void getAllGoods(String type ,Context context) {
+        RequestUtils.businessGoodsManage(type ,new BaseCallBack(context) {
             @Override
             protected void onSuccess(String jsonString) {
                 BusinessGoodsManageBean businessGoodsManageBean = GsonUtils.parseJsonWithGson(jsonString, BusinessGoodsManageBean.class);
@@ -65,17 +64,11 @@ public class BusinessGoodsManagePresenter extends BasePresenter<BusinessGoodsMan
         });
     }
 
-    public void businessGoodsQuick(String id, String type, String name, int position, Context context) {
-        RequestUtils.businessGoodsQuick(id, type, name, new BaseCallBack(context) {
+    public void goodsSort(String type, String builder, Context context) {
+        RequestUtils.businessDisplayorder(type, builder, new BaseCallBack(context,false) {
             @Override
             protected void onSuccess(String jsonString) {
-//                mRootView.businessGoodsQuickSucc(msg);
-            }
-
-            @Override
-            protected void onSuccess(String jsonString, String msg) {
-                super.onSuccess(jsonString, msg);
-                mRootView.businessGoodsQuickSucc(type, name, msg, position);
+                mRootView.goodsSortSucc(jsonString);
             }
         });
     }

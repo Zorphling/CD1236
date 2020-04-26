@@ -1,12 +1,15 @@
 package com.business.cd1236.mvp.ui.activity;
 
+import android.animation.ValueAnimator;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -20,11 +23,14 @@ import com.business.cd1236.mvp.presenter.BusinessManageCategoryPresenter;
 import com.business.cd1236.view.dialog.AlertDialog;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.listener.OnItemChildClickListener;
+import com.chad.library.adapter.base.listener.OnItemDragListener;
 import com.chad.library.adapter.base.listener.OnItemLongClickListener;
+import com.chad.library.adapter.base.viewholder.BaseViewHolder;
 import com.jess.arms.di.component.AppComponent;
 import com.jess.arms.utils.ArmsUtils;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -50,6 +56,7 @@ public class BusinessManageCategoryActivity extends MyBaseActivity<BusinessManag
     @BindView(R.id.tv_add_category)
     TextView tvAddCategory;
     private BusinessCategoryAdapter businessCategoryAdapter;
+    private boolean isSort;
 
     @Override
     public void setupActivityComponent(@NonNull AppComponent appComponent) {
@@ -71,6 +78,24 @@ public class BusinessManageCategoryActivity extends MyBaseActivity<BusinessManag
         setHeader("管理分类");
         setRightColor(getResources().getColor(R.color.black));
         setHeaderColor(getResources().getColor(android.R.color.white), getResources().getColor(android.R.color.black), R.mipmap.arrow_left_black);
+        setRightBtn("排序", 0, v -> {
+            isSort = !isSort;
+            ((TextView) findViewById(R.id.tv_right)).setText(isSort ? "编辑" : "排序");
+            businessCategoryAdapter.getDraggableModule().setDragEnabled(isSort);
+            businessCategoryAdapter.setOnItemLongClickListener(isSort ? null : this);
+            for (BusinessCategoryBean datum : businessCategoryAdapter.getData()) {
+                datum.isDrag = isSort;
+            }
+            businessCategoryAdapter.notifyDataSetChanged();
+            if (isSort) {
+                businessCategoryAdapter.getDraggableModule().setOnItemDragListener(listener);
+                businessCategoryAdapter.getDraggableModule().getItemTouchHelperCallback().setSwipeMoveFlags(ItemTouchHelper.START | ItemTouchHelper.END);
+
+                //mAdapter.getDraggableModule().getItemTouchHelperCallback().setDragMoveFlags(ItemTouchHelper.LEFT | ItemTouchHelper.RIGHT | ItemTouchHelper.UP | ItemTouchHelper.DOWN);
+            } else {
+
+            }
+        });
         setStatusColor(mActivity, false, true, android.R.color.white);
         ArmsUtils.configRecyclerView(rvCategory, new LinearLayoutManager(mActivity));
         businessCategoryAdapter = new BusinessCategoryAdapter(R.layout.item_business_manage_category);
@@ -78,6 +103,53 @@ public class BusinessManageCategoryActivity extends MyBaseActivity<BusinessManag
         businessCategoryAdapter.setOnItemChildClickListener(this);
         businessCategoryAdapter.setOnItemLongClickListener(this);
         rvCategory.setAdapter(businessCategoryAdapter);
+    }
+
+    // 拖拽监听
+    OnItemDragListener listener = new OnItemDragListener() {
+        @Override
+        public void onItemDragStart(RecyclerView.ViewHolder viewHolder, int pos) {
+            final BaseViewHolder holder = ((BaseViewHolder) viewHolder);
+
+            // 开始时，item背景色变化，demo这里使用了一个动画渐变，使得自然
+            int startColor = Color.WHITE;
+            int endColor = Color.rgb(245, 245, 245);
+            if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.LOLLIPOP) {
+                ValueAnimator v = ValueAnimator.ofArgb(startColor, endColor);
+                v.addUpdateListener(animation -> holder.itemView.setBackgroundColor((int) animation.getAnimatedValue()));
+                v.setDuration(300);
+                v.start();
+            }
+        }
+
+        @Override
+        public void onItemDragMoving(RecyclerView.ViewHolder source, int from, RecyclerView.ViewHolder target, int to) {
+//            Log.d(TAG, "move from: " + source.getAdapterPosition() + " to: " + target.getAdapterPosition());
+        }
+
+        @Override
+        public void onItemDragEnd(RecyclerView.ViewHolder viewHolder, int pos) {
+            final BaseViewHolder holder = ((BaseViewHolder) viewHolder);
+            // 结束时，item背景色变化，demo这里使用了一个动画渐变，使得自然
+            int startColor = Color.rgb(245, 245, 245);
+            int endColor = Color.WHITE;
+            if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.LOLLIPOP) {
+                ValueAnimator v = ValueAnimator.ofArgb(startColor, endColor);
+                v.addUpdateListener(animation -> holder.itemView.setBackgroundColor((int) animation.getAnimatedValue()));
+                v.setDuration(300);
+                v.start();
+            }
+            sort();
+        }
+    };
+
+    private void sort() {
+        StringBuilder builder = new StringBuilder();
+        List<BusinessCategoryBean> data = businessCategoryAdapter.getData();
+        for (int i = 0; i < data.size(); i++) {
+            builder.append(data.get(i).id).append(",").append(i).append(";");
+        }
+        mPresenter.categorySort("category",builder.substring(0,builder.length() - 1),mActivity);
     }
 
     @Override
@@ -120,6 +192,8 @@ public class BusinessManageCategoryActivity extends MyBaseActivity<BusinessManag
 
     @Override
     public void businessCategotySucc(ArrayList<BusinessCategoryBean> businessCategoryBeans) {
+        isSort = false;
+        ((TextView) findViewById(R.id.tv_right)).setText("排序");
         businessCategoryAdapter.setList(businessCategoryBeans);
     }
 
