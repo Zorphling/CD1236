@@ -128,7 +128,11 @@ public class StoreActivity extends MyBaseActivity<StorePresenter> implements Sto
         rvCenterCategory.setHasFixedSize(true);
         storeDetailAllGoodsAdapter = new StoreDetailAllGoodsAdapter(R.layout.item_store_detail_goods);
         rvCenterCategory.setAdapter(storeDetailAllGoodsAdapter);
-
+        storeDetailAllGoodsAdapter.setOnItemClickListener((adapter, view, position) -> {
+            Intent intent = new Intent(mActivity, GoodsDetailActivity.class);
+            intent.putExtra(GoodsDetailActivity.GOODS_ID, ((StoreDetailBean.GoodSsBean) adapter.getItem(position)).id);
+            launchActivity(intent);
+        });
 
         mPresenter.getStoreDetail(ID, mActivity);
     }
@@ -169,14 +173,13 @@ public class StoreActivity extends MyBaseActivity<StorePresenter> implements Sto
             if (storeDetailBean.shop != null) {
                 GlideUtil.loadImg(storeDetailBean.shop.sign_img, ivBg);
                 GlideUtil.loadImg(storeDetailBean.shop.logo, rivStoreLogo);
-                GlideUtil.loadImg(StringUtils.equals("0", storeDetailBean.shop.jud) ? R.mipmap.icon_store_follow : R.mipmap.icon_store_disfollow, ivStoreFollow);
+                GlideUtil.loadImg(StringUtils.equals("0", storeDetailBean.shop.jud) ? R.mipmap.icon_store_disfollow : R.mipmap.icon_store_follow, ivStoreFollow);
                 tvStoreTitle.setText(storeDetailBean.shop.business_name);
                 tvStoreNotice.setText(storeDetailBean.shop.culture);
             }
             if (storeDetailBean.good_ss!=null){
                 storeDetailAllGoodsAdapter.setList(storeDetailBean.good_ss);
             }
-
             if (storeDetailBean.hot != null)
                 storeDetailBusinessRecommendAdapter.setList(storeDetailBean.hot);
         }
@@ -185,11 +188,11 @@ public class StoreActivity extends MyBaseActivity<StorePresenter> implements Sto
     @Override
     public void followStoreSucc(String msg) {//1为已关注  0为关注
         storeDetailBean.shop.jud = StringUtils.equals("0", storeDetailBean.shop.jud) ? "1" : "0";
-        GlideUtil.loadImg(StringUtils.equals("0", storeDetailBean.shop.jud) ? R.mipmap.icon_store_follow : R.mipmap.icon_store_disfollow, ivStoreFollow);
+        GlideUtil.loadImg(StringUtils.equals("0", storeDetailBean.shop.jud) ? R.mipmap.icon_store_disfollow : R.mipmap.icon_store_follow, ivStoreFollow);
         MyToastUtils.showShort(msg);
     }
 
-    @OnClick({R.id.iv_back, R.id.iv_xx, R.id.iv_search, R.id.iv_quality, R.id.ll_notice, R.id.iv_store_follow,})
+    @OnClick({R.id.iv_back, R.id.iv_xx, R.id.iv_search, R.id.iv_quality, R.id.ll_notice, R.id.iv_store_follow})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.iv_back:
@@ -199,7 +202,7 @@ public class StoreActivity extends MyBaseActivity<StorePresenter> implements Sto
             case R.id.iv_search:
                 break;
             case R.id.iv_store_follow:
-                mPresenter.followStore(storeDetailBean.shop.id, storeDetailBean.shop.jud, mActivity);
+                mPresenter.followStore(storeDetailBean.shop.id, StringUtils.equals("0", storeDetailBean.shop.jud) ? "1" : "0", mActivity);
                 break;
             case R.id.iv_quality:
                 break;

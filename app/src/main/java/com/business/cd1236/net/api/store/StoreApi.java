@@ -17,5 +17,6 @@ public interface StoreApi {
 
 
     String STORE_DETAIL = "The_store";//排序
-    String STORE_FOLLOW = "follow_add";
+    String STORE_FOLLOW_STORE = "follow_add";
+    String STORE_FOLLOW = "follow";
 }

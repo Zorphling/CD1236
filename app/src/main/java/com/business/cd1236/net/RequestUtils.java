@@ -145,6 +145,10 @@ public class RequestUtils {
     public static void followStore(String id, String type, BaseCallBack callBack) {
         RetrofitUtils.getService(StoreService.class).followStore(id, type).compose(RxHelper.observableIO2Main(callBack.mContext)).subscribe(callBack);
     }
+
+    public static void getFollowStore(BaseCallBack callBack) {
+        RetrofitUtils.getService(StoreService.class).getFollowStore().compose(RxHelper.observableIO2Main(callBack.mContext)).subscribe(callBack);
+    }
     /**
      * stroe 店铺管理  换了请求接口地址
      *

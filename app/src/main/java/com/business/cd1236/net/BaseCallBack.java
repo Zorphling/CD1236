@@ -1,9 +1,11 @@
 package com.business.cd1236.net;
 
 import android.content.Context;
+import android.content.Intent;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 
+import com.business.cd1236.mvp.ui.activity.LoginActivity;
 import com.business.cd1236.utils.LogUtils;
 import com.business.cd1236.utils.RxExceptionUtil;
 import com.business.cd1236.view.dialog.LoadingDialog;
@@ -66,6 +68,7 @@ public abstract class BaseCallBack implements Observer<ResponseBody> {
                 onSuccess(data);
                 onSuccess(data, msg);
             } else if (status == 300) {//未登录
+                mContext.startActivity(new Intent(mContext, LoginActivity.class));
                 onFailure(msg);
                 onFailure(status);
                 onFailure(msg, status);

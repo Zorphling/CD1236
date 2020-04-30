@@ -83,7 +83,9 @@ public interface StoreService {
     @GET(StoreApi.STORE_DETAIL)
     Observable<ResponseBody> getStoreDetail(@Query("id") String id);
 
-    @GET(StoreApi.STORE_FOLLOW)
+    @GET(StoreApi.STORE_FOLLOW_STORE)
     Observable<ResponseBody> followStore(@Query("id") String id, @Query("ment") String ment);//1为关注  0为取消关注
 
+    @GET(StoreApi.STORE_FOLLOW)
+    Observable<ResponseBody> getFollowStore();
 }

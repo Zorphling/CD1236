@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.business.cd1236.R;
 import com.business.cd1236.adapter.FollowStoreAdapter;
 import com.business.cd1236.base.MyBaseActivity;
+import com.business.cd1236.bean.FollowStoreBean;
 import com.business.cd1236.di.component.DaggerFollowStoreComponent;
 import com.business.cd1236.mvp.contract.FollowStoreContract;
 import com.business.cd1236.mvp.presenter.FollowStorePresenter;
@@ -19,6 +20,8 @@ import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.listener.OnItemClickListener;
 import com.jess.arms.di.component.AppComponent;
 import com.jess.arms.utils.ArmsUtils;
+
+import java.util.ArrayList;
 
 import butterknife.BindView;
 
@@ -66,6 +69,8 @@ public class FollowStoreActivity extends MyBaseActivity<FollowStorePresenter> im
         followStoreAdapter = new FollowStoreAdapter(R.layout.item_follow_store);
         rvFollowStore.setAdapter(followStoreAdapter);
         followStoreAdapter.setOnItemClickListener(this);
+
+        mPresenter.getFollowStore(mActivity);
     }
 
     @Override
@@ -97,6 +102,13 @@ public class FollowStoreActivity extends MyBaseActivity<FollowStorePresenter> im
 
     @Override
     public void onItemClick(@NonNull BaseQuickAdapter<?, ?> adapter, @NonNull View view, int position) {
+        Intent intent = new Intent(mActivity,StoreActivity.class);
+        intent.putExtra(StoreActivity.STORE_ID,((FollowStoreBean)adapter.getItem(position)).shop.id);
+        launchActivity(intent);
+    }
 
+    @Override
+    public void getFollowStoreSucc(ArrayList<FollowStoreBean> followStoreBeans) {
+        followStoreAdapter.setList(followStoreBeans);
     }
 }

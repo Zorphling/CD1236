@@ -227,8 +227,8 @@ public class GoodsDetailActivity extends MyBaseActivity<GoodsDetailPresenter> im
             banner.setAdapter(new HomeBannerAdapter(bannerBeans)).start();
         }
         goodsTitle.setText(goodsDetailBean.goods.title);
-        SpannableString spannableString = SpannableStringUtils.textColor(goodsDetailBean.goods.marketprice + "/袋",
-                mActivity.getResources().getColor(R.color.text_select_red), 0, goodsDetailBean.goods.marketprice.length());
+        SpannableString spannableString = SpannableStringUtils.textColor(getResources().getString(R.string.rmb) + goodsDetailBean.goods.marketprice + "/袋",
+                mActivity.getResources().getColor(R.color.text_select_red), 0, goodsDetailBean.goods.marketprice.length() + 1);
         tvMarketprice.setText(spannableString);
         tvSales.setText("已售" + goodsDetailBean.goods.sales);
         tvSendAddress.setText("发货 " + goodsDetailBean.goods.province + " " + goodsDetailBean.goods.city);
@@ -240,7 +240,6 @@ public class GoodsDetailActivity extends MyBaseActivity<GoodsDetailPresenter> im
         tvGoodsNum.setText("商品数量：" + goodsDetailBean.shop.number + " 关注" + goodsDetailBean.shop.follow);
 
         goodsDetailStoreAdapter.setNewInstance(goodsDetailBean.good_ss);
-
     }
 
     @Override
