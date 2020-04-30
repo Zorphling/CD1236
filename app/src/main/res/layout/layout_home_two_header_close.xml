@@ -20,7 +20,7 @@
             android:textColor="@color/goods_detail_title" />
 
         <FrameLayout
-            android:id="@+id/fl_search"
+            android:id="@+id/fl_search_close"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 

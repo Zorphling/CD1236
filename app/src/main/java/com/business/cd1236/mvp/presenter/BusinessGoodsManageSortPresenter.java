@@ -68,7 +68,13 @@ public class BusinessGoodsManageSortPresenter extends BasePresenter<BusinessGood
         RequestUtils.businessDisplayorder(type, builder, new BaseCallBack(context,false) {
             @Override
             protected void onSuccess(String jsonString) {
-                mRootView.goodsSortSucc(jsonString);
+
+            }
+
+            @Override
+            protected void onSuccess(String jsonString, String msg) {
+                super.onSuccess(jsonString, msg);
+                mRootView.goodsSortSucc(msg);
             }
         });
     }

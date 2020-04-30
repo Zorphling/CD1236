@@ -137,6 +137,14 @@ public class RequestUtils {
         RetrofitUtils.getService(GoodsService.class).search(stringExtra, page).compose(RxHelper.observableIO2Main(callBack.mContext)).subscribe(callBack);
     }
 
+    public static void getStoreDetail(String id, BaseCallBack callBack) {
+        RetrofitUtils.getService(StoreService.class).getStoreDetail(id).compose(RxHelper.observableIO2Main(callBack.mContext)).subscribe(callBack);
+
+    }
+
+    public static void followStore(String id, String type, BaseCallBack callBack) {
+        RetrofitUtils.getService(StoreService.class).followStore(id, type).compose(RxHelper.observableIO2Main(callBack.mContext)).subscribe(callBack);
+    }
     /**
      * stroe 店铺管理  换了请求接口地址
      *
@@ -173,7 +181,7 @@ public class RequestUtils {
         RetrofitUtils.getStoreService(StoreService.class).businessInfoChange_shop_logo(type, logo).compose(RxHelper.observableIO2Main(callBack.mContext)).subscribe(callBack);
     }
 
-    public static void businessGoodsManage(String type,BaseCallBack callBack) {
+    public static void businessGoodsManage(String type, BaseCallBack callBack) {
         RetrofitUtils.getStoreService(StoreService.class).businessGoodsManage(type).compose(RxHelper.observableIO2Main(callBack.mContext)).subscribe(callBack);
     }
 
@@ -181,8 +189,8 @@ public class RequestUtils {
         RetrofitUtils.getStoreService(StoreService.class).businessGoodsShow().compose(RxHelper.observableIO2Main(callBack.mContext)).subscribe(callBack);
     }
 
-    public static void businessAddGoods(String id,String typeId, String brandId, String categoryId, String editText, String editText1, String editText2, String editText3, String editText4, String formatId, String s, String s1, String editText5, String editText6, String editText7, String editText8, String s2, BaseCallBack callBack) {
-        RetrofitUtils.getStoreService(StoreService.class).businessAddGoods(id ,typeId, brandId, categoryId, editText, editText1, editText2, editText3, editText4, formatId, s, s1, editText5, editText6, editText7, editText8, s2).compose(RxHelper.observableIO2Main(callBack.mContext)).subscribe(callBack);
+    public static void businessAddGoods(String id, String typeId, String brandId, String categoryId, String editText, String editText1, String editText2, String editText3, String editText4, String formatId, String s, String s1, String editText5, String editText6, String editText7, String editText8, String s2, BaseCallBack callBack) {
+        RetrofitUtils.getStoreService(StoreService.class).businessAddGoods(id, typeId, brandId, categoryId, editText, editText1, editText2, editText3, editText4, formatId, s, s1, editText5, editText6, editText7, editText8, s2).compose(RxHelper.observableIO2Main(callBack.mContext)).subscribe(callBack);
     }
 
     public static void businessGoodsDelete(String id, BaseCallBack callBack) {
@@ -205,7 +213,7 @@ public class RequestUtils {
         RetrofitUtils.getStoreService(StoreService.class).businessCategotyDelete(id).compose(RxHelper.observableIO2Main(callBack.mContext)).subscribe(callBack);
     }
 
-    public static void businessDisplayorder(String type,String builder, BaseCallBack callBack) {
-        RetrofitUtils.getStoreService(StoreService.class).businessDisplayorder(type,builder).compose(RxHelper.observableIO2Main(callBack.mContext)).subscribe(callBack);
+    public static void businessDisplayorder(String type, String builder, BaseCallBack callBack) {
+        RetrofitUtils.getStoreService(StoreService.class).businessDisplayorder(type, builder).compose(RxHelper.observableIO2Main(callBack.mContext)).subscribe(callBack);
     }
 }

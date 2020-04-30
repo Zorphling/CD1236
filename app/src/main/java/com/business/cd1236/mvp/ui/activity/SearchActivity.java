@@ -62,7 +62,7 @@ public class SearchActivity extends MyBaseActivity<SearchPresenter> implements S
     RecyclerView rvHotSearch;
     @BindView(R.id.rv_search_history)
     RecyclerView rvSearchHistory;
-    private String[] hotSearch = new String[]{"中盐", "盐", "中盐中盐", "中盐中", "中盐中盐中盐", "中盐", "中盐中盐", "盐", "中盐", "盐", "中盐中盐", "中盐中", "中盐中盐中盐", "中盐", "中盐中盐", "盐", "中盐", "盐", "中盐中盐", "中盐中", "中盐中盐中盐", "中盐", "中盐中盐", "盐"};
+    private String[] hotSearch = new String[]{"盐", "中盐", "山东盐业", "天然", "深井盐", "海盐", "海天", "航天", "湘盐", "粤盐", "淮盐", "川盐", "奉盐"};
     private SearchHistoryAdapter searchHistoryAdapter;
     private DaoSession daoSession;
 
@@ -102,7 +102,9 @@ public class SearchActivity extends MyBaseActivity<SearchPresenter> implements S
         hotSearchAdapter.setList(Arrays.asList(hotSearch));
         hotSearchAdapter.addChildClickViewIds(R.id.tv_text);
         hotSearchAdapter.setOnItemChildClickListener((adapter, view, position) -> {
-            ArmsUtils.snackbarText(((TextView) view).getText().toString());
+            Intent intent = new Intent(mActivity,CategoryActivity.class);
+            intent.putExtra(CategoryActivity.SEARCH_STRING,((TextView) view).getText().toString());
+            launchActivity(intent);
         });
 
 
@@ -114,7 +116,7 @@ public class SearchActivity extends MyBaseActivity<SearchPresenter> implements S
             adapter.remove(position);
         });
         searchHistoryAdapter.setOnItemClickListener((adapter, view, position) -> {
-            startSearching(((SearchHistoryBean)adapter.getData().get(position)).getText());
+            startSearching(((SearchHistoryBean) adapter.getData().get(position)).getText());
         });
         rvSearchHistory.setAdapter(searchHistoryAdapter);
 

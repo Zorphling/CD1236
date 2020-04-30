@@ -25,6 +25,7 @@ import com.business.cd1236.di.component.DaggerHomeTwoComponent;
 import com.business.cd1236.mvp.contract.HomeTwoContract;
 import com.business.cd1236.mvp.presenter.HomeTwoPresenter;
 import com.business.cd1236.mvp.ui.activity.SearchActivity;
+import com.business.cd1236.mvp.ui.activity.StoreActivity;
 import com.business.cd1236.utils.SizeUtils;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.listener.OnItemClickListener;
@@ -77,6 +78,10 @@ public class HomeTwoFragment extends MyBaseFragment<HomeTwoPresenter> implements
     TextView tvLocation;
     @BindView(R.id.ll_search)
     LinearLayout llSearch;
+    @BindView(R.id.fl_search)
+    FrameLayout flSearch;
+    @BindView(R.id.fl_search_close)
+    FrameLayout flSearchClose;
     private HomeTwoStoreAdapter homeTwoStoreAdapter;
     private ArrayList<CheckedTextView> tvs = new ArrayList<>();
 
@@ -109,6 +114,12 @@ public class HomeTwoFragment extends MyBaseFragment<HomeTwoPresenter> implements
         int dp = SizeUtils.dp2px(mActivity, 10);
 //        rvContent.addItemDecoration(new SpaceItemDecoration(0, dp, SpaceItemDecoration.TYPE.LEFT));
         homeTwoStoreAdapter = new HomeTwoStoreAdapter(R.layout.item_home_two_store);
+        homeTwoStoreAdapter.addChildClickViewIds(R.id.ll_into_store,R.id.tv_into_store);
+        homeTwoStoreAdapter.setOnItemChildClickListener((adapter, view, position) -> {
+            Intent intent = new Intent(mActivity, StoreActivity.class);
+            intent.putExtra(StoreActivity.STORE_ID,((MoreBean.LocalizeSBean)adapter.getItem(position)).id);
+            launchActivity(intent);
+        });
         rvContent.setAdapter(homeTwoStoreAdapter);
         homeTwoStoreAdapter.setOnItemClickListener(this);
 
@@ -232,10 +243,10 @@ public class HomeTwoFragment extends MyBaseFragment<HomeTwoPresenter> implements
 
     @Override
     public void setMore(MoreBean moreBean) {
-        homeTwoStoreAdapter.setNewInstance(moreBean.localize_s);
+        homeTwoStoreAdapter.setList(moreBean.localize_s);
     }
 
-    @OnClick({R.id.tv_1, R.id.tv_2, R.id.tv_3, R.id.tv_location, R.id.ll_search, R.id.fl_search})
+    @OnClick({R.id.tv_1, R.id.tv_2, R.id.tv_3, R.id.tv_location, R.id.ll_search, R.id.fl_search, R.id.fl_search_close})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.tv_1:
@@ -251,6 +262,7 @@ public class HomeTwoFragment extends MyBaseFragment<HomeTwoPresenter> implements
                 break;
             case R.id.ll_search:
             case R.id.fl_search:
+            case R.id.fl_search_close:
                 launchActivity(new Intent(mActivity, SearchActivity.class));
                 break;
         }

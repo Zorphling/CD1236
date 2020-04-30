@@ -50,7 +50,7 @@ public interface StoreService {
     Observable<ResponseBody> businessInfoChange_shop_logo(@Query("type") String type, @Query("logo") String logo);
 
     @GET(StoreApi.BUSINESS_GOODS)
-    Observable<ResponseBody> businessGoodsManage(@Query("type")String type);
+    Observable<ResponseBody> businessGoodsManage(@Query("type") String type);
 
     @GET(StoreApi.BUSINESS_GOODS_SHOW)
     Observable<ResponseBody> businessGoodsShow();
@@ -79,4 +79,11 @@ public interface StoreService {
 
     @GET(StoreApi.BUSINESS_DISPLAYORDER)
     Observable<ResponseBody> businessDisplayorder(@Query("type") String type, @Query("row") String row);
+
+    @GET(StoreApi.STORE_DETAIL)
+    Observable<ResponseBody> getStoreDetail(@Query("id") String id);
+
+    @GET(StoreApi.STORE_FOLLOW)
+    Observable<ResponseBody> followStore(@Query("id") String id, @Query("ment") String ment);//1为关注  0为取消关注
+
 }

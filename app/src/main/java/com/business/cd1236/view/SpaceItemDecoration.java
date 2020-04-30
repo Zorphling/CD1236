@@ -5,16 +5,16 @@ import android.view.View;
 
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.business.cd1236.utils.LogUtils;
-
 public class SpaceItemDecoration extends RecyclerView.ItemDecoration {
 
-    private final int normal;
-    private final int margin;
-    private final TYPE type;
+    private int normal;
+    private int margin;
+    private int leftMargin1;
+    private int leftMargin2;
+    private TYPE type;
 
     public enum TYPE {
-        LEFT, ALL, TOP, BOTTOM, GRID;
+        LEFT, ALL, TOP, BOTTOM, GRID, CUSTOM;
     }
 
     @Override
@@ -42,7 +42,6 @@ public class SpaceItemDecoration extends RecyclerView.ItemDecoration {
                 outRect.bottom = normal;
                 outRect.left = normal;
                 outRect.right = normal;
-                LogUtils.e(parent.getChildLayoutPosition(view)+" ------ "+parent.getChildCount());
                 if (parent.getChildLayoutPosition(view) == parent.getAdapter().getItemCount() - 1)
                     outRect.bottom = margin;
                 break;
@@ -61,6 +60,15 @@ public class SpaceItemDecoration extends RecyclerView.ItemDecoration {
 //                if (parent.getChildLayoutPosition(view) % 3 == 0) {
 //                    outRect.left = 0;
 //                }
+                break;
+            case CUSTOM:
+                outRect.top = normal;
+                outRect.bottom = normal;
+                if (parent.getChildLayoutPosition(view) == 0) {
+                    outRect.left = leftMargin1;
+                } else {
+                    outRect.left = leftMargin2;
+                }
                 break;
         }
 
@@ -81,6 +89,13 @@ public class SpaceItemDecoration extends RecyclerView.ItemDecoration {
     public SpaceItemDecoration(int normal, int margin, TYPE type) {
         this.normal = normal;
         this.margin = margin;
+        this.type = type;
+    }
+
+    public SpaceItemDecoration(int normal, int leftMargin1, int leftMargin2, TYPE type) {
+        this.normal = normal;
+        this.leftMargin1 = leftMargin1;
+        this.leftMargin2 = leftMargin2;
         this.type = type;
     }
 }

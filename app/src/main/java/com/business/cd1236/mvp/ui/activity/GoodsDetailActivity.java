@@ -171,6 +171,7 @@ public class GoodsDetailActivity extends MyBaseActivity<GoodsDetailPresenter> im
 
     @OnClick({R.id.iv_back, R.id.tv_search, R.id.iv_collect, R.id.iv_cart, R.id.iv_home, R.id.rl_appraise, R.id.tv_go_store})
     public void onViewClicked(View view) {
+        Intent intent = new Intent();
         switch (view.getId()) {
             case R.id.iv_back:
                 killMyself();
@@ -184,7 +185,7 @@ public class GoodsDetailActivity extends MyBaseActivity<GoodsDetailPresenter> im
             case R.id.iv_cart:
                 break;
             case R.id.iv_home:
-                Intent intent = new Intent(mActivity, MainActivity.class);
+                intent.setClass(mActivity, MainActivity.class);
                 intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 launchActivity(intent);
                 killMyself();
@@ -193,7 +194,9 @@ public class GoodsDetailActivity extends MyBaseActivity<GoodsDetailPresenter> im
 
                 break;
             case R.id.tv_go_store:
-
+                intent.setClass(mActivity, StoreActivity.class);
+                intent.putExtra(StoreActivity.STORE_ID, goodsDetailBean.shop.id);
+                launchActivity(intent);
                 break;
         }
     }
