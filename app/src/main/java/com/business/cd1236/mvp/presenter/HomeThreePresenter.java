@@ -1,12 +1,19 @@
 package com.business.cd1236.mvp.presenter;
 
 import android.app.Application;
+import android.content.Context;
 
+import com.business.cd1236.bean.ShoppingCarBean;
 import com.business.cd1236.mvp.contract.HomeThreeContract;
+import com.business.cd1236.net.BaseCallBack;
+import com.business.cd1236.net.RequestUtils;
+import com.business.cd1236.utils.GsonUtils;
 import com.jess.arms.di.scope.FragmentScope;
 import com.jess.arms.http.imageloader.ImageLoader;
 import com.jess.arms.integration.AppManager;
 import com.jess.arms.mvp.BasePresenter;
+
+import java.util.ArrayList;
 
 import javax.inject.Inject;
 
@@ -48,5 +55,24 @@ public class HomeThreePresenter extends BasePresenter<HomeThreeContract.Model, H
         this.mAppManager = null;
         this.mImageLoader = null;
         this.mApplication = null;
+    }
+
+    public void getShoppingCar(Context context, boolean showDialog) {
+        RequestUtils.getShopping(new BaseCallBack(context, showDialog) {
+            @Override
+            protected void onSuccess(String jsonString) {
+                ArrayList<ShoppingCarBean> shoppingCarBeans = GsonUtils.parseJsonArrayWithGson(jsonString, ShoppingCarBean.class);
+                mRootView.getShoppingSucc(shoppingCarBeans);
+            }
+        });
+    }
+
+    public void changeCarNum(String carId, String total, Context context) {
+        RequestUtils.shopping_xg(carId, total, new BaseCallBack(context) {
+            @Override
+            protected void onSuccess(String jsonString) {
+
+            }
+        });
     }
 }

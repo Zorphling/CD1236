@@ -33,4 +33,17 @@ public interface GoodsService {
 
     @GET(GoodsApi.SEARCH)
     Observable<ResponseBody> search(@Query("name") String name, @Query("db") int page);
+
+    @GET(GoodsApi.ADD_SHOPPING)
+    Observable<ResponseBody> add_shopping(@Query("goodsid") String goodsid, @Query("total") String total
+            , @Query("marketprice") String marketprice, @Query("shop_id") String shop_id);
+
+    @GET(GoodsApi.SHOPPING_CAR)
+    Observable<ResponseBody> getShopping();
+
+    @GET(GoodsApi.SHOPPING_XG)
+    Observable<ResponseBody> shopping_xg(@Query("id") String id, @Query("total") String total);
+
+    @GET(GoodsApi.SHOPPING_DELETE)
+    Observable<ResponseBody> shopping_delete(@Query("id") String carId);
 }

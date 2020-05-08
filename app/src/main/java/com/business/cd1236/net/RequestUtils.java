@@ -137,6 +137,22 @@ public class RequestUtils {
         RetrofitUtils.getService(GoodsService.class).search(stringExtra, page).compose(RxHelper.observableIO2Main(callBack.mContext)).subscribe(callBack);
     }
 
+    public static void add_shopping(String goodsid, String total, String marketprice, String shop_id, BaseCallBack callBack) {
+        RetrofitUtils.getService(GoodsService.class).add_shopping(goodsid, total, marketprice, shop_id).compose(RxHelper.observableIO2Main(callBack.mContext)).subscribe(callBack);
+    }
+
+    public static void getShopping(BaseCallBack callBack) {
+        RetrofitUtils.getService(GoodsService.class).getShopping().compose(RxHelper.observableIO2Main(callBack.mContext)).subscribe(callBack);
+    }
+
+    public static void shopping_xg(String id ,String total,BaseCallBack callBack) {
+        RetrofitUtils.getService(GoodsService.class).shopping_xg(id,total).compose(RxHelper.observableIO2Main(callBack.mContext)).subscribe(callBack);
+    }
+
+    public static void shopping_delete(String carId ,BaseCallBack callBack) {
+        RetrofitUtils.getService(GoodsService.class).shopping_delete(carId).compose(RxHelper.observableIO2Main(callBack.mContext)).subscribe(callBack);
+    }
+
     public static void getStoreDetail(String id, BaseCallBack callBack) {
         RetrofitUtils.getService(StoreService.class).getStoreDetail(id).compose(RxHelper.observableIO2Main(callBack.mContext)).subscribe(callBack);
 
@@ -149,6 +165,7 @@ public class RequestUtils {
     public static void getFollowStore(BaseCallBack callBack) {
         RetrofitUtils.getService(StoreService.class).getFollowStore().compose(RxHelper.observableIO2Main(callBack.mContext)).subscribe(callBack);
     }
+
     /**
      * stroe 店铺管理  换了请求接口地址
      *

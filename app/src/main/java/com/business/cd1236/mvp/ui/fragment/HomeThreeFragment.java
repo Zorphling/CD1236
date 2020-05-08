@@ -16,11 +16,15 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.business.cd1236.R;
 import com.business.cd1236.adapter.HomeThreeAdapter;
 import com.business.cd1236.base.MyBaseFragment;
+import com.business.cd1236.bean.ShoppingCarBean;
 import com.business.cd1236.di.component.DaggerHomeThreeComponent;
 import com.business.cd1236.mvp.contract.HomeThreeContract;
 import com.business.cd1236.mvp.presenter.HomeThreePresenter;
+import com.business.cd1236.mvp.ui.activity.StoreActivity;
 import com.business.cd1236.utils.SizeUtils;
 import com.business.cd1236.view.SpaceItemDecoration;
+import com.chad.library.adapter.base.BaseQuickAdapter;
+import com.chad.library.adapter.base.listener.OnItemChildClickListener;
 import com.jess.arms.di.component.AppComponent;
 import com.jess.arms.utils.ArmsUtils;
 
@@ -44,7 +48,7 @@ import static com.jess.arms.utils.Preconditions.checkNotNull;
  * <a href="https://github.com/JessYanCoding/MVPArmsTemplate">模版请保持更新</a>
  * ================================================
  */
-public class HomeThreeFragment extends MyBaseFragment<HomeThreePresenter> implements HomeThreeContract.View {
+public class HomeThreeFragment extends MyBaseFragment<HomeThreePresenter> implements HomeThreeContract.View, OnItemChildClickListener, HomeThreeAdapter.OnChangeCarNumListener {
 
     @BindView(R.id.rv_home_three)
     RecyclerView rvHomeThree;
@@ -79,13 +83,28 @@ public class HomeThreeFragment extends MyBaseFragment<HomeThreePresenter> implem
         ArmsUtils.configRecyclerView(rvHomeThree, new LinearLayoutManager(mContext, LinearLayoutManager.VERTICAL, false));
         int dp = SizeUtils.dp2px(mActivity, 10);
         rvHomeThree.addItemDecoration(new SpaceItemDecoration(0, dp, SpaceItemDecoration.TYPE.TOP));
-        homeThreeAdapter = new HomeThreeAdapter(R.layout.item_home_three);
+        homeThreeAdapter = new HomeThreeAdapter(R.layout.item_home_three, this);
+        View emptyView = View.inflate(mActivity, R.layout.layout_rv_empty, null);
+        ((TextView) emptyView.findViewById(R.id.tv)).setText("快去添加商品吧～");
+        homeThreeAdapter.setEmptyView(emptyView);
+        homeThreeAdapter.addChildClickViewIds(R.id.tv_store_title, R.id.tv_pay);
+        homeThreeAdapter.setOnItemChildClickListener(this);
         rvHomeThree.setAdapter(homeThreeAdapter);
-        ArrayList<Object> objects = new ArrayList<>();
-        for (int i = 0; i < 10; i++) {
-            objects.add(i);
+
+        mPresenter.getShoppingCar(mActivity, true);
+    }
+
+    @Override
+    public void onHiddenChanged(boolean hidden) {
+        super.onHiddenChanged(hidden);
+        if (!hidden && mPresenter != null) {
+            mPresenter.getShoppingCar(mActivity, false);
         }
-        homeThreeAdapter.setNewInstance(objects);
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
     }
 
     /**
@@ -157,7 +176,37 @@ public class HomeThreeFragment extends MyBaseFragment<HomeThreePresenter> implem
     }
 
     @OnClick(R.id.tv_right)
-    public void onViewClicked() {
+    public void onViewClicked(View v) {
+        switch (v.getId()) {
+            case R.id.tv_right:
+                break;
+        }
+    }
 
+    @Override
+    public void getShoppingSucc(ArrayList<ShoppingCarBean> shoppingCarBeans) {
+        if (shoppingCarBeans != null && shoppingCarBeans.size() > 0) {
+            homeThreeAdapter.setList(shoppingCarBeans);
+        }
+    }
+
+    @Override
+    public void onItemChildClick(@NonNull BaseQuickAdapter adapter, @NonNull View view, int position) {
+        ShoppingCarBean shoppingCarBean = (ShoppingCarBean) adapter.getItem(position);
+        switch (view.getId()) {
+            case R.id.tv_store_title:
+                Intent intent = new Intent(mActivity, StoreActivity.class);
+                intent.putExtra(StoreActivity.STORE_ID, shoppingCarBean.id);
+                launchActivity(intent);
+                break;
+            case R.id.tv_pay:
+                ArmsUtils.snackbarText("结算");
+                break;
+        }
+    }
+
+    @Override
+    public void changeCarNum(String carId, String total) {
+        mPresenter.changeCarNum(carId, total, mActivity);
     }
 }

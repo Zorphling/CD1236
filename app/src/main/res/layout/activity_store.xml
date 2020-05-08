@@ -13,13 +13,12 @@
         android:layout_height="wrap_content"
         android:scaleType="fitXY" />
 
-
-    <androidx.core.widget.NestedScrollView
+    <com.business.cd1236.view.ObservableScrollView
         android:id="@+id/scroll_need_offset"
         android:layout_width="match_parent"
-        android:scrollbars="none"
-        android:overScrollMode="never"
         android:layout_height="match_parent"
+        android:overScrollMode="never"
+        android:scrollbars="none"
         android:visibility="visible">
 
         <FrameLayout
@@ -227,10 +226,10 @@
                     <androidx.recyclerview.widget.RecyclerView
                         android:id="@+id/rv_center_category"
                         android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
                         android:overScrollMode="never"
                         android:paddingLeft="@dimen/dp20"
-                        android:paddingRight="@dimen/dp20"
-                        android:layout_height="wrap_content"/>
+                        android:paddingRight="@dimen/dp20" />
                 </LinearLayout>
             </LinearLayout>
 
@@ -251,19 +250,17 @@
 
             </androidx.cardview.widget.CardView>
         </FrameLayout>
-    </androidx.core.widget.NestedScrollView>
+    </com.business.cd1236.view.ObservableScrollView>
 
     <RelativeLayout
         android:id="@+id/rl_need_offset"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/dp45"
-        android:layout_marginTop="@dimen/dp20">
+        android:layout_height="@dimen/dp65">
 
         <ImageView
             android:id="@+id/iv_back"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:layout_centerVertical="true"
             android:padding="@dimen/dp10"
             android:src="@mipmap/arrow_left_white" />
 
@@ -272,7 +269,6 @@
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_alignParentRight="true"
-            android:layout_centerVertical="true"
             android:padding="@dimen/dp10"
             android:src="@mipmap/icon_wrong_white" />
 
@@ -280,9 +276,18 @@
             android:id="@+id/iv_search"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:layout_centerVertical="true"
             android:layout_toLeftOf="@id/iv_xx"
             android:padding="@dimen/dp10"
             android:src="@mipmap/icon_store_category_search" />
+
+        <com.makeramen.roundedimageview.RoundedImageView
+            android:id="@+id/riv_title_store_logo"
+            android:layout_alignParentBottom="true"
+            android:padding="@dimen/dp10"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_centerInParent="true"
+            android:visibility="gone" />
     </RelativeLayout>
+
 </RelativeLayout>

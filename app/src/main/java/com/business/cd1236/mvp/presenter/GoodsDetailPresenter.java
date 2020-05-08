@@ -68,18 +68,38 @@ public class GoodsDetailPresenter extends BasePresenter<GoodsDetailContract.Mode
             @Override
             protected void onFailure(String errorMsg, int status) {
                 super.onFailure(errorMsg, status);
-                if (StringUtils.checkString(errorMsg)){
+                if (StringUtils.checkString(errorMsg)) {
                     ArmsUtils.snackbarText(errorMsg);
                 }
             }
         });
     }
 
-    public void addCollect(String id,String ment,Context context) {
-        RequestUtils.addCollect(id,ment, new BaseCallBack(context) {
+    public void addCollect(String id, String ment, Context context) {
+        RequestUtils.addCollect(id, ment, new BaseCallBack(context) {
             @Override
             protected void onSuccess(String jsonString) {
-                mRootView.setCollectSuccess();
+            }
+
+            @Override
+            protected void onSuccess(String jsonString, String msg) {
+                super.onSuccess(jsonString, msg);
+                mRootView.setCollectSuccess(msg);
+            }
+        });
+    }
+
+    public void addShopping(String goodsid , String total, String marketprice, String shop_id, Context context) {
+        RequestUtils.add_shopping(goodsid, total, marketprice, shop_id, new BaseCallBack(context) {
+            @Override
+            protected void onSuccess(String jsonString) {
+
+            }
+
+            @Override
+            protected void onSuccess(String jsonString, String msg) {
+                super.onSuccess(jsonString, msg);
+                mRootView.addShoppingSucc(msg);
             }
         });
     }

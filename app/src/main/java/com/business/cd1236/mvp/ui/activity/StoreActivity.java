@@ -1,8 +1,11 @@
 package com.business.cd1236.mvp.ui.activity;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
+import android.view.ViewGroup;
+import android.view.ViewTreeObserver;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
@@ -10,7 +13,6 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.core.widget.NestedScrollView;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -24,9 +26,11 @@ import com.business.cd1236.di.component.DaggerStoreComponent;
 import com.business.cd1236.mvp.contract.StoreContract;
 import com.business.cd1236.mvp.presenter.StorePresenter;
 import com.business.cd1236.utils.GlideUtil;
+import com.business.cd1236.utils.LogUtils;
 import com.business.cd1236.utils.MyToastUtils;
 import com.business.cd1236.utils.SizeUtils;
 import com.business.cd1236.utils.StringUtils;
+import com.business.cd1236.view.ObservableScrollView;
 import com.business.cd1236.view.SpaceItemDecoration;
 import com.jaeger.library.StatusBarUtil;
 import com.jess.arms.di.component.AppComponent;
@@ -51,11 +55,11 @@ import static com.jess.arms.utils.Preconditions.checkNotNull;
  * <a href="https://github.com/JessYanCoding/MVPArmsTemplate">模版请保持更新</a>
  * ================================================
  */
-public class StoreActivity extends MyBaseActivity<StorePresenter> implements StoreContract.View {
+public class StoreActivity extends MyBaseActivity<StorePresenter> implements StoreContract.View, ObservableScrollView.ScrollViewListener {
     @BindView(R.id.rl_root)
     RelativeLayout rlRoot;
     @BindView(R.id.scroll_need_offset)
-    NestedScrollView scrollView;
+    ObservableScrollView scrollView;
     @BindView(R.id.rl_need_offset)
     RelativeLayout rlNeedOffset;
     @BindView(R.id.iv_bg)
@@ -72,6 +76,8 @@ public class StoreActivity extends MyBaseActivity<StorePresenter> implements Sto
     TextView tvStoreNotice;
     @BindView(R.id.riv_store_logo)
     RoundedImageView rivStoreLogo;
+    @BindView(R.id.riv_title_store_logo)
+    RoundedImageView rivTitleStoreLogo;
     @BindView(R.id.iv_quality)
     ImageView ivQuality;
     @BindView(R.id.ll_notice)
@@ -88,6 +94,7 @@ public class StoreActivity extends MyBaseActivity<StorePresenter> implements Sto
     private String ID;
     private StoreDetailBusinessRecommendAdapter storeDetailBusinessRecommendAdapter;
     private StoreDetailAllGoodsAdapter storeDetailAllGoodsAdapter;
+    private int imageHeight;
 
     @Override
     public void setupActivityComponent(@NonNull AppComponent appComponent) {
@@ -106,7 +113,7 @@ public class StoreActivity extends MyBaseActivity<StorePresenter> implements Sto
 
     @Override
     public void initData(@Nullable Bundle savedInstanceState) {
-        StatusBarUtil.setTranslucentForImageView(this,0, null);
+        StatusBarUtil.setTranslucentForImageView(this, 0, null);
 //        StatusBarUtil.setTranslucentForImageView(this,0, scrollView);
         ID = getIntent().getStringExtra(STORE_ID);
 
@@ -122,7 +129,7 @@ public class StoreActivity extends MyBaseActivity<StorePresenter> implements Sto
             launchActivity(intent);
         });
 
-        ArmsUtils.configRecyclerView(rvCenterCategory,new GridLayoutManager(mActivity,3));
+        ArmsUtils.configRecyclerView(rvCenterCategory, new GridLayoutManager(mActivity, 3));
         rvCenterCategory.addItemDecoration(new SpaceItemDecoration(0, SizeUtils.dp2px(mActivity, 10), SpaceItemDecoration.TYPE.ALL));
         rvCenterCategory.setNestedScrollingEnabled(false);
         rvCenterCategory.setHasFixedSize(true);
@@ -135,6 +142,26 @@ public class StoreActivity extends MyBaseActivity<StorePresenter> implements Sto
         });
 
         mPresenter.getStoreDetail(ID, mActivity);
+
+        int statusBarHeight = SizeUtils.getStatusBarHeight(mActivity);
+        LogUtils.e("StoreActivity --- statusBarHeight === " + SizeUtils.px2dp(mActivity,statusBarHeight));
+
+        rlNeedOffset.setPadding(0, statusBarHeight, 0, 0);
+        ViewGroup.LayoutParams layoutParams = rlNeedOffset.getLayoutParams();
+        layoutParams.height = statusBarHeight + SizeUtils.dp2px(mActivity, 45);
+        LogUtils.e("StoreActivity --- rlNeedOffsetHeight === " + SizeUtils.px2dp(mActivity,layoutParams.height));
+        rlNeedOffset.setLayoutParams(layoutParams);
+        ViewTreeObserver viewTreeObserver = ivBg.getViewTreeObserver();
+        viewTreeObserver.addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
+            @Override
+            public void onGlobalLayout() {
+                ivBg.getViewTreeObserver().removeOnGlobalLayoutListener(this);
+                imageHeight = ivBg.getHeight();
+                LogUtils.e("StoreActivity --- imageHeight === " + SizeUtils.px2dp(mActivity,imageHeight));
+
+                scrollView.setScrollViewListener(StoreActivity.this);
+            }
+        });
     }
 
     @Override
@@ -173,11 +200,12 @@ public class StoreActivity extends MyBaseActivity<StorePresenter> implements Sto
             if (storeDetailBean.shop != null) {
                 GlideUtil.loadImg(storeDetailBean.shop.sign_img, ivBg);
                 GlideUtil.loadImg(storeDetailBean.shop.logo, rivStoreLogo);
+                GlideUtil.loadImg(storeDetailBean.shop.logo, rivTitleStoreLogo);
                 GlideUtil.loadImg(StringUtils.equals("0", storeDetailBean.shop.jud) ? R.mipmap.icon_store_disfollow : R.mipmap.icon_store_follow, ivStoreFollow);
                 tvStoreTitle.setText(storeDetailBean.shop.business_name);
                 tvStoreNotice.setText(storeDetailBean.shop.culture);
             }
-            if (storeDetailBean.good_ss!=null){
+            if (storeDetailBean.good_ss != null) {
                 storeDetailAllGoodsAdapter.setList(storeDetailBean.good_ss);
             }
             if (storeDetailBean.hot != null)
@@ -209,5 +237,32 @@ public class StoreActivity extends MyBaseActivity<StorePresenter> implements Sto
             case R.id.ll_notice:
                 break;
         }
+    }
+
+    @Override
+    public void onScrollChanged(ObservableScrollView scrollView, int x, int y, int oldx, int oldy) {
+        if (y <= 0) {
+            rlNeedOffset.setBackgroundColor(Color.argb((int) 0, 255, 255, 255));//AGB由相关工具获得，或者美工提供
+            StatusBarUtil.setDarkMode(mActivity);
+            rivTitleStoreLogo.setVisibility(View.GONE);
+        } else if (y > 0 && y <= 100) {
+            float scale = (float) y / 100;
+            float alpha = (255 * scale);
+            // 只是layout背景透明(仿知乎滑动效果)
+            rlNeedOffset.setBackgroundColor(Color.argb((int) alpha, 222, 223, 225));
+            StatusBarUtil.setLightMode(mActivity);
+            rivTitleStoreLogo.setVisibility(View.VISIBLE);
+            rivTitleStoreLogo.setImageAlpha((int) alpha);
+        } else {
+            rlNeedOffset.setBackgroundColor(Color.argb((int) 255, 222, 223, 225));
+            rivTitleStoreLogo.setVisibility(View.VISIBLE);
+            rivTitleStoreLogo.setImageAlpha(255);
+        }
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        LogUtils.e(getClass().getSimpleName() + " ======== onDestroy");
     }
 }

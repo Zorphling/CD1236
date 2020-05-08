@@ -61,6 +61,7 @@ public class ItemView extends LinearLayout {
         TypedArray typedArray = getContext().obtainStyledAttributes(attrs, R.styleable.P_ItemView);
         tv_title.setText(typedArray.getString(R.styleable.P_ItemView_title));
         tv_title.setTextColor(typedArray.getColor(R.styleable.P_ItemView_titleColor, getResources().getColor(android.R.color.black)));
+        tv_subTitle.setText(typedArray.getString(R.styleable.P_ItemView_subTitle));
         imageView.setVisibility(typedArray.getInteger(R.styleable.P_ItemView_isVisible, GONE));
         imageView.setImageDrawable(typedArray.getDrawable(R.styleable.P_ItemView_drawable));
 

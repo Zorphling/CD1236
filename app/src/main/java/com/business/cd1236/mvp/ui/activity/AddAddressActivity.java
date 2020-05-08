@@ -94,7 +94,7 @@ public class AddAddressActivity extends MyBaseActivity<AddAddressPresenter> impl
         setHeaderColor(getResources().getColor(android.R.color.white), getResources().getColor(android.R.color.black), R.mipmap.arrow_left_black);
         setStatusColor(mActivity, false, true, android.R.color.white);
 
-        bean = (AddAddressBean) getIntent().getSerializableExtra(EDIT);
+        bean = (AddAddressBean) getIntent().getParcelableExtra(EDIT);
         if (bean != null) {
             isEdit = true;
             etName.setText(bean.realname);

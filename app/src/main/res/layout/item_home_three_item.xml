@@ -24,12 +24,13 @@
                 android:drawableLeft="@drawable/selector_cart_checkbox"
                 android:padding="@dimen/dp10"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
+                android:layout_height="match_parent" />
 
             <com.makeramen.roundedimageview.RoundedImageView
                 android:id="@+id/riv_item_src"
                 android:layout_width="@dimen/dp60"
                 android:layout_height="@dimen/dp60"
+                android:background="@android:color/white"
                 android:src="@mipmap/logo"
                 app:riv_corner_radius="@dimen/dp5" />
 
@@ -44,26 +45,26 @@
             android:orientation="vertical">
 
             <TextView
+                android:id="@+id/tv_goods_title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="top"
-                android:text="中盐精致加碘食用盐 350g"
                 android:textColor="@color/goods_detail_title" />
 
             <TextView
+                android:id="@+id/tv_goods_subtitle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:background="@color/colorGray_line"
                 android:padding="@dimen/dp3"
                 android:visibility="gone"
-                android:text="中盐精致加碘食用盐18箱"
                 android:textSize="@dimen/sp12" />
         </LinearLayout>
 
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/dp10"
+            android:layout_marginTop="@dimen/dp20"
             android:layout_below="@id/ll_right"
             android:layout_marginLeft="@dimen/dp10"
             android:layout_marginRight="@dimen/dp10"
@@ -71,11 +72,11 @@
 
 
             <TextView
+                android:id="@+id/tv_goods_price"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentLeft="true"
                 android:layout_centerVertical="true"
-                android:text="￥ 10086"
                 android:textColor="@color/text_select_red"
                 android:textSize="@dimen/sp13" />
 
@@ -87,12 +88,14 @@
                 android:weightSum="4">
 
                 <TextView
+                    android:id="@+id/tv_goods_minus"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:paddingLeft="@dimen/dp10"
-                    android:paddingTop="@dimen/dp5"
+                    android:paddingTop="@dimen/dp3"
+                    android:textColor="@color/colorGray_hintcolor"
                     android:paddingRight="@dimen/dp10"
-                    android:paddingBottom="@dimen/dp5"
+                    android:paddingBottom="@dimen/dp3"
                     android:text="—"
                     android:textSize="@dimen/sp16" />
 
@@ -104,14 +107,15 @@
                     android:background="@color/colorGray3" />
 
                 <EditText
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:id="@+id/et_goods_num"
+                    android:layout_width="@dimen/dp40"
+                    android:gravity="center"
+                    android:layout_height="match_parent"
                     android:background="@null"
+                    android:enabled="false"
+                    android:maxLength="5"
                     android:inputType="number"
                     android:textSize="@dimen/sp14"
-                    android:paddingLeft="@dimen/dp20"
-                    android:paddingRight="@dimen/dp20"
-                    android:text="3"
                     android:textColor="@color/text_default" />
 
                 <View
@@ -122,8 +126,10 @@
                     android:background="@color/colorGray3" />
 
                 <TextView
+                    android:id="@+id/tv_goods_add"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:textColor="@color/goods_detail_title"
                     android:paddingLeft="@dimen/dp10"
                     android:paddingRight="@dimen/dp10"
                     android:text="+"

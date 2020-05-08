@@ -1,30 +1,24 @@
 package com.business.cd1236.mvp.presenter;
 
 import android.app.Application;
-import android.content.Context;
 
-import com.business.cd1236.bean.AddAddressBean;
-import com.business.cd1236.mvp.contract.OrderContract;
-import com.business.cd1236.net.BaseCallBack;
-import com.business.cd1236.net.RequestUtils;
-import com.business.cd1236.utils.GsonUtils;
-import com.jess.arms.di.scope.ActivityScope;
-import com.jess.arms.http.imageloader.ImageLoader;
 import com.jess.arms.integration.AppManager;
+import com.jess.arms.di.scope.ActivityScope;
 import com.jess.arms.mvp.BasePresenter;
+import com.jess.arms.http.imageloader.ImageLoader;
 
-import java.util.ArrayList;
+import me.jessyan.rxerrorhandler.core.RxErrorHandler;
 
 import javax.inject.Inject;
 
-import me.jessyan.rxerrorhandler.core.RxErrorHandler;
+import com.business.cd1236.mvp.contract.ShoppingCarContract;
 
 
 /**
  * ================================================
  * Description:
  * <p>
- * Created by MVPArmsTemplate on 04/05/2020 14:45
+ * Created by MVPArmsTemplate on 05/07/2020 16:00
  * <a href="mailto:jess.yan.effort@gmail.com">Contact me</a>
  * <a href="https://github.com/JessYanCoding">Follow me</a>
  * <a href="https://github.com/JessYanCoding/MVPArms">Star me</a>
@@ -33,7 +27,7 @@ import me.jessyan.rxerrorhandler.core.RxErrorHandler;
  * ================================================
  */
 @ActivityScope
-public class OrderPresenter extends BasePresenter<OrderContract.Model, OrderContract.View> {
+public class ShoppingCarPresenter extends BasePresenter<ShoppingCarContract.Model, ShoppingCarContract.View> {
     @Inject
     RxErrorHandler mErrorHandler;
     @Inject
@@ -44,7 +38,7 @@ public class OrderPresenter extends BasePresenter<OrderContract.Model, OrderCont
     AppManager mAppManager;
 
     @Inject
-    public OrderPresenter(OrderContract.Model model, OrderContract.View rootView) {
+    public ShoppingCarPresenter(ShoppingCarContract.Model model, ShoppingCarContract.View rootView) {
         super(model, rootView);
     }
 
@@ -55,15 +49,5 @@ public class OrderPresenter extends BasePresenter<OrderContract.Model, OrderCont
         this.mAppManager = null;
         this.mImageLoader = null;
         this.mApplication = null;
-    }
-
-    public void getDefAddress(Context context) {
-        RequestUtils.getAddress(new BaseCallBack(context) {
-            @Override
-            protected void onSuccess(String jsonString) {
-                ArrayList<AddAddressBean> addAddressBeans = GsonUtils.parseJsonArrayWithGson(jsonString, AddAddressBean.class);
-                mRootView.getDefAddressSucc(addAddressBeans);
-            }
-        });
     }
 }

@@ -28,8 +28,8 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:replace="android:name,android:allowBackup">
-        <activity android:name=".mvp.ui.activity.WebActivity">
-        </activity>
+        <activity android:name=".mvp.ui.activity.ShoppingCarActivity" />
+        <activity android:name=".mvp.ui.activity.WebActivity"></activity>
         <activity android:name=".mvp.ui.activity.BusinessGoodsManageSortActivity" />
         <activity android:name=".mvp.ui.activity.BusinessManageCategoryActivity" />
         <activity android:name=".mvp.ui.activity.BusinessGoodsSortActivity" />
@@ -45,8 +45,9 @@
         <activity android:name=".mvp.ui.activity.BusinessBusinessInfoActivity" />
         <activity android:name=".mvp.ui.activity.BusinessBasicInfoActivity" />
         <activity android:name=".mvp.ui.activity.BusinessInfoActivity" />
-        <activity android:name=".mvp.ui.activity.StoreActivity"
-            android:theme="@style/TranslucentTheme"/>
+        <activity
+            android:name=".mvp.ui.activity.StoreActivity"
+            android:theme="@style/TranslucentTheme" />
         <activity android:name=".mvp.ui.activity.CategoryActivity" />
         <activity android:name=".mvp.ui.activity.BrowseRecordActivity" />
         <activity android:name=".mvp.ui.activity.SearchActivity" />

@@ -1,6 +1,7 @@
 package com.business.cd1236.adapter;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
@@ -11,6 +12,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.business.cd1236.R;
 import com.business.cd1236.bean.MoreBean;
+import com.business.cd1236.mvp.ui.activity.GoodsDetailActivity;
 import com.business.cd1236.utils.GlideUtil;
 import com.business.cd1236.utils.SizeUtils;
 import com.business.cd1236.view.SpaceItemDecoration;
@@ -41,7 +43,7 @@ public class HomeTwoStoreAdapter extends BaseQuickAdapter<MoreBean.LocalizeSBean
         HomeTwoStoreGoodsAdapter homeTwoStoreGoodsAdapter = new HomeTwoStoreGoodsAdapter(R.layout.item_home_two_goods);
         rvStoreGoods.setAdapter(homeTwoStoreGoodsAdapter);
         if (data.goods.size() > 0) {
-            homeTwoStoreGoodsAdapter.setNewInstance(data.goods);
+            homeTwoStoreGoodsAdapter.setList(data.goods);
         } else {
             rvStoreGoods.setVisibility(View.GONE);
         }
@@ -67,6 +69,11 @@ public class HomeTwoStoreAdapter extends BaseQuickAdapter<MoreBean.LocalizeSBean
             GlideUtil.loadImg(data.thumb, R.mipmap.logo, ivGoods);
             baseViewHolder.setText(R.id.tv_goods_title, data.title);
 
+            baseViewHolder.itemView.setOnClickListener(v -> {
+                Intent intent = new Intent(getContext(), GoodsDetailActivity.class);
+                intent.putExtra(GoodsDetailActivity.GOODS_ID,data.id);
+                getContext().startActivity(intent);
+            });
         }
     }
 }

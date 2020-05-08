@@ -15,6 +15,7 @@
     <color name="colorGray7">#EFEFEF</color>
     <color name="colorGray8">#EDEDEF</color>
     <color name="colorGray9">#FAFAFA</color>
+    <color name="colorGray10">#AFAFAF</color>
     <color name="colorGray_hintcolor">#BFBFBF</color>
 
     //text
@@ -25,6 +26,7 @@
 
     //goods_detail_color
     <color name="goods_detail_title">#2f2f2f</color>
+    <color name="goods_detail_buy_red">#BF3137</color>
 
     //store_detail_color
     <color name="store_detail_pink">#FAD7D4</color>

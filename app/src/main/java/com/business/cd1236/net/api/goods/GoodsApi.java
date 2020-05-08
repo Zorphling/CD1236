@@ -8,4 +8,8 @@ public interface GoodsApi {
     String COLLECT_DELETE = "collect_delete";
     String BROWSE = "browse";
     String SEARCH = "search";
+    String ADD_SHOPPING = "add_shopping";
+    String SHOPPING_CAR = "shopping";
+    String SHOPPING_XG = "shopping_xg";//购物车数量修改
+    String SHOPPING_DELETE = "shopping_delete";//删除购物车
 }
