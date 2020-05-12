@@ -199,7 +199,7 @@ public class MainActivity extends MyBaseActivity<MainPresenter> implements MainC
      */
     int page = 1;
 
-    private void clickMaiNav(int page) {
+    public void clickMaiNav(int page) {
         if (this.page == page) return;
         this.page = page;
         hideToolBar();

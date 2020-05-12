@@ -29,13 +29,14 @@
                     android:id="@+id/goods_detail_banner"
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/dp240" />
+
                 <com.makeramen.roundedimageview.RoundedImageView
                     android:id="@+id/riv_temp"
                     android:layout_width="@dimen/dp240"
                     android:layout_height="@dimen/dp240"
                     android:layout_gravity="center"
-                    android:src="@mipmap/logo"
                     android:scaleType="centerCrop"
+                    android:src="@mipmap/logo"
                     android:visibility="invisible"
                     app:riv_corner_radius="@dimen/dp180" />
 
@@ -53,24 +54,18 @@
                     android:layout_height="wrap_content"
                     android:textColor="@color/goods_detail_title" />
 
-                <RelativeLayout
-                    android:layout_width="match_parent"
+                <TextView
+                    android:id="@+id/tv_sales"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/dp7">
+                    android:layout_marginTop="@dimen/dp5"
+                    android:textSize="@dimen/sp10" />
 
-                    <TextView
-                        android:id="@+id/tv_marketprice"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content" />
-
-                    <TextView
-                        android:id="@+id/tv_sales"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_alignParentRight="true"
-                        android:layout_centerInParent="true"
-                        android:textSize="@dimen/sp12" />
-                </RelativeLayout>
+                <TextView
+                    android:id="@+id/tv_marketprice"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/dp8" />
 
                 <TextView
                     android:id="@+id/tv_send_address"
@@ -315,7 +310,8 @@
                 android:drawablePadding="@dimen/dp3"
                 android:gravity="center"
                 android:text="加入货单"
-                android:textSize="@dimen/sp10" />
+                android:textSize="@dimen/sp10"
+                android:visibility="gone" />
         </LinearLayout>
 
         <LinearLayout
@@ -328,7 +324,9 @@
             <LinearLayout
                 android:id="@+id/ll_buy1"
                 android:layout_width="@dimen/dp0"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_marginTop="@dimen/dp10"
+                android:layout_marginBottom="@dimen/dp10"
                 android:layout_weight="1"
                 android:background="@drawable/solid_bg_regist_button"
                 android:gravity="center"
@@ -339,15 +337,14 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/dp3"
-                    android:text="$ 2.05"
                     android:textColor="@android:color/white"
-                    android:textSize="@dimen/sp12" />
+                    android:textSize="@dimen/sp12"
+                    android:visibility="gone" />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginBottom="@dimen/dp3"
-                    android:text="直接购买"
+                    android:text="加入货单"
                     android:textColor="@android:color/white"
                     android:textSize="@dimen/sp12" />
             </LinearLayout>
@@ -355,9 +352,11 @@
             <LinearLayout
                 android:id="@+id/ll_buy2"
                 android:layout_width="@dimen/dp0"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:layout_marginLeft="@dimen/dp10"
+                android:layout_marginTop="@dimen/dp10"
                 android:layout_marginRight="@dimen/dp10"
+                android:layout_marginBottom="@dimen/dp10"
                 android:layout_weight="1"
                 android:background="@drawable/solid_bg_goods_detail_buy_red"
                 android:gravity="center"
@@ -368,15 +367,14 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/dp3"
-                    android:text="$ 2.05"
                     android:textColor="@android:color/white"
-                    android:textSize="@dimen/sp12" />
+                    android:textSize="@dimen/sp12"
+                    android:visibility="gone" />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginBottom="@dimen/dp3"
-                    android:text="批发购买"
+                    android:text="立即订购"
                     android:textColor="@android:color/white"
                     android:textSize="@dimen/sp12" />
             </LinearLayout>

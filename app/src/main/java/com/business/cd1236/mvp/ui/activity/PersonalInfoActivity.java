@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -69,6 +70,8 @@ public class PersonalInfoActivity extends MyBaseActivity<PersonalInfoPresenter> 
     ImageView ivArrow1;
     @BindView(R.id.rl_nickname)
     RelativeLayout rlNickname;
+    @BindView(R.id.tv_nickname)
+    TextView tvNickname;
     @BindView(R.id.iv_arrow2)
     ImageView ivArrow2;
     @BindView(R.id.rl_harvest_address)
@@ -94,8 +97,12 @@ public class PersonalInfoActivity extends MyBaseActivity<PersonalInfoPresenter> 
     public void initData(@Nullable Bundle savedInstanceState) {
         setHeader("个人信息");
         personalBean = getIntent().getParcelableExtra(SettingActivity.PERSON_INFO_BEAN);
-        if (personalBean != null)
+        if (personalBean != null){
             GlideUtil.loadImg(personalBean.img, R.mipmap.header_default, ivSrc);
+            if (StringUtils.checkString(personalBean.realname)){
+                tvNickname.setText(personalBean.realname);
+            }
+        }
     }
 
     @Override

@@ -2,7 +2,7 @@ package com.business.cd1236.mvp.ui.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.text.SpannableString;
+import android.text.Html;
 import android.text.TextUtils;
 import android.view.View;
 import android.view.animation.AccelerateInterpolator;
@@ -29,6 +29,7 @@ import com.business.cd1236.adapter.GoodsDetailStoreAdapter;
 import com.business.cd1236.base.MyBaseActivity;
 import com.business.cd1236.bean.GoodsDetailBean;
 import com.business.cd1236.bean.HomeBannerBean;
+import com.business.cd1236.bean.ShoppingCarBean;
 import com.business.cd1236.di.component.DaggerGoodsDetailComponent;
 import com.business.cd1236.mvp.contract.GoodsDetailContract;
 import com.business.cd1236.mvp.presenter.GoodsDetailPresenter;
@@ -219,7 +220,7 @@ public class GoodsDetailActivity extends MyBaseActivity<GoodsDetailPresenter> im
                     mPresenter.addCollect(goodsDetailBean.goods.id, TextUtils.equals("0", goodsDetailBean.collect_jud) ? "1" : "0", mActivity);
                 break;
             case R.id.iv_cart:
-
+//                launchActivity(new Intent(mActivity,ShoppingCarActivity.class));
                 break;
             case R.id.iv_home:
                 intent.setClass(mActivity, MainActivity.class);
@@ -239,14 +240,24 @@ public class GoodsDetailActivity extends MyBaseActivity<GoodsDetailPresenter> im
             case R.id.tv_custom_service:
                 break;
             case R.id.tv_add_goods_list:
-                initAnim();
+
                 break;
             case R.id.ll_buy1:
-                intent.setClass(mActivity, OrderActivity.class);
-//                intent.putExtra(OrderActivity.);
-                launchActivity(intent);
+                initAnim();
                 break;
             case R.id.ll_buy2:
+                ArrayList<GoodsDetailBean.GoodsBean> arrayList = new ArrayList<>();
+                intent.setClass(mActivity, OrderActivity.class);
+
+                ShoppingCarBean shoppingCarBean = new ShoppingCarBean();
+                shoppingCarBean.business_name = goodsDetailBean.shop.business_name;
+                shoppingCarBean.weight =  StringUtils.equals("0", goodsDetailBean.jud) ? goodsDetailBean.goods.weight : goodsDetailBean.goods.agent_weight;
+                arrayList.add(goodsDetailBean.goods);
+                shoppingCarBean.goods = arrayList;
+
+                intent.putExtra(OrderActivity.ORDER_INTENT, shoppingCarBean);
+                intent.putExtra(OrderActivity.ORDER_TYPE,false);
+                launchActivity(intent);
                 break;
         }
     }
@@ -315,7 +326,7 @@ public class GoodsDetailActivity extends MyBaseActivity<GoodsDetailPresenter> im
                 set.cancel();
                 animation.cancel();
                 //购物车商品数量更新
-                mPresenter.addShopping(goodsDetailBean.goods.id,  "1", goodsDetailBean.goods.marketprice, goodsDetailBean.shop.id, mActivity);
+                mPresenter.addShopping(goodsDetailBean.goods.id, "1", goodsDetailBean.goods.marketprice, goodsDetailBean.shop.id, mActivity);
                 //购物车控件 开始一个放大动画
 //                Animation scaleAnim = AnimationUtils.loadAnimation(mActivity, R.anim.shop_car_scale);
 //                ivCart.startAnimation(scaleAnim);
@@ -371,10 +382,24 @@ public class GoodsDetailActivity extends MyBaseActivity<GoodsDetailPresenter> im
             GlideUtil.loadImg(goodsDetailBean.goods.thumb_s.get(0), rivTemp);
         }
         goodsTitle.setText(goodsDetailBean.goods.title);
-        SpannableString spannableString = SpannableStringUtils.textColor(getResources().getString(R.string.rmb) + goodsDetailBean.goods.marketprice + "/袋",
-                mActivity.getResources().getColor(R.color.text_select_red), 0, goodsDetailBean.goods.marketprice.length() + 1);
-        tvMarketprice.setText(spannableString);
-        tvSales.setText("已售" + goodsDetailBean.goods.sales);
+
+//        String spannableString = SpannableStringUtils.textColor(getResources().getString(R.string.rmb) + goodsDetailBean.goods.marketprice + "/袋",
+//                mActivity.getResources().getColor(R.color.text_select_red), 0, goodsDetailBean.goods.marketprice.length() + 1).toString();
+//        SpannableStringBuilder spannableStringBuilder = new SpannableStringBuilder(spannableString);
+//        spannableStringBuilder.setSpan(new AbsoluteSizeSpan(50), spannableString.indexOf(getString(R.string.rmb)) + 1, spannableString.indexOf("/"), Spannable.SPAN_INCLUSIVE_INCLUSIVE);
+        String s = "<font color=\"#D21426\">" + getString(R.string.rmb) + "<big><big>" + (StringUtils.equals("0", goodsDetailBean.jud) ? goodsDetailBean.goods.marketprice : goodsDetailBean.goods.agent_marketprice)
+                + "</big></big></font>" + "/" + (StringUtils.equals("0", goodsDetailBean.jud) ? goodsDetailBean.goods.unit : goodsDetailBean.goods.agent_unit);
+        tvMarketprice.setText(Html.fromHtml(s));
+//        String str4 = "今天<font color=\"#00ff00\"><big><big>天气不错</big></big></font>";
+//        textView4.setText(Html.fromHtml(str4));
+        tvSales.setText(SpannableStringUtils.textColor(StringUtils.equals("0", goodsDetailBean.jud) ? (goodsDetailBean.goods.weight + goodsDetailBean.goods.unit)
+                        : (goodsDetailBean.goods.agent_weight + goodsDetailBean.goods.agent_unit)
+                        + "起订" + " | " + "成交" + (StringUtils.equals("0", goodsDetailBean.jud) ? (goodsDetailBean.goods.sales + goodsDetailBean.goods.unit)
+                        : (goodsDetailBean.goods.sales + goodsDetailBean.goods.agent_unit)) + " | "
+                        + (goodsDetailBean.goods.agent_total + (StringUtils.equals("0", goodsDetailBean.jud) ? goodsDetailBean.goods.unit : goodsDetailBean.goods.agent_unit)) + "可售"
+                , getRColor(R.color.text_select_red), 0, (StringUtils.equals("0", goodsDetailBean.jud) ? (goodsDetailBean.goods.weight + goodsDetailBean.goods.unit)
+                        : (goodsDetailBean.goods.agent_weight + goodsDetailBean.goods.agent_unit)
+                        + "起订").length()));
         tvSendAddress.setText("发货 " + goodsDetailBean.goods.province + " " + goodsDetailBean.goods.city);
 
         tvStartNum.setText("起批量：" + goodsDetailBean.goods.agent_weight + goodsDetailBean.goods.agent_unit);

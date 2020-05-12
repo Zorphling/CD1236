@@ -23,10 +23,10 @@
 
             <LinearLayout
                 android:id="@+id/ll_address"
-                android:foreground="?attr/selectableItemBackground"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@android:color/white"
+                android:foreground="?attr/selectableItemBackground"
                 android:gravity="center_vertical"
                 android:orientation="horizontal"
                 android:padding="@dimen/dp10">
@@ -54,7 +54,7 @@
                         android:id="@+id/tv_address"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="@dimen/dp7"/>
+                        android:layout_marginTop="@dimen/dp7" />
                 </LinearLayout>
 
                 <ImageView
@@ -68,25 +68,50 @@
                 android:layout_height="@dimen/dp3"
                 android:background="@mipmap/icon_order_colorline" />
 
-            <androidx.recyclerview.widget.RecyclerView
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/dp2"
                 android:background="@android:color/white"
-                android:nestedScrollingEnabled="false" />
+                android:orientation="vertical">
+
+
+                <TextView
+                    android:id="@+id/tv_store_title"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/white"
+                    android:paddingLeft="@dimen/dp15"
+                    android:paddingTop="@dimen/dp10"
+                    android:paddingBottom="@dimen/dp10"
+                    android:textColor="@color/goods_detail_title" />
+
+                <include
+                    layout="@layout/layout_line"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/dp1"
+                    android:layout_marginLeft="@dimen/dp15" />
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/rv_order"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@android:color/white"
+                    android:nestedScrollingEnabled="false" />
+            </LinearLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/dp10"
+                android:layout_marginTop="@dimen/dp5"
                 android:background="@android:color/white"
                 android:orientation="vertical">
 
                 <LinearLayout
                     android:id="@+id/ll_express"
-                    android:foreground="?attr/selectableItemBackground"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:foreground="?attr/selectableItemBackground"
                     android:gravity="center_vertical"
                     android:orientation="horizontal"
                     android:paddingLeft="@dimen/dp15"
@@ -140,8 +165,8 @@
                                 android:layout_height="wrap_content"
                                 android:layout_gravity="right"
                                 android:gravity="right"
-                                android:textSize="@dimen/sp12"
-                                android:text="工作日、双休日与节假日均可送货" />
+                                android:text="工作日、双休日与节假日均可送货"
+                                android:textSize="@dimen/sp12" />
                         </LinearLayout>
                     </LinearLayout>
 
@@ -158,9 +183,9 @@
                     android:layout_marginLeft="@dimen/dp15" />
 
                 <com.business.cd1236.view.ItemView
+                    android:id="@+id/ll_store_cheap"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:id="@+id/ll_store_cheap"
                     app:subTitle="暂无可用"
                     app:title="店铺优惠"
                     app:titleColor="@color/goods_detail_title" />
@@ -206,7 +231,7 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/dp10"
+                android:layout_marginTop="@dimen/dp5"
                 android:background="@android:color/white"
                 android:orientation="vertical"
                 android:paddingLeft="@dimen/dp15"
@@ -318,7 +343,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textColor="@color/text_select_red"
-                    android:textSize="@dimen/sp22"/>
+                    android:textSize="@dimen/sp22" />
             </LinearLayout>
         </LinearLayout>
 

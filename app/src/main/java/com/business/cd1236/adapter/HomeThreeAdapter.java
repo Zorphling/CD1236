@@ -12,8 +12,10 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.business.cd1236.R;
+import com.business.cd1236.bean.GoodsDetailBean;
 import com.business.cd1236.bean.ShoppingCarBean;
 import com.business.cd1236.utils.GlideUtil;
+import com.business.cd1236.utils.LogUtils;
 import com.business.cd1236.utils.MathUtils;
 import com.business.cd1236.utils.StringUtils;
 import com.chad.library.adapter.base.BaseQuickAdapter;
@@ -24,6 +26,7 @@ import com.jess.arms.utils.ArmsUtils;
 import org.jetbrains.annotations.NotNull;
 
 import java.text.DecimalFormat;
+import java.util.ArrayList;
 
 public class HomeThreeAdapter extends BaseQuickAdapter<ShoppingCarBean, BaseViewHolder> implements OnItemChildClickListener {
     private OnChangeCarNumListener onChangeCarNumListener;
@@ -36,7 +39,7 @@ public class HomeThreeAdapter extends BaseQuickAdapter<ShoppingCarBean, BaseView
     @Override
     protected void convert(@NotNull BaseViewHolder baseViewHolder, ShoppingCarBean bean) {
         baseViewHolder.setText(R.id.tv_store_title, bean.business_name);
-        ((AppCompatCheckBox) baseViewHolder.getView(R.id.check_box)).setChecked(bean.isCheck);
+
         RecyclerView rvItem = baseViewHolder.getView(R.id.rv_item);
 
         //滑动会卡顿  待优化，保证只调用一次
@@ -44,7 +47,7 @@ public class HomeThreeAdapter extends BaseQuickAdapter<ShoppingCarBean, BaseView
         linearLayoutManager.setInitialPrefetchItemCount(50);
         ArmsUtils.configRecyclerView(rvItem, linearLayoutManager);
 
-        rvItem.setHasFixedSize(true);
+//        rvItem.setHasFixedSize(true);//使用这个remove会有空白
         rvItem.setNestedScrollingEnabled(false);
         HomeThreeItemAdapter homeThreeItemAdapter = new HomeThreeItemAdapter(R.layout.item_home_three_item, new OnCheckChangeListener() {
             @Override
@@ -54,7 +57,7 @@ public class HomeThreeAdapter extends BaseQuickAdapter<ShoppingCarBean, BaseView
 
             @Override
             public void onGoodsCountChange() {
-
+                changeTotalPrice(baseViewHolder, bean);
             }
         });
         rvItem.setAdapter(homeThreeItemAdapter);
@@ -67,25 +70,47 @@ public class HomeThreeAdapter extends BaseQuickAdapter<ShoppingCarBean, BaseView
          */
         ((AppCompatCheckBox) baseViewHolder.getView(R.id.check_box)).setOnCheckedChangeListener((buttonView, isChecked) -> {
             if (isChecked) {//全选
-                for (ShoppingCarBean.GoodsBean good : bean.goods) {
+                bean.isCheck = isChecked;
+                for (GoodsDetailBean.GoodsBean good : bean.goods) {
                     good.isCheck = isChecked;
                 }
             } else {//
                 int tempCount = 0;
-                for (ShoppingCarBean.GoodsBean good : bean.goods) {
+                for (GoodsDetailBean.GoodsBean good : bean.goods) {
                     if (!good.isCheck) {
                         tempCount = 1;
                     }
                 }
                 if (tempCount != 0) {//这里好像哪里没对，但我也找不出来哪里没对，暂时这样吧
+                    //但凡有一个小item没被选中
                 } else {
-                    for (ShoppingCarBean.GoodsBean good : bean.goods) {
+                    bean.isCheck = isChecked;
+                    for (GoodsDetailBean.GoodsBean good : bean.goods) {
                         good.isCheck = isChecked;
                     }
                 }
             }
-            homeThreeItemAdapter.notifyDataSetChanged(true);
+            if (rvItem.isComputingLayout()) {
+                rvItem.post(() -> homeThreeItemAdapter.notifyDataSetChanged());
+            } else {
+                homeThreeItemAdapter.notifyDataSetChanged();
+            }
+
+            //改变最外面全选的监听
+            if (onChangeCarNumListener != null) {
+                int isCheckedTemp = 0;
+                for (ShoppingCarBean datum : getData()) {
+                    if (datum.isCheck) isCheckedTemp++;
+                }
+//                LogUtils.e(isCheckedTemp + " =============== " + getData().size());
+                if (isCheckedTemp != getData().size()) {
+                    onChangeCarNumListener.onAllChecked(false);//这里单独不选中最里面item 会回调最外面的isChecked 导致其他外部item全不选
+                } else {
+                    onChangeCarNumListener.onAllChecked(true);
+                }
+            }
         });
+        ((AppCompatCheckBox) baseViewHolder.getView(R.id.check_box)).setChecked(bean.isCheck);
     }
 
     /**
@@ -95,61 +120,94 @@ public class HomeThreeAdapter extends BaseQuickAdapter<ShoppingCarBean, BaseView
      * @param bean
      */
     private void checkAll(@NotNull BaseViewHolder baseViewHolder, ShoppingCarBean bean) {
+        changeTotalPrice(baseViewHolder, bean);
+
+        /**
+         * 更改选择状态
+         */
+        boolean isAllCheck = true;
+        for (GoodsDetailBean.GoodsBean good : bean.goods) {
+            if (!good.isCheck) {
+                isAllCheck = false;
+            }
+        }
+        bean.isCheck = isAllCheck;//记录主条目的选择状态
+        ((AppCompatCheckBox) baseViewHolder.getView(R.id.check_box)).setChecked(isAllCheck);
+    }
+
+    private void changeTotalPrice(@NotNull BaseViewHolder baseViewHolder, ShoppingCarBean bean) {
         /**
          * 更改选择后价格
          */
         double totalPrice = 0;
-        for (ShoppingCarBean.GoodsBean good : bean.goods) {
+        for (GoodsDetailBean.GoodsBean good : bean.goods) {
             if (good.isCheck) {
                 totalPrice = MathUtils.add(totalPrice, MathUtils.mul(Double.parseDouble(good.marketprice), Double.parseDouble(good.total)));
             }
         }
 
         baseViewHolder.setText(R.id.tv_amount_to, String.valueOf(new DecimalFormat("#0.00").format(totalPrice)));
+    }
 
-        /**
-         * 更改选择状态
-         */
-        boolean isAllCheck = true;
-        for (ShoppingCarBean.GoodsBean good : bean.goods) {
-            if (!good.isCheck) {
-                isAllCheck = false;
+    public void notifyRemoved(ArrayList<GoodsDetailBean.GoodsBean> goodsBeanTemp) {
+        for (int i = 0; i < getData().size(); i++) {
+            LogUtils.e("进来次数：：" + i);
+            if (getData().get(i).isCheck) {
+                LogUtils.e("notifyRemoved ========== remove:::" + i);
+                remove(i);
+                continue;
+            }
+            for (int j = 0; j < getData().get(i).goods.size(); j++) {
+                for (GoodsDetailBean.GoodsBean goodsBean : goodsBeanTemp) {
+                    if (StringUtils.equals(getData().get(i).goods.get(j).id, goodsBean.id)) {
+                        RecyclerView rvItem = (RecyclerView) getViewByPosition(i, R.id.rv_item);
+                        ((HomeThreeItemAdapter) rvItem.getAdapter()).remove(j);
+                        LogUtils.e("notifyRemoved ========== removeremoveremove :::" + i);
+                    }
+                }
             }
         }
-        ((AppCompatCheckBox) baseViewHolder.getView(R.id.check_box)).setChecked(isAllCheck);
     }
 
     public interface OnChangeCarNumListener {
         void changeCarNum(String carId, String total);
+
+        void onAllChecked(boolean isAllChecked);
     }
 
     @Override
     public void onItemChildClick(@NonNull BaseQuickAdapter adapter, @NonNull View view, int position) {
         EditText etGoodsNum = (EditText) adapter.getViewByPosition(position, R.id.et_goods_num);
-        ShoppingCarBean.GoodsBean goodsBean = (ShoppingCarBean.GoodsBean) adapter.getItem(position);
+        GoodsDetailBean.GoodsBean goodsBean = (GoodsDetailBean.GoodsBean) adapter.getItem(position);
         switch (view.getId()) {
             case R.id.tv_goods_minus:
                 if (StringUtils.equals("1", StringUtils.getEditText(etGoodsNum))) {
 
                 } else {
                     String total = String.valueOf(Long.parseLong(StringUtils.getEditText(etGoodsNum)) - 1);
+                    if (onChangeCarNumListener != null)
+                        onChangeCarNumListener.changeCarNum(goodsBean.cart_id, total);
                     etGoodsNum.setText(total);
                 }
                 break;
             case R.id.tv_goods_add:
-                etGoodsNum.setText(String.valueOf(Long.parseLong(StringUtils.getEditText(etGoodsNum)) + 1));
+                String total = String.valueOf(Long.parseLong(StringUtils.getEditText(etGoodsNum)) + 1);
+                if (onChangeCarNumListener != null)
+                    onChangeCarNumListener.changeCarNum(goodsBean.cart_id, total);
+                etGoodsNum.setText(total);
                 break;
         }
     }
 
     public interface OnCheckChangeListener {
         void onCheckChange();
+
         void onGoodsCountChange();
     }
 
-    class HomeThreeItemAdapter extends BaseQuickAdapter<ShoppingCarBean.GoodsBean, BaseViewHolder> {
+    class HomeThreeItemAdapter extends BaseQuickAdapter<GoodsDetailBean.GoodsBean, BaseViewHolder> {
         OnCheckChangeListener onCheckChangeListener;
-        boolean isNotify;
+        private TextWatcher watcher;
 
 
         public HomeThreeItemAdapter(int layoutResId, OnCheckChangeListener onCheckChangeListener) {
@@ -158,7 +216,7 @@ public class HomeThreeAdapter extends BaseQuickAdapter<ShoppingCarBean, BaseView
         }
 
         @Override
-        protected void convert(@NotNull BaseViewHolder baseViewHolder, ShoppingCarBean.GoodsBean goodsBean) {
+        protected void convert(@NotNull BaseViewHolder baseViewHolder, GoodsDetailBean.GoodsBean goodsBean) {
             GlideUtil.loadImg(goodsBean.thumb, baseViewHolder.getView(R.id.riv_item_src));
             EditText etGoodsNum = (EditText) baseViewHolder.getView(R.id.et_goods_num);
 
@@ -178,7 +236,8 @@ public class HomeThreeAdapter extends BaseQuickAdapter<ShoppingCarBean, BaseView
             } else {
                 ((TextView) baseViewHolder.getView(R.id.tv_goods_minus)).setTextColor(getContext().getResources().getColor(R.color.goods_detail_title));
             }
-            etGoodsNum.addTextChangedListener(new TextWatcher() {
+
+            watcher = new TextWatcher() {
                 @Override
                 public void beforeTextChanged(CharSequence s, int start, int count, int after) {
 
@@ -193,22 +252,21 @@ public class HomeThreeAdapter extends BaseQuickAdapter<ShoppingCarBean, BaseView
                     }
                     if (onChangeCarNumListener != null) {
                         goodsBean.total = s.toString();//更改数量
-                        if (!isNotify) {//点击选择会刷新item ，为了不调用下面代码 暂时用这个笨方法屏蔽掉
-                            onChangeCarNumListener.changeCarNum(goodsBean.cart_id, s.toString());
-                            isNotify = false;
-                        }
+
+                        //本来是这里在数量变化后再请求接口变化购物车数量，但是全选会刷新条目会造成多次请求
+                        //onChangeCarNumListener.changeCarNum(goodsBean.cart_id, s.toString());
+
+                    }
+                    if (onCheckChangeListener != null) {
+                        onCheckChangeListener.onGoodsCountChange();
                     }
                 }
 
                 @Override
                 public void afterTextChanged(Editable s) {
                 }
-            });
-        }
-
-        public void notifyDataSetChanged(boolean isNotify) {
-            this.isNotify = isNotify;
-            notifyDataSetChanged();
+            };
+            etGoodsNum.addTextChangedListener(watcher);
         }
     }
 }

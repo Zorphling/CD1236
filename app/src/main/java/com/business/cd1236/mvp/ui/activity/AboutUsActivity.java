@@ -13,12 +13,10 @@ import com.business.cd1236.di.component.DaggerAboutUsComponent;
 import com.business.cd1236.mvp.contract.AboutUsContract;
 import com.business.cd1236.mvp.presenter.AboutUsPresenter;
 import com.business.cd1236.utils.FileUtils;
-import com.jess.arms.base.BaseActivity;
 import com.jess.arms.di.component.AppComponent;
 import com.jess.arms.utils.ArmsUtils;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
 
 import static com.jess.arms.utils.Preconditions.checkNotNull;
 
@@ -61,7 +59,7 @@ public class AboutUsActivity extends MyBaseActivity<AboutUsPresenter> implements
         setHeaderColor(getResources().getColor(android.R.color.white), getResources().getColor(android.R.color.black), R.mipmap.arrow_left_black);
         setStatusColor(mActivity, false, true, android.R.color.white);
 
-        tvVersion.setText(FileUtils.getVerName(mActivity));
+        tvVersion.setText("v："+FileUtils.getVerName(mActivity));
     }
 
     @Override

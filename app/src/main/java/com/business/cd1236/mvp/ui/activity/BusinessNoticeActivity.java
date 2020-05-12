@@ -101,7 +101,7 @@ public class BusinessNoticeActivity extends MyBaseActivity<BusinessNoticePresent
 
     @OnClick(R.id.tv_save_notice)
     public void onViewClicked() {
-        if (StringUtils.checkString(StringUtils.getEditText(etNotice))) {
+        if (!StringUtils.checkString(StringUtils.getEditText(etNotice))) {
             ArmsUtils.snackbarText("请输入" + (TYPE == 1 ? "门店公告" : "门店简介"));
             return;
         }

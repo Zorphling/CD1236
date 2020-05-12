@@ -5,6 +5,8 @@ import android.app.Activity;
 import android.app.ActivityManager;
 import android.app.Application;
 import android.content.Context;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Bundle;
 
 import androidx.core.content.FileProvider;
@@ -282,5 +284,18 @@ public class Utils {
         void onForeground();
 
         void onBackground();
+    }
+
+    public static boolean isNetworkConnected(Context context) {
+        if (context != null) {
+            ConnectivityManager mConnectivityManager = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
+            NetworkInfo mNetworkInfo = mConnectivityManager.getActiveNetworkInfo();
+            if (mNetworkInfo != null) {
+                //这种方法也可以
+                //return mNetworkInfo .getState()== NetworkInfo.State.CONNECTED
+                return mNetworkInfo.isAvailable();
+            }
+        }
+        return false;
     }
 }

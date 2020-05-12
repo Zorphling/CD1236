@@ -24,7 +24,6 @@ import com.business.cd1236.di.component.DaggerCollectGoodsComponent;
 import com.business.cd1236.mvp.contract.CollectGoodsContract;
 import com.business.cd1236.mvp.presenter.CollectGoodsPresenter;
 import com.business.cd1236.utils.GlideUtil;
-import com.business.cd1236.utils.LogUtils;
 import com.business.cd1236.utils.SizeUtils;
 import com.business.cd1236.utils.StringUtils;
 import com.business.cd1236.view.SpaceItemDecoration;
@@ -34,7 +33,7 @@ import com.jess.arms.di.component.AppComponent;
 import com.jess.arms.utils.ArmsUtils;
 
 import java.util.ArrayList;
-import java.util.zip.Inflater;
+import java.util.Iterator;
 
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -253,10 +252,14 @@ public class CollectGoodsActivity extends MyBaseActivity<CollectGoodsPresenter> 
 
     @Override
     public void deleteSucc() {
-        for (CollectGoodsBean.NewBean datum : adapter.getData()) {
-            if (datum.isCheck)
-                adapter.remove(datum);
+        Iterator<CollectGoodsBean.NewBean> iterator = adapter.getData().iterator();
+        while (iterator.hasNext()){
+            CollectGoodsBean.NewBean next = iterator.next();
+            if (next.isCheck){
+                iterator.remove();
+            }
         }
+        adapter.notifyDataSetChanged();
     }
 
     @Override

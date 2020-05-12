@@ -75,4 +75,33 @@ public class HomeThreePresenter extends BasePresenter<HomeThreeContract.Model, H
             }
         });
     }
+
+    public void addCollect(String id, String ment, Context context) {
+        RequestUtils.addCollect(id, ment, new BaseCallBack(context) {
+            @Override
+            protected void onSuccess(String jsonString) {
+            }
+
+            @Override
+            protected void onSuccess(String jsonString, String msg) {
+                super.onSuccess(jsonString, msg);
+                mRootView.setCollectAllSuccess(msg);
+            }
+        });
+    }
+
+    public void shoppingDelete(String carId, Context context) {
+        RequestUtils.shopping_delete(carId, new BaseCallBack(context) {
+            @Override
+            protected void onSuccess(String jsonString) {
+
+            }
+
+            @Override
+            protected void onSuccess(String jsonString, String msg) {
+                super.onSuccess(jsonString, msg);
+                mRootView.shoppingDeleteSucc(msg);
+            }
+        });
+    }
 }

@@ -303,4 +303,8 @@ public abstract class MyBaseActivity<P extends IPresenter> extends RxAppCompatAc
             mPresenter.onDestroy();//释放资源
         this.mPresenter = null;
     }
+
+    public int getRColor(int color){
+        return getResources().getColor(color);
+    }
 }

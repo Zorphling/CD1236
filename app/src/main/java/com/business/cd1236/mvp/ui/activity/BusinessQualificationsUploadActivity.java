@@ -21,6 +21,7 @@ import com.business.cd1236.mvp.contract.BusinessQualificationsUploadContract;
 import com.business.cd1236.mvp.presenter.BusinessQualificationsUploadPresenter;
 import com.business.cd1236.utils.GlideEngine;
 import com.business.cd1236.utils.GlideUtil;
+import com.business.cd1236.utils.MyToastUtils;
 import com.business.cd1236.utils.SizeUtils;
 import com.business.cd1236.utils.StringUtils;
 import com.business.cd1236.view.SpaceItemDecoration;
@@ -175,8 +176,13 @@ public class BusinessQualificationsUploadActivity extends MyBaseActivity<Busines
     }
 
     @OnClick(R.id.btn_submit)
-    public void onViewClicked() {
-
+    public void onViewClicked(View view) {
+        switch (view.getId()) {
+            case R.id.btn_submit:
+                MyToastUtils.showShort("提交成功");
+                killMyself();
+                break;
+        }
     }
 
     private ImageView ivQualifications;

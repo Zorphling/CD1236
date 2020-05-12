@@ -9,10 +9,15 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.business.cd1236.R;
+import com.business.cd1236.adapter.OrderAdapter;
 import com.business.cd1236.base.MyBaseActivity;
 import com.business.cd1236.bean.AddAddressBean;
+import com.business.cd1236.bean.GoodsDetailBean;
+import com.business.cd1236.bean.ShoppingCarBean;
 import com.business.cd1236.di.component.DaggerOrderComponent;
 import com.business.cd1236.mvp.contract.OrderContract;
 import com.business.cd1236.mvp.presenter.OrderPresenter;
@@ -68,6 +73,17 @@ public class OrderActivity extends MyBaseActivity<OrderPresenter> implements Ord
     TextView tvReceiver;
     @BindView(R.id.tv_address)
     TextView tvAddress;
+    @BindView(R.id.tv_store_title)
+    TextView rvStoreTitle;
+    @BindView(R.id.rv_order)
+    RecyclerView rvOrder;
+
+    public static String ORDER_INTENT = "order_intent";
+    public static String ORDER_TYPE = "order_type";
+    public static boolean isShoppingCar;
+
+    ShoppingCarBean shoppingCarBean;
+    private OrderAdapter orderAdapter;
 
     @Override
     public void setupActivityComponent(@NonNull AppComponent appComponent) {
@@ -91,6 +107,24 @@ public class OrderActivity extends MyBaseActivity<OrderPresenter> implements Ord
         setHeader("填写订单");
         setHeaderColor(getResources().getColor(android.R.color.white), getResources().getColor(android.R.color.black), R.mipmap.arrow_left_black);
 
+        shoppingCarBean = getIntent().getParcelableExtra(ORDER_INTENT);
+        isShoppingCar = getIntent().getBooleanExtra(ORDER_TYPE, false);
+        ArmsUtils.configRecyclerView(rvOrder, new LinearLayoutManager(mActivity));
+        orderAdapter = new OrderAdapter(R.layout.item_order_activity);
+        rvOrder.setAdapter(orderAdapter);
+        if (shoppingCarBean != null) {
+            rvStoreTitle.setText(shoppingCarBean.business_name);
+            orderAdapter.setList(shoppingCarBean.goods);
+        }
+        if (isShoppingCar) {//购物车过来的
+            StringBuilder builder = new StringBuilder();
+            for (GoodsDetailBean.GoodsBean good : shoppingCarBean.goods) {
+                builder.append(good.id).append(",");
+            }
+            mPresenter.orderConfirm(builder.substring(0, builder.length() - 1), "cart", mActivity);
+        } else {//单个商品过来的
+            mPresenter.orderConfirm(shoppingCarBean.goods.get(0).id, shoppingCarBean.weight, "buy", mActivity);
+        }
     }
 
     @Override

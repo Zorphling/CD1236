@@ -2,7 +2,10 @@ package com.business.cd1236.net.api.goods;
 
 import io.reactivex.Observable;
 import okhttp3.ResponseBody;
+import retrofit2.http.Field;
+import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
+import retrofit2.http.POST;
 import retrofit2.http.Query;
 
 /**
@@ -46,4 +49,14 @@ public interface GoodsService {
 
     @GET(GoodsApi.SHOPPING_DELETE)
     Observable<ResponseBody> shopping_delete(@Query("id") String carId);
+
+    @GET(GoodsApi.ORDER_CONFIRM)//单个商品下单
+    Observable<ResponseBody> orderConfirm(@Query("goodsid") String goodsid, @Query("goodsNum") String goodsNum, @Query("ment") String ment);
+
+    @GET(GoodsApi.ORDER_CONFIRM)//购物车下单
+    Observable<ResponseBody> orderConfirm(@Query("goodsid") String goodsid, @Query("ment") String ment);
+
+    @FormUrlEncoded
+    @POST(GoodsApi.ADD_ORDER)
+    Observable<ResponseBody> addOrder(@Field("goodsid[]") String goodsid, @Query("addressid") String addressid, @Query("freight") String freight, @Query("since") String since, @Query("leave") String leave);
 }

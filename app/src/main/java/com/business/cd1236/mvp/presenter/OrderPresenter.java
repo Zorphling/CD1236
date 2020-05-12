@@ -66,4 +66,21 @@ public class OrderPresenter extends BasePresenter<OrderContract.Model, OrderCont
             }
         });
     }
+    public void orderConfirm(String goodsids, String ment,Context context) {
+        RequestUtils.orderConfirm(goodsids, ment, new BaseCallBack(context) {
+            @Override
+            protected void onSuccess(String jsonString) {
+
+            }
+        });
+    }
+    public void orderConfirm(String goodsid, String goodsNum, String ment,Context context) {
+        RequestUtils.orderConfirm(goodsid,goodsNum,ment, new BaseCallBack(context) {
+            @Override
+            protected void onSuccess(String jsonString) {
+
+            }
+        });
+    }
+
 }

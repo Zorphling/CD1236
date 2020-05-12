@@ -25,7 +25,6 @@
         android:id="@+id/item2"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:subTitle="未填写"
         app:title="个人身份认证"
         app:titleColor="@color/text_default" />
 
