@@ -18,7 +18,8 @@ public class ShoppingCarBean implements Parcelable {
     public String business_name;
     public String uid;
     public String id;
-    public String jud_wholesale;
+    public String jud_wholesale;//批发权限判断 （暂时没用）为0时商品价格显示marketprice   为1时商品价格显示agent_marketprice
+    public String jud;//为0时商品价格显示marketprice   为1时商品价格显示agent_marketprice
     public List<GoodsDetailBean.GoodsBean> goods;
 
     /**
@@ -38,7 +39,9 @@ public class ShoppingCarBean implements Parcelable {
         business_name = in.readString();
         uid = in.readString();
         id = in.readString();
+        weight = in.readString();
         jud_wholesale = in.readString();
+        jud = in.readString();
         goods = in.createTypedArrayList(GoodsDetailBean.GoodsBean.CREATOR);
         isCheck = in.readByte() != 0;
     }
@@ -65,7 +68,9 @@ public class ShoppingCarBean implements Parcelable {
         dest.writeString(business_name);
         dest.writeString(uid);
         dest.writeString(id);
+        dest.writeString(weight);
         dest.writeString(jud_wholesale);
+        dest.writeString(jud);
         dest.writeTypedList(goods);
         dest.writeByte((byte) (isCheck ? 1 : 0));
     }

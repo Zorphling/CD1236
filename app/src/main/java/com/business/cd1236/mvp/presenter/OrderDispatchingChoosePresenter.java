@@ -1,28 +1,24 @@
 package com.business.cd1236.mvp.presenter;
 
 import android.app.Application;
-import android.content.Context;
 
-import com.business.cd1236.bean.CheckUpdateBean;
-import com.business.cd1236.mvp.contract.SplashContract;
-import com.business.cd1236.net.BaseCallBack;
-import com.business.cd1236.net.RequestUtils;
-import com.business.cd1236.utils.GsonUtils;
-import com.jess.arms.di.scope.ActivityScope;
-import com.jess.arms.http.imageloader.ImageLoader;
 import com.jess.arms.integration.AppManager;
+import com.jess.arms.di.scope.ActivityScope;
 import com.jess.arms.mvp.BasePresenter;
+import com.jess.arms.http.imageloader.ImageLoader;
+
+import me.jessyan.rxerrorhandler.core.RxErrorHandler;
 
 import javax.inject.Inject;
 
-import me.jessyan.rxerrorhandler.core.RxErrorHandler;
+import com.business.cd1236.mvp.contract.OrderDispatchingChooseContract;
 
 
 /**
  * ================================================
  * Description:
  * <p>
- * Created by MVPArmsTemplate on 04/01/2020 16:02
+ * Created by MVPArmsTemplate on 05/14/2020 14:41
  * <a href="mailto:jess.yan.effort@gmail.com">Contact me</a>
  * <a href="https://github.com/JessYanCoding">Follow me</a>
  * <a href="https://github.com/JessYanCoding/MVPArms">Star me</a>
@@ -31,7 +27,7 @@ import me.jessyan.rxerrorhandler.core.RxErrorHandler;
  * ================================================
  */
 @ActivityScope
-public class SplashPresenter extends BasePresenter<SplashContract.Model, SplashContract.View> {
+public class OrderDispatchingChoosePresenter extends BasePresenter<OrderDispatchingChooseContract.Model, OrderDispatchingChooseContract.View> {
     @Inject
     RxErrorHandler mErrorHandler;
     @Inject
@@ -42,7 +38,7 @@ public class SplashPresenter extends BasePresenter<SplashContract.Model, SplashC
     AppManager mAppManager;
 
     @Inject
-    public SplashPresenter(SplashContract.Model model, SplashContract.View rootView) {
+    public OrderDispatchingChoosePresenter(OrderDispatchingChooseContract.Model model, OrderDispatchingChooseContract.View rootView) {
         super(model, rootView);
     }
 
@@ -53,15 +49,5 @@ public class SplashPresenter extends BasePresenter<SplashContract.Model, SplashC
         this.mAppManager = null;
         this.mImageLoader = null;
         this.mApplication = null;
-    }
-
-    public void checkUpdate(Context context) {
-        RequestUtils.checkUpdate(new BaseCallBack(context) {
-            @Override
-            protected void onSuccess(String jsonString) {
-                CheckUpdateBean checkUpdateBean = GsonUtils.parseJsonWithGson(jsonString, CheckUpdateBean.class);
-                mRootView.checkUpdateSucc(checkUpdateBean);
-            }
-        });
     }
 }

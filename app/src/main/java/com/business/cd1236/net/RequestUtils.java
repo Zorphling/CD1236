@@ -64,16 +64,18 @@ public class RequestUtils {
 
     public static void revisePsw(String name, String pwd, BaseCallBack callBack) {
         RetrofitUtils.getService(LoginService.class).updatePassWord(name, pwd).compose(RxHelper.observableIO2Main(callBack.mContext)).subscribe(callBack);
-
     }
 
     public static void getGoodsDetail(String id, BaseCallBack callBack) {
         RetrofitUtils.getService(GoodsService.class).getGoodsDetail(id).compose(RxHelper.observableIO2Main(callBack.mContext)).subscribe(callBack);
-
     }
 
     public static void getMore(BaseCallBack callBack) {
         RetrofitUtils.getService(MainService.class).getMore().compose(RxHelper.observableIO2Main(callBack.mContext)).subscribe(callBack);
+    }
+
+    public static void checkUpdate(BaseCallBack callBack) {
+        RetrofitUtils.getService(MainService.class).appUpdate().compose(RxHelper.observableIO2Main(callBack.mContext)).subscribe(callBack);
     }
 
     public static void getPersonalInfo(BaseCallBack callBack) {
@@ -137,12 +139,16 @@ public class RequestUtils {
         RetrofitUtils.getService(GoodsService.class).search(stringExtra, page).compose(RxHelper.observableIO2Main(callBack.mContext)).subscribe(callBack);
     }
 
-    public static void orderConfirm(String goodsid, String ment, BaseCallBack callBack) {
-        RetrofitUtils.getService(GoodsService.class).orderConfirm(goodsid, ment).compose(RxHelper.observableIO2Main(callBack.mContext)).subscribe(callBack);
+    public static void orderConfirm(String goodsid, String ment, String jud, BaseCallBack callBack) {
+        RetrofitUtils.getService(GoodsService.class).orderConfirm(goodsid, ment, jud).compose(RxHelper.observableIO2Main(callBack.mContext)).subscribe(callBack);
     }
 
-    public static void orderConfirm(String goodsid, String goodsNum, String ment, BaseCallBack callBack) {
-        RetrofitUtils.getService(GoodsService.class).orderConfirm(goodsid, ment).compose(RxHelper.observableIO2Main(callBack.mContext)).subscribe(callBack);
+    public static void orderConfirm(String goodsid, String goodsNum, String ment, String jud, BaseCallBack callBack) {
+        RetrofitUtils.getService(GoodsService.class).orderConfirm(goodsid, goodsNum, ment, jud).compose(RxHelper.observableIO2Main(callBack.mContext)).subscribe(callBack);
+    }
+
+    public static void addOrder(String arrayList, String addressId, String freight, String since, String editText, BaseCallBack callBack) {
+        RetrofitUtils.getService(GoodsService.class).addOrder(arrayList, addressId, freight, since, editText).compose(RxHelper.observableIO2Main(callBack.mContext)).subscribe(callBack);
     }
 
     public static void add_shopping(String goodsid, String total, String marketprice, String shop_id, BaseCallBack callBack) {

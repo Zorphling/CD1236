@@ -2,8 +2,6 @@ package com.business.cd1236.net.api.goods;
 
 import io.reactivex.Observable;
 import okhttp3.ResponseBody;
-import retrofit2.http.Field;
-import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
 import retrofit2.http.POST;
 import retrofit2.http.Query;
@@ -51,12 +49,12 @@ public interface GoodsService {
     Observable<ResponseBody> shopping_delete(@Query("id") String carId);
 
     @GET(GoodsApi.ORDER_CONFIRM)//单个商品下单
-    Observable<ResponseBody> orderConfirm(@Query("goodsid") String goodsid, @Query("goodsNum") String goodsNum, @Query("ment") String ment);
+    Observable<ResponseBody> orderConfirm(@Query("goodsid") String goodsid, @Query("goodsNum") String goodsNum, @Query("ment") String ment,@Query("judge")String jud);
 
     @GET(GoodsApi.ORDER_CONFIRM)//购物车下单
-    Observable<ResponseBody> orderConfirm(@Query("goodsid") String goodsid, @Query("ment") String ment);
+    Observable<ResponseBody> orderConfirm(@Query("goodsid") String goodsid, @Query("ment") String ment,@Query("judge")String jud);
 
-    @FormUrlEncoded
+
     @POST(GoodsApi.ADD_ORDER)
-    Observable<ResponseBody> addOrder(@Field("goodsid[]") String goodsid, @Query("addressid") String addressid, @Query("freight") String freight, @Query("since") String since, @Query("leave") String leave);
+    Observable<ResponseBody> addOrder(@Query("goodsid") String goodsid,@Query("addressid") String addressid, @Query("freight") String freight, @Query("since") String since, @Query("leave") String leave);
 }

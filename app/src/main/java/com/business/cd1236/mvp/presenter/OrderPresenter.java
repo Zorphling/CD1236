@@ -4,6 +4,7 @@ import android.app.Application;
 import android.content.Context;
 
 import com.business.cd1236.bean.AddAddressBean;
+import com.business.cd1236.bean.OrderBean;
 import com.business.cd1236.mvp.contract.OrderContract;
 import com.business.cd1236.net.BaseCallBack;
 import com.business.cd1236.net.RequestUtils;
@@ -66,21 +67,33 @@ public class OrderPresenter extends BasePresenter<OrderContract.Model, OrderCont
             }
         });
     }
-    public void orderConfirm(String goodsids, String ment,Context context) {
-        RequestUtils.orderConfirm(goodsids, ment, new BaseCallBack(context) {
+
+    public void orderConfirm(String goodsids, String ment,String jud, Context context) {
+        RequestUtils.orderConfirm(goodsids, ment, jud,new BaseCallBack(context) {
+            @Override
+            protected void onSuccess(String jsonString) {
+                OrderBean orderBean = GsonUtils.parseJsonWithGson(jsonString, OrderBean.class);
+                mRootView.orderConfirmSucc(orderBean);
+            }
+        });
+    }
+
+    public void orderConfirm(String goodsid, String goodsNum, String ment, String jud,Context context) {
+        RequestUtils.orderConfirm(goodsid, goodsNum, ment,jud, new BaseCallBack(context) {
+            @Override
+            protected void onSuccess(String jsonString) {
+                OrderBean orderBean = GsonUtils.parseJsonWithGson(jsonString, OrderBean.class);
+                mRootView.orderConfirmSucc(orderBean);
+            }
+        });
+    }
+
+    public void addOrder(String arrayList,String addressId, String freight, String since, String editText, Context context) {
+        RequestUtils.addOrder(arrayList,addressId,freight,since,editText, new BaseCallBack(context) {
             @Override
             protected void onSuccess(String jsonString) {
 
             }
         });
     }
-    public void orderConfirm(String goodsid, String goodsNum, String ment,Context context) {
-        RequestUtils.orderConfirm(goodsid,goodsNum,ment, new BaseCallBack(context) {
-            @Override
-            protected void onSuccess(String jsonString) {
-
-            }
-        });
-    }
-
 }

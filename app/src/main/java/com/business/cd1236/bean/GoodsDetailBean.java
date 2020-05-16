@@ -21,6 +21,7 @@ public class GoodsDetailBean implements Parcelable {
     public GoodsBean goods;
     public ShopBean shop;
     public int number;
+    public String cart_num;
     public String jud;//0个体 1商家
     public String collect_jud;//0未收藏  1收藏
     public String jud_wholesale;//是否拥有批发权限  0没有  1 有

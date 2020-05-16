@@ -52,6 +52,7 @@ import java.util.ArrayList;
 
 import butterknife.BindView;
 import butterknife.OnClick;
+import q.rorbin.badgeview.QBadgeView;
 
 import static com.jess.arms.utils.Preconditions.checkNotNull;
 
@@ -83,6 +84,8 @@ public class GoodsDetailActivity extends MyBaseActivity<GoodsDetailPresenter> im
     ImageView ivCollect;
     @BindView(R.id.iv_cart)
     ImageView ivCart;
+    //    @BindView(R.id.shoppingcar_num)
+//    ShoppingCarBarView shoppingcarNum;
     @BindView(R.id.iv_home)
     ImageView ivHome;
     @BindView(R.id.tv_marketprice)
@@ -220,7 +223,7 @@ public class GoodsDetailActivity extends MyBaseActivity<GoodsDetailPresenter> im
                     mPresenter.addCollect(goodsDetailBean.goods.id, TextUtils.equals("0", goodsDetailBean.collect_jud) ? "1" : "0", mActivity);
                 break;
             case R.id.iv_cart:
-//                launchActivity(new Intent(mActivity,ShoppingCarActivity.class));
+                launchActivity(new Intent(mActivity, ShoppingCarActivity.class));
                 break;
             case R.id.iv_home:
                 intent.setClass(mActivity, MainActivity.class);
@@ -251,12 +254,13 @@ public class GoodsDetailActivity extends MyBaseActivity<GoodsDetailPresenter> im
 
                 ShoppingCarBean shoppingCarBean = new ShoppingCarBean();
                 shoppingCarBean.business_name = goodsDetailBean.shop.business_name;
-                shoppingCarBean.weight =  StringUtils.equals("0", goodsDetailBean.jud) ? goodsDetailBean.goods.weight : goodsDetailBean.goods.agent_weight;
+                shoppingCarBean.jud = goodsDetailBean.jud;
+                shoppingCarBean.weight = StringUtils.equals("0", goodsDetailBean.jud) ? goodsDetailBean.goods.weight : goodsDetailBean.goods.agent_weight;
                 arrayList.add(goodsDetailBean.goods);
                 shoppingCarBean.goods = arrayList;
 
                 intent.putExtra(OrderActivity.ORDER_INTENT, shoppingCarBean);
-                intent.putExtra(OrderActivity.ORDER_TYPE,false);
+                intent.putExtra(OrderActivity.ORDER_TYPE, false);
                 launchActivity(intent);
                 break;
         }
@@ -350,6 +354,9 @@ public class GoodsDetailActivity extends MyBaseActivity<GoodsDetailPresenter> im
     @Override
     public void addShoppingSucc(String msg) {
         MyToastUtils.showShort(msg);
+        int car_num = Integer.parseInt(goodsDetailBean.cart_num);
+        new QBadgeView(mActivity).setBadgeTextSize(6, true).
+                bindTarget(ivCart).setBadgeText(String.valueOf(car_num + 1));
         //购物车控件 开始一个放大动画
         Animation scaleAnim = AnimationUtils.loadAnimation(mActivity, R.anim.shop_car_scale);
         ivCart.startAnimation(scaleAnim);
@@ -368,6 +375,8 @@ public class GoodsDetailActivity extends MyBaseActivity<GoodsDetailPresenter> im
         } else {
             GlideUtil.loadImg(R.mipmap.goods_collect, ivCollect);
         }
+        new QBadgeView(mActivity).setBadgeTextSize(6, true).
+                bindTarget(ivCart).setBadgeText(goodsDetailBean.cart_num);
         /**
          * 设置banner
          */
@@ -392,8 +401,8 @@ public class GoodsDetailActivity extends MyBaseActivity<GoodsDetailPresenter> im
         tvMarketprice.setText(Html.fromHtml(s));
 //        String str4 = "今天<font color=\"#00ff00\"><big><big>天气不错</big></big></font>";
 //        textView4.setText(Html.fromHtml(str4));
-        tvSales.setText(SpannableStringUtils.textColor(StringUtils.equals("0", goodsDetailBean.jud) ? (goodsDetailBean.goods.weight + goodsDetailBean.goods.unit)
-                        : (goodsDetailBean.goods.agent_weight + goodsDetailBean.goods.agent_unit)
+        tvSales.setText(SpannableStringUtils.textColor((StringUtils.equals("0", goodsDetailBean.jud) ? (goodsDetailBean.goods.weight + goodsDetailBean.goods.unit)
+                        : goodsDetailBean.goods.agent_weight + goodsDetailBean.goods.agent_unit)
                         + "起订" + " | " + "成交" + (StringUtils.equals("0", goodsDetailBean.jud) ? (goodsDetailBean.goods.sales + goodsDetailBean.goods.unit)
                         : (goodsDetailBean.goods.sales + goodsDetailBean.goods.agent_unit)) + " | "
                         + (goodsDetailBean.goods.agent_total + (StringUtils.equals("0", goodsDetailBean.jud) ? goodsDetailBean.goods.unit : goodsDetailBean.goods.agent_unit)) + "可售"
@@ -427,4 +436,5 @@ public class GoodsDetailActivity extends MyBaseActivity<GoodsDetailPresenter> im
         }
         MyToastUtils.showShort(msg);
     }
+
 }

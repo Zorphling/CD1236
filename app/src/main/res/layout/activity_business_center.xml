@@ -109,7 +109,6 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:background="?android:attr/selectableItemBackground"
             app:contents="编辑门店营业信息"
             app:drawable="@mipmap/icon_store_edit"
             app:title="店铺资料" />
@@ -119,7 +118,6 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:background="?android:attr/selectableItemBackground"
             app:contents="商品属性设置"
             app:drawable="@mipmap/icon_store_goods"
             app:title="全部商品" />
@@ -138,7 +136,6 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:background="?android:attr/selectableItemBackground"
             app:contents="查看管理订单"
             app:drawable="@mipmap/icon_store_manage"
             app:title="订单管理" />
@@ -148,7 +145,6 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:background="?android:attr/selectableItemBackground"
             app:contents="物流服务随心选择"
             app:drawable="@mipmap/icon_store_trans"
             app:title="配送管理" />
@@ -167,7 +163,6 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:background="?android:attr/selectableItemBackground"
             app:contents="好的评价"
             app:drawable="@mipmap/icon_store_feeback"
             app:title="口碑评价" />
@@ -177,7 +172,6 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:background="?android:attr/selectableItemBackground"
             app:contents="装饰店铺、产品定制"
             app:drawable="@mipmap/icon_store_service"
             app:title="定制服务" />

@@ -53,26 +53,49 @@
         android:orientation="horizontal"
         android:paddingLeft="@dimen/dp10">
 
-        <androidx.appcompat.widget.AppCompatImageView
-            android:id="@+id/iv_collect"
+        <FrameLayout
             android:layout_width="@dimen/dp0"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:src="@mipmap/goods_uncollect" />
+            android:layout_height="match_parent"
+            android:layout_weight="1">
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/iv_collect"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:src="@mipmap/goods_uncollect" />
+        </FrameLayout>
         <!--                android:background="?android:selectableItemBackground"-->
-
-        <androidx.appcompat.widget.AppCompatImageView
-            android:id="@+id/iv_cart"
+        <FrameLayout
             android:layout_width="@dimen/dp0"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:src="@mipmap/goods_cart" />
+            android:layout_height="match_parent"
+            android:layout_weight="1">
 
-        <androidx.appcompat.widget.AppCompatImageView
-            android:id="@+id/iv_home"
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/iv_cart"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:src="@mipmap/goods_cart" />
+        </FrameLayout>
+
+
+        <!--        <com.business.cd1236.view.ShoppingCarBarView-->
+        <!--            android:id="@+id/shoppingcar_num"-->
+        <!--            android:layout_width="@dimen/dp0"-->
+        <!--            android:layout_weight="1"-->
+        <!--            android:layout_height="match_parent"/>-->
+        <FrameLayout
             android:layout_width="@dimen/dp0"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:src="@mipmap/goods_home" />
+            android:layout_height="match_parent"
+            android:layout_weight="1">
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/iv_home"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:src="@mipmap/goods_home" />
+        </FrameLayout>
     </LinearLayout>
 </LinearLayout>

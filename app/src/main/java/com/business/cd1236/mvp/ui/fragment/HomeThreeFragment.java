@@ -206,22 +206,22 @@ public class HomeThreeFragment extends MyBaseFragment<HomeThreePresenter> implem
                 isShowBottom();
                 break;
             case R.id.tv_all_delete:
-                new AlertDialog(mActivity).builder().setMsg("是否删除选中商品").setNegativeButton("取消", null).setPositiveButton("确定", v1 -> {
-                    StringBuilder builder = new StringBuilder();
-                    goodsBeanTemp = new ArrayList<>();
-                    for (ShoppingCarBean datum : homeThreeAdapter.getData()) {
-                        for (GoodsDetailBean.GoodsBean good : datum.goods) {
-                            if (good.isCheck) {
-                                goodsBeanTemp.add(good);
-                                builder.append(good.cart_id).append(",");
-                            }
+                StringBuilder builderDelete = new StringBuilder();
+                goodsBeanTemp = new ArrayList<>();
+                for (ShoppingCarBean datum : homeThreeAdapter.getData()) {
+                    for (GoodsDetailBean.GoodsBean good : datum.goods) {
+                        if (good.isCheck) {
+                            goodsBeanTemp.add(good);
+                            builderDelete.append(good.cart_id).append(",");
                         }
                     }
-                    if (builder.toString().length() == 0) {
-                        ArmsUtils.snackbarText("请选中商品");
-                        return;
-                    }
-                    mPresenter.shoppingDelete(builder.substring(0, builder.length() - 1), mActivity);
+                }
+                if (builderDelete.toString().length() == 0) {
+                    ArmsUtils.snackbarText("请选中商品");
+                    return;
+                }
+                new AlertDialog(mActivity).builder().setMsg("是否删除选中商品").setNegativeButton("取消", null).setPositiveButton("确定", v1 -> {
+                    mPresenter.shoppingDelete(builderDelete.substring(0, builderDelete.length() - 1), mActivity);
                 }).show();
                 break;
             case R.id.tv_all_collect:
@@ -232,8 +232,11 @@ public class HomeThreeFragment extends MyBaseFragment<HomeThreePresenter> implem
                             builder.append(good.id).append(",");
                     }
                 }
+                if (builder.toString().length() == 0) {
+                    ArmsUtils.snackbarText("请选中商品");
+                    return;
+                }
                 mPresenter.addCollect(builder.substring(0, builder.length() - 1), "1", mActivity);
-                ArmsUtils.snackbarText("收藏成功");
                 break;
         }
     }
@@ -252,6 +255,11 @@ public class HomeThreeFragment extends MyBaseFragment<HomeThreePresenter> implem
     public void getShoppingSucc(ArrayList<ShoppingCarBean> shoppingCarBeans) {
         if (shoppingCarBeans != null && shoppingCarBeans.size() > 0) {
             homeThreeAdapter.setList(shoppingCarBeans);
+        }
+        if (homeThreeAdapter.getData().size() == 0) {
+            allCheckBox.setChecked(false);
+            tvRight.setText("管理");
+            rlBottom.setVisibility(View.GONE);
         }
     }
 
@@ -280,10 +288,6 @@ public class HomeThreeFragment extends MyBaseFragment<HomeThreePresenter> implem
 //        }
 //        homeThreeAdapter.notifyDataSetChanged();
 //        homeThreeAdapter.notifyRemoved(goodsBeanTemp);
-        if (homeThreeAdapter.getData().size() == 0) {
-            allCheckBox.setChecked(false);
-            isShowBottom();
-        }
     }
 
     @Override

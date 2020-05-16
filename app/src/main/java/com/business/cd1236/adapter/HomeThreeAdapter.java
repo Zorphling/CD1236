@@ -30,6 +30,7 @@ import java.util.ArrayList;
 
 public class HomeThreeAdapter extends BaseQuickAdapter<ShoppingCarBean, BaseViewHolder> implements OnItemChildClickListener {
     private OnChangeCarNumListener onChangeCarNumListener;
+    private String jud;
 
     public HomeThreeAdapter(int layoutResId, OnChangeCarNumListener onChangeCarNumListener) {
         super(layoutResId);
@@ -39,6 +40,7 @@ public class HomeThreeAdapter extends BaseQuickAdapter<ShoppingCarBean, BaseView
     @Override
     protected void convert(@NotNull BaseViewHolder baseViewHolder, ShoppingCarBean bean) {
         baseViewHolder.setText(R.id.tv_store_title, bean.business_name);
+        this.jud = bean.jud;
 
         RecyclerView rvItem = baseViewHolder.getView(R.id.rv_item);
 
@@ -142,7 +144,9 @@ public class HomeThreeAdapter extends BaseQuickAdapter<ShoppingCarBean, BaseView
         double totalPrice = 0;
         for (GoodsDetailBean.GoodsBean good : bean.goods) {
             if (good.isCheck) {
-                totalPrice = MathUtils.add(totalPrice, MathUtils.mul(Double.parseDouble(good.marketprice), Double.parseDouble(good.total)));
+                totalPrice = MathUtils.add(totalPrice,
+                        MathUtils.mul(Double.parseDouble(StringUtils.equals("0", good.marketprice) ? good.marketprice : good.agent_marketprice),
+                                Double.parseDouble(good.total)));
             }
         }
 
@@ -228,7 +232,7 @@ public class HomeThreeAdapter extends BaseQuickAdapter<ShoppingCarBean, BaseView
             ((AppCompatCheckBox) baseViewHolder.getView(R.id.item_check_box)).setChecked(goodsBean.isCheck);
 
             baseViewHolder.setText(R.id.tv_goods_title, goodsBean.title).setText(R.id.tv_goods_price,
-                    getContext().getResources().getString(R.string.rmb) + " " + goodsBean.marketprice)
+                    getContext().getResources().getString(R.string.rmb) + " " + (StringUtils.equals("1", jud) ? goodsBean.agent_marketprice : goodsBean.marketprice))
                     .setText(R.id.et_goods_num, goodsBean.total);
 
             if (StringUtils.equals("1", goodsBean.total)) {

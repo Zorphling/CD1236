@@ -1,8 +1,102 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:fitsSystemWindows="true"
     android:orientation="vertical">
 
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp47">
+<ImageView
+    android:layout_width="wrap_content"
+    android:src="@mipmap/arrow_left_black"
+    android:paddingLeft="@dimen/dp10"
+    android:id="@+id/iv_back"
+    android:paddingRight="@dimen/dp10"
+    android:layout_height="match_parent"/>
+        <TextView
+            android:id="@+id/tv_title"
+            style="@style/TextAppearance.AppCompat.Widget.ActionBar.Title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:layout_gravity="center"
+            android:text="进货单"
+            android:textColor="@android:color/black"
+            android:textSize="18sp" />
+
+        <TextView
+            android:id="@+id/tv_right_manage"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_alignParentRight="true"
+            android:foreground="?android:attr/selectableItemBackground"
+            android:gravity="center_vertical"
+            android:paddingLeft="@dimen/dp10"
+            android:paddingRight="@dimen/dp10"
+            android:text="管理"
+            android:textColor="@android:color/black" />
+    </RelativeLayout>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rv_home_three"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp0"
+        android:layout_weight="1"
+        android:background="@color/colorGray1"
+        android:overScrollMode="never" />
+
+    <include layout="@layout/layout_line" />
+
+    <RelativeLayout
+        android:id="@+id/rl_bottom"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@android:color/white"
+        android:visibility="gone">
+
+        <androidx.appcompat.widget.AppCompatCheckBox
+            android:id="@+id/all_check_box"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@android:color/transparent"
+            android:button="@null"
+            android:drawableLeft="@drawable/selector_cart_checkbox"
+            android:drawablePadding="@dimen/dp3"
+            android:padding="@dimen/dp10"
+            android:text="全选" />
+
+        <TextView
+            android:id="@+id/tv_all_delete"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerInParent="true"
+            android:layout_marginRight="@dimen/dp10"
+            android:background="@drawable/stroke_bg_delete_red"
+            android:paddingLeft="@dimen/dp15"
+            android:paddingTop="@dimen/dp3"
+            android:paddingRight="@dimen/dp15"
+            android:paddingBottom="@dimen/dp3"
+            android:text="删除"
+            android:textColor="@color/text_select_red" />
+
+        <TextView
+            android:id="@+id/tv_all_collect"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:layout_marginRight="@dimen/dp20"
+            android:layout_toLeftOf="@id/tv_all_delete"
+            android:background="@drawable/stroke_bg_shopping_car_collect"
+            android:paddingLeft="@dimen/dp10"
+            android:paddingTop="@dimen/dp3"
+            android:paddingRight="@dimen/dp10"
+            android:paddingBottom="@dimen/dp3"
+            android:text="添加收藏夹"
+            android:textColor="@color/text_shopping_car_collect" />
+    </RelativeLayout>
 </LinearLayout>

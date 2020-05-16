@@ -17,16 +17,21 @@ import com.business.cd1236.adapter.OrderAdapter;
 import com.business.cd1236.base.MyBaseActivity;
 import com.business.cd1236.bean.AddAddressBean;
 import com.business.cd1236.bean.GoodsDetailBean;
+import com.business.cd1236.bean.OrderBean;
 import com.business.cd1236.bean.ShoppingCarBean;
 import com.business.cd1236.di.component.DaggerOrderComponent;
 import com.business.cd1236.mvp.contract.OrderContract;
 import com.business.cd1236.mvp.presenter.OrderPresenter;
+import com.business.cd1236.utils.LogUtils;
+import com.business.cd1236.utils.SpannableStringUtils;
 import com.business.cd1236.utils.StringUtils;
 import com.business.cd1236.view.ItemView;
+import com.google.gson.Gson;
 import com.jaeger.library.StatusBarUtil;
 import com.jess.arms.di.component.AppComponent;
 import com.jess.arms.utils.ArmsUtils;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 
 import butterknife.BindView;
@@ -55,8 +60,8 @@ public class OrderActivity extends MyBaseActivity<OrderPresenter> implements Ord
     LinearLayout llExpress;
     @BindView(R.id.ll_store_cheap)
     ItemView llStoreCheap;
-    @BindView(R.id.et_goods_cost_price)
-    EditText etGoodsCostPrice;
+    @BindView(R.id.et_leave_message)
+    EditText etLeaveMessage;
     @BindView(R.id.tv_goods_sum)
     TextView tvGoodsSum;
     @BindView(R.id.tv_carriage)
@@ -84,6 +89,7 @@ public class OrderActivity extends MyBaseActivity<OrderPresenter> implements Ord
 
     ShoppingCarBean shoppingCarBean;
     private OrderAdapter orderAdapter;
+    OrderBean orderBean;
 
     @Override
     public void setupActivityComponent(@NonNull AppComponent appComponent) {
@@ -114,23 +120,22 @@ public class OrderActivity extends MyBaseActivity<OrderPresenter> implements Ord
         rvOrder.setAdapter(orderAdapter);
         if (shoppingCarBean != null) {
             rvStoreTitle.setText(shoppingCarBean.business_name);
-            orderAdapter.setList(shoppingCarBean.goods);
-        }
-        if (isShoppingCar) {//购物车过来的
-            StringBuilder builder = new StringBuilder();
-            for (GoodsDetailBean.GoodsBean good : shoppingCarBean.goods) {
-                builder.append(good.id).append(",");
-            }
-            mPresenter.orderConfirm(builder.substring(0, builder.length() - 1), "cart", mActivity);
-        } else {//单个商品过来的
-            mPresenter.orderConfirm(shoppingCarBean.goods.get(0).id, shoppingCarBean.weight, "buy", mActivity);
+//            orderAdapter.setList(shoppingCarBean.goods);
         }
     }
 
     @Override
     protected void onResume() {
         super.onResume();
-        mPresenter.getDefAddress(mActivity);
+        if (isShoppingCar) {//购物车过来的
+            StringBuilder builder = new StringBuilder();
+            for (GoodsDetailBean.GoodsBean good : shoppingCarBean.goods) {
+                builder.append(good.cart_id).append(",");
+            }
+            mPresenter.orderConfirm(builder.substring(0, builder.length() - 1), "cart",shoppingCarBean.jud, mActivity);
+        } else {//单个商品过来的
+            mPresenter.orderConfirm(shoppingCarBean.goods.get(0).id, shoppingCarBean.weight, "buy",shoppingCarBean.jud, mActivity);
+        }
     }
 
     @Override
@@ -162,17 +167,33 @@ public class OrderActivity extends MyBaseActivity<OrderPresenter> implements Ord
 
     @OnClick({R.id.ll_address, R.id.ll_express, R.id.ll_store_cheap, R.id.tv_submit_order})
     public void onViewClicked(View view) {
+        Intent intent = new Intent();
         switch (view.getId()) {
             case R.id.ll_address:
-                Intent intent = new Intent(mActivity, AddressActivity.class);
+                intent.setClass(mActivity, AddressActivity.class);
                 intent.putExtra(AddressActivity.SELECT_ADDRESS, "1");
                 startActivityForResult(intent, 100);
                 break;
             case R.id.ll_express:
+//                intent.setClass(mActivity, OrderDispatchingChooseActivity.class);
+//                launchActivity(intent);
                 break;
             case R.id.ll_store_cheap:
                 break;
             case R.id.tv_submit_order:
+                if (StringUtils.equals("没有可用的收货地址", tvReceiver.getText())) {
+                    ArmsUtils.snackbarText("请先选择收货地址");
+                    return;
+                }
+                ArrayList<String> arrayList = new ArrayList<>();
+
+                for (GoodsDetailBean.GoodsBean good : orderBean.goods) {
+                    arrayList.add(good.id + "," + good.total + "," + shoppingCarBean.jud);//1 零售  2批发
+                }
+                LogUtils.e(arrayList.toArray() + " ===================== array");
+                LogUtils.e(arrayList.toString() + " ====================== string");
+                LogUtils.e(new Gson().toJson(arrayList) + " ====================== list");
+                mPresenter.addOrder(new Gson().toJson(arrayList), orderBean.address.id, orderBean.freight, "0", StringUtils.getEditText(etLeaveMessage), mActivity);//1自提 0物流
                 break;
         }
     }
@@ -193,8 +214,13 @@ public class OrderActivity extends MyBaseActivity<OrderPresenter> implements Ord
     }
 
     private void setAddress(AddAddressBean bean) {
-        tvReceiver.setText("收货人：" + bean.realname + "       " + bean.mobile);
-        tvAddress.setText(bean.province + bean.city + bean.area + bean.address);
+        if (bean != null && StringUtils.checkString(bean.address)) {
+            tvReceiver.setText("收货人：" + bean.realname + "       " + bean.mobile);
+            tvAddress.setText(bean.address);//bean.province + bean.city + bean.area +
+        } else {
+            tvReceiver.setText("没有可用的收货地址");
+            tvAddress.setText("去选择地址～");
+        }
     }
 
     @Override
@@ -210,5 +236,19 @@ public class OrderActivity extends MyBaseActivity<OrderPresenter> implements Ord
                 break;
             }
         }
+    }
+
+    @Override
+    public void orderConfirmSucc(OrderBean orderBean) {
+        this.orderBean = orderBean;
+        setAddress(orderBean.address);
+        if (orderBean.goods != null && orderBean.goods.size() > 0) {
+            orderAdapter.setList(shoppingCarBean.jud,orderBean.goods);
+        }
+        tvGoodsSum.setText(getString(R.string.rmb) + " " + new DecimalFormat("#0.00").format(Double.parseDouble(orderBean.good_s.money)));
+        tvCarriage.setText(getString(R.string.rmb) + " " + new DecimalFormat("#0.00").format(Double.parseDouble(orderBean.freight)));
+        String paid = "实付金额：" + getString(R.string.rmb) + " " + new DecimalFormat("#0.00").format(Double.parseDouble(orderBean.good_s.moneys));
+        tvAmountPaid.setText(SpannableStringUtils.textColor(paid, getRColor(R.color.text_select_red), paid.indexOf(" ") - 1, paid.length()));
+        tvAmountPaidAndrExpress.setText(getString(R.string.rmb) + " " + new DecimalFormat("#0.00").format(Double.parseDouble(orderBean.good_s.moneys)));
     }
 }
