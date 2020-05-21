@@ -16,7 +16,7 @@
             android:drawableLeft="@mipmap/icon_location"
             android:drawablePadding="@dimen/dp2"
             android:gravity="center_vertical"
-            android:text="世界贸易中心A座"
+            android:text="..."
             android:textColor="@color/goods_detail_title" />
 
         <FrameLayout

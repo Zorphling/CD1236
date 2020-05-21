@@ -31,6 +31,7 @@ import com.business.cd1236.mvp.ui.activity.BusinessEnterActivity;
 import com.business.cd1236.mvp.ui.activity.CollectGoodsActivity;
 import com.business.cd1236.mvp.ui.activity.FeedBackActivity;
 import com.business.cd1236.mvp.ui.activity.FollowStoreActivity;
+import com.business.cd1236.mvp.ui.activity.MyOrderActivity;
 import com.business.cd1236.mvp.ui.activity.PersonalInfoActivity;
 import com.business.cd1236.mvp.ui.activity.SettingActivity;
 import com.business.cd1236.utils.GlideUtil;
@@ -265,16 +266,22 @@ public class HomeFourFragment extends MyBaseFragment<HomeFourPresenter> implemen
             case R.id.iv_notice:
                 break;
             case R.id.rl_my_order:
+                launchActivity(new Intent(mActivity, MyOrderActivity.class));
                 break;
             case R.id.crb_1:
+                launchActivity(new Intent(mActivity, MyOrderActivity.class));
                 break;
             case R.id.crb_2:
+                launchActivity(new Intent(mActivity, MyOrderActivity.class));
                 break;
             case R.id.crb_3:
+                launchActivity(new Intent(mActivity, MyOrderActivity.class));
                 break;
             case R.id.crb_4:
+                launchActivity(new Intent(mActivity, MyOrderActivity.class));
                 break;
             case R.id.crb_5:
+                launchActivity(new Intent(mActivity, MyOrderActivity.class));
                 break;
             case R.id.piv_address:
                 launchActivity(new Intent(mActivity, AddressActivity.class));

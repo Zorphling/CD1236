@@ -94,6 +94,8 @@ public class BusinessAddGoodsActivity extends MyBaseActivity<BusinessAddGoodsPre
     EditText etWholesaleUnit;
     @BindView(R.id.et_goods_stock)
     EditText etGoodsStock;
+    @BindView(R.id.et_goods_wholesale_stock)
+    EditText etGoodsWholesaleStock;
     @BindView(R.id.et_goods_brand)
     EditText etGoodsBrand;
     @BindView(R.id.et_goods_standard_number)
@@ -207,6 +209,7 @@ public class BusinessAddGoodsActivity extends MyBaseActivity<BusinessAddGoodsPre
                                                 if (check(etWholesaleUnit, "请选择批发单位"))
                                                     if (check(etGoodsSpec, "请选额商品规格"))
                                                         if (check(etGoodsStock, "请输入商品库存"))
+                                                            if (check(etGoodsWholesaleStock,"请输入商品"))
                                                             if (check(etGoodsBrand, "请选择商品品牌")) {
                                                                 if (goodsBean != null) {//编辑商品，并且没有更换图片就不用传图
                                                                     if (listMap.size() == 0) {
@@ -303,7 +306,7 @@ public class BusinessAddGoodsActivity extends MyBaseActivity<BusinessAddGoodsPre
                     StringUtils.getEditText(etWholesaleNum), StringUtils.getEditText(etWholesaleUnit),
                     formatId, imgs.get(0), imgs.get(1), StringUtils.getEditText(etGoodsNowPrice),
                     StringUtils.getEditText(etGoodsWholesalePrice), StringUtils.getEditText(etGoodsCostPrice),
-                    StringUtils.getEditText(etGoodsStock), imgs.get(1), mActivity);
+                    StringUtils.getEditText(etGoodsStock), StringUtils.getEditText(etGoodsWholesaleStock), imgs.get(1), mActivity);
         }
     }
 

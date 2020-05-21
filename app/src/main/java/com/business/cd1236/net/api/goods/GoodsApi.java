@@ -14,4 +14,5 @@ public interface GoodsApi {
     String SHOPPING_DELETE = "shopping_delete";//删除购物车
     String ORDER_CONFIRM = "confirm";//下单
     String ADD_ORDER = "add_order";//生成订单
+    String ORDER_PAY = "pay";//生成订单后
 }

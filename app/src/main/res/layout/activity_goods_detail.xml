@@ -284,6 +284,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:drawableTop="@mipmap/icon_goods_custom_service"
+                android:visibility="gone"
                 android:drawablePadding="@dimen/dp3"
                 android:gravity="center"
                 android:text="客服"

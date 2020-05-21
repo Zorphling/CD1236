@@ -12,7 +12,7 @@ public interface OnDownloadListener {
     /**
      * @param progress 下载进度
      */
-    void onDownloading(float progress,long total);
+    void onDownloading(int progress);
 
     /**
      * 下载失败

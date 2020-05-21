@@ -1,8 +1,13 @@
 package com.business.cd1236.mvp.presenter;
 
 import android.app.Application;
+import android.content.Context;
 
+import com.business.cd1236.bean.CheckUpdateBean2;
 import com.business.cd1236.mvp.contract.MainContract;
+import com.business.cd1236.net.BaseCallBack;
+import com.business.cd1236.net.RequestUtils;
+import com.business.cd1236.utils.GsonUtils;
 import com.jess.arms.di.scope.ActivityScope;
 import com.jess.arms.http.imageloader.ImageLoader;
 import com.jess.arms.integration.AppManager;
@@ -48,5 +53,14 @@ public class MainPresenter extends BasePresenter<MainContract.Model, MainContrac
         this.mAppManager = null;
         this.mImageLoader = null;
         this.mApplication = null;
+    }
+    public void checkUpdate(Context context) {
+        RequestUtils.checkUpdate(new BaseCallBack(context) {
+            @Override
+            protected void onSuccess(String jsonString) {
+                CheckUpdateBean2 checkUpdateBean = GsonUtils.parseJsonWithGson(jsonString, CheckUpdateBean2.class);
+                mRootView.checkUpdateSucc(checkUpdateBean);
+            }
+        });
     }
 }

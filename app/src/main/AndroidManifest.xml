@@ -19,6 +19,8 @@
     <uses-permission android:name="android.permission.VIBRATE" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.READ_LOGS" />
+
 
     <application
         android:name=".base.MyApplication"
@@ -28,6 +30,8 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:replace="android:name,android:allowBackup">
+        <activity android:name=".mvp.ui.activity.OrderSettleActivity" />
+        <activity android:name=".mvp.ui.activity.MyOrderActivity" />
         <activity android:name=".mvp.ui.activity.OrderDispatchingChooseActivity" />
         <activity android:name=".mvp.ui.activity.ShoppingCarActivity" />
         <activity android:name=".mvp.ui.activity.WebActivity" />
@@ -89,6 +93,7 @@
         <meta-data
             android:name="project.com.arms.app.GlobalConfiguration"
             android:value="ConfigModule" /> <!-- 定义FileProvider -->
+        <!-- android:authorities="${applicationId}.versionProvider" -->
         <provider
             android:name="androidx.core.content.FileProvider"
             android:authorities="${applicationId}.fileProvider"

@@ -65,8 +65,8 @@ public class HomeOneFragment extends MyBaseFragment<HomeOnePresenter> implements
     Banner banner;
     @BindView(R.id.ll_category)
     LinearLayout llCategory;
-    @BindView(R.id.ll_recommend)
-    LinearLayout llRecommend;
+    //    @BindView(R.id.ll_recommend)
+//    LinearLayout llRecommend;
     @BindView(R.id.rv_category)
     RecyclerView rvCategory;
     @BindView(R.id.rv_recommend)
@@ -112,15 +112,15 @@ public class HomeOneFragment extends MyBaseFragment<HomeOnePresenter> implements
         rvCategory.setAdapter(homeCategrayAdapter);
         homeCategrayAdapter.setOnItemClickListener(this);
 
+        rvRecommend.setNestedScrollingEnabled(false);
         ArmsUtils.configRecyclerView(rvRecommend, new GridLayoutManager(mContext, 2));
         rvRecommend.addItemDecoration(new SpaceItemDecoration(0, dp, SpaceItemDecoration.TYPE.ALL));
-        rvRecommend.setNestedScrollingEnabled(false);
         homeGoodsAdapter = new HomeGoodsAdapter(R.layout.item_home_goods);
         rvRecommend.setAdapter(homeGoodsAdapter);
         homeGoodsAdapter.setOnItemClickListener(this);
 
         mPresenter.getBanner(mActivity);
-        mPresenter.getGoods(mActivity);
+        mPresenter.getGoods(1, mActivity);
     }
 
     private void initBanner() {
@@ -212,7 +212,7 @@ public class HomeOneFragment extends MyBaseFragment<HomeOnePresenter> implements
 
     @Override
     public void getGoodsSuccess(HomeGoodsBean homeGoodsBean) {
-        llRecommend.setVisibility(View.VISIBLE);
+//        llRecommend.setVisibility(View.VISIBLE);
         homeGoodsAdapter.loadData(homeGoodsBean.jud, homeGoodsBean.data);
     }
 

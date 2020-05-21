@@ -71,7 +71,7 @@ public class BrowseRecordActivity extends MyBaseActivity<BrowseRecordPresenter> 
         setHeaderColor(getResources().getColor(android.R.color.white), getResources().getColor(android.R.color.black), R.mipmap.arrow_left_black);
         setStatusColor(mActivity, false, true, android.R.color.white);
 
-        rvContent.setLayoutManager(new GridLayoutManager(mActivity, 3));
+        ArmsUtils.configRecyclerView(rvContent,new GridLayoutManager(mActivity, 3));
         rvContent.addItemDecoration(new SpaceItemDecoration(0, SizeUtils.dp2px(mActivity, 10), SpaceItemDecoration.TYPE.GRID));
 
         mPresenter.queryBrowse(mActivity);

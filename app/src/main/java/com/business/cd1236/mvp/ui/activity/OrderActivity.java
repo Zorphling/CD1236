@@ -33,6 +33,8 @@ import com.jess.arms.utils.ArmsUtils;
 
 import java.text.DecimalFormat;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -132,9 +134,9 @@ public class OrderActivity extends MyBaseActivity<OrderPresenter> implements Ord
             for (GoodsDetailBean.GoodsBean good : shoppingCarBean.goods) {
                 builder.append(good.cart_id).append(",");
             }
-            mPresenter.orderConfirm(builder.substring(0, builder.length() - 1), "cart",shoppingCarBean.jud, mActivity);
+            mPresenter.orderConfirm(builder.substring(0, builder.length() - 1), "cart", shoppingCarBean.jud, mActivity);
         } else {//单个商品过来的
-            mPresenter.orderConfirm(shoppingCarBean.goods.get(0).id, shoppingCarBean.weight, "buy",shoppingCarBean.jud, mActivity);
+            mPresenter.orderConfirm(shoppingCarBean.goods.get(0).id, shoppingCarBean.weight, "buy", shoppingCarBean.jud, mActivity);
         }
     }
 
@@ -185,15 +187,26 @@ public class OrderActivity extends MyBaseActivity<OrderPresenter> implements Ord
                     ArmsUtils.snackbarText("请先选择收货地址");
                     return;
                 }
+                StringBuilder builder = new StringBuilder();
                 ArrayList<String> arrayList = new ArrayList<>();
 
                 for (GoodsDetailBean.GoodsBean good : orderBean.goods) {
-                    arrayList.add(good.id + "," + good.total + "," + shoppingCarBean.jud);//1 零售  2批发
+                    arrayList.add(good.id + "," + good.total + "," + shoppingCarBean.jud);//0零售  1批发
+                    builder.append(good.id).append(",").append(good.total).append(",").append(shoppingCarBean.jud).append(";");
                 }
-                LogUtils.e(arrayList.toArray() + " ===================== array");
                 LogUtils.e(arrayList.toString() + " ====================== string");
-                LogUtils.e(new Gson().toJson(arrayList) + " ====================== list");
-                mPresenter.addOrder(new Gson().toJson(arrayList), orderBean.address.id, orderBean.freight, "0", StringUtils.getEditText(etLeaveMessage), mActivity);//1自提 0物流
+                LogUtils.e(new Gson().toJson(arrayList) + " ====================== listJsonString");
+//                mPresenter.addOrder(new Gson().toJson(arrayList), orderBean.address.id, orderBean.freight, "0", StringUtils.getEditText(etLeaveMessage), mActivity);//1自提 0物流
+                String[] lists = arrayList.toArray(new String[arrayList.size()]);
+                LogUtils.e(lists.toString() + " ====================== String[]");
+                Map<String, String> map = new HashMap<>();
+                for (String s : arrayList) {
+                    map.put("goodsid[]", s);
+                }
+                LogUtils.e(builder.toString());
+                mPresenter.addOrder(builder.substring(0, builder.length() - 1), orderBean.address.id, orderBean.freight, "0", StringUtils.getEditText(etLeaveMessage), mActivity);//1自提 0物流
+//                mPresenter.addOrder(map, orderBean.address.id, orderBean.freight, "0", StringUtils.getEditText(etLeaveMessage), mActivity);//1自提 0物流
+//                OrderSettleActivity
                 break;
         }
     }
@@ -243,12 +256,19 @@ public class OrderActivity extends MyBaseActivity<OrderPresenter> implements Ord
         this.orderBean = orderBean;
         setAddress(orderBean.address);
         if (orderBean.goods != null && orderBean.goods.size() > 0) {
-            orderAdapter.setList(shoppingCarBean.jud,orderBean.goods);
+            orderAdapter.setList(shoppingCarBean.jud, orderBean.goods);
         }
         tvGoodsSum.setText(getString(R.string.rmb) + " " + new DecimalFormat("#0.00").format(Double.parseDouble(orderBean.good_s.money)));
         tvCarriage.setText(getString(R.string.rmb) + " " + new DecimalFormat("#0.00").format(Double.parseDouble(orderBean.freight)));
         String paid = "实付金额：" + getString(R.string.rmb) + " " + new DecimalFormat("#0.00").format(Double.parseDouble(orderBean.good_s.moneys));
         tvAmountPaid.setText(SpannableStringUtils.textColor(paid, getRColor(R.color.text_select_red), paid.indexOf(" ") - 1, paid.length()));
         tvAmountPaidAndrExpress.setText(getString(R.string.rmb) + " " + new DecimalFormat("#0.00").format(Double.parseDouble(orderBean.good_s.moneys)));
+    }
+
+    @Override
+    public void addOrderSucc(String jsonString) {
+        Intent intent = new Intent(mActivity, OrderSettleActivity.class);
+        intent.putExtra(OrderSettleActivity.ORDER_ID, jsonString);
+        launchActivity(intent);
     }
 }

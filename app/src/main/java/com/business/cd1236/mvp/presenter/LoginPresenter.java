@@ -59,7 +59,6 @@ public class LoginPresenter extends BasePresenter<LoginContract.Model, LoginCont
     }
 
     public void login(String name, String pwd, Context context) {
-        LogUtils.e("login ---------------------", name + pwd);
         RequestUtils.login(name, pwd, new BaseCallBack(context) {
             @Override
             protected void onSuccess(String jsonString) {

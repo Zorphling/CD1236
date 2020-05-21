@@ -5,7 +5,6 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@android:color/white"
-    android:fitsSystemWindows="true"
     android:orientation="vertical">
 
     <LinearLayout
@@ -45,7 +44,6 @@
             android:layout_marginLeft="@dimen/dp20"
             android:src="@mipmap/home_msg" />
     </LinearLayout>
-
     <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -122,28 +120,26 @@
                 android:layout_height="@dimen/dp10"
                 android:background="@color/bg_gray" />
 
-            <LinearLayout
-                android:id="@+id/ll_recommend"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="vertical"
-                android:visibility="gone">
+<!--            <LinearLayout-->
+<!--                android:id="@+id/ll_recommend"-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="match_parent"-->
+<!--                android:orientation="vertical"-->
+<!--                android:visibility="visible">-->
 
                 <ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="@dimen/dp10"
                     android:layout_marginTop="@dimen/dp10"
-                    android:layout_marginRight="@dimen/dp10"
                     android:src="@mipmap/home_recommend" />
 
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/rv_recommend"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:paddingRight="@dimen/dp10"
-                    android:paddingBottom="@dimen/dp10" />
-            </LinearLayout>
+                    android:paddingRight="@dimen/dp10" />
+<!--            </LinearLayout>-->
         </LinearLayout>
     </androidx.core.widget.NestedScrollView>
 </LinearLayout>

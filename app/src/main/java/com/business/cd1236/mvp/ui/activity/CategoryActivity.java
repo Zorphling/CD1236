@@ -88,6 +88,7 @@ public class CategoryActivity extends MyBaseActivity<CategoryPresenter> implemen
 
         ArmsUtils.configRecyclerView(rvContent, new GridLayoutManager(mActivity, 2));
         rvContent.addItemDecoration(new SpaceItemDecoration(0, SizeUtils.dp2px(mActivity, 10), SpaceItemDecoration.TYPE.ALL));
+//        rvContent.canScrollVertically()
         searchResultAdapter = new SearchResultAdapter(R.layout.item_search_result);
         View emptyView = LayoutInflater.from(mActivity).inflate(R.layout.layout_rv_empty, null);
         ((TextView) emptyView.findViewById(R.id.tv)).setText("没有搜索结果～");

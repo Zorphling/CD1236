@@ -71,8 +71,8 @@ public class HomeOnePresenter extends BasePresenter<HomeOneContract.Model, HomeO
         });
     }
 
-    public void getGoods(Context context) {
-        RequestUtils.getGoods(new BaseCallBack(context) {
+    public void getGoods(int db,Context context) {
+        RequestUtils.getGoods(db,new BaseCallBack(context) {
             @Override
             protected void onSuccess(String jsonString) {
                 HomeGoodsBean homeGoodsBean = GsonUtils.parseJsonWithGson(jsonString, HomeGoodsBean.class);

@@ -1,31 +1,64 @@
 <?xml version="1.0" encoding="utf-8"?>
-<paths xmlns:android="http://schemas.android.com/apk/res/android">
-    <!--对应外部内存卡根目录：Environment.getExternalStorageDirectory()-->
+<paths>
     <external-path
-        name="ext_root"
-        path="/" />
-    <!--指定文件存储的区块和区块的相对路径-->
-    <files-path
-        name="my_path"
-        path="images/" />
-    <!--1、对应内部内存卡根目录：Context.getFileDir()-->
-    <files-path
-        name="int_root"
-        path="/" />
-    <!--2、对应应用默认缓存根目录：Context.getCacheDir()-->
-    <cache-path
-        name="app_cache"
-        path="/" />
-    <!--3、对应外部内存卡根目录：Environment.getExternalStorageDirectory()-->
+        name="files_root"
+        path="Android/data/com.earn/" />
     <external-path
-        name="ext_root"
-        path="pictures/" />
-    <!--4、对应外部内存卡根目录下的APP公共目录：Context.getExternalFileDir(String)-->
-    <external-files-path
-        name="ext_pub"
-        path="/" />
-    <!--5、对应外部内存卡根目录下的APP缓存目录：Context.getExternalCacheDir()-->
-    <external-cache-path
-        name="ext_cache"
-        path="/" />
+        name="external_storage_root"
+        path="." />
+    <paths>
+        <external-path
+            name="camera_photos"
+            path="" />
+    </paths>
 </paths>
+
+
+
+
+
+    <!--<?xml version="1.0" encoding="utf-8"?>-->
+<!--<paths xmlns:android="http://schemas.android.com/apk/res/android">-->
+<!--    &lt;!&ndash;对应外部内存卡根目录：Environment.getExternalStorageDirectory()&ndash;&gt;-->
+<!--&lt;!&ndash;    <external-path&ndash;&gt;-->
+<!--&lt;!&ndash;        name="ext_root"&ndash;&gt;-->
+<!--&lt;!&ndash;        path="/" />&ndash;&gt;-->
+<!--    <external-path-->
+<!--        name="files_root"-->
+<!--        path="Android/data/com.earn/" />-->
+<!--    <external-path-->
+<!--        name="external_storage_root"-->
+<!--        path="." />-->
+<!--&lt;!&ndash;    <paths>&ndash;&gt;-->
+<!--&lt;!&ndash;        <external-path&ndash;&gt;-->
+<!--&lt;!&ndash;            name="camera_photos"&ndash;&gt;-->
+<!--&lt;!&ndash;            path="" />&ndash;&gt;-->
+<!--&lt;!&ndash;    </paths>&ndash;&gt;-->
+<!--    &lt;!&ndash;指定文件存储的区块和区块的相对路径&ndash;&gt;-->
+<!--    <files-path-->
+<!--        name="my_path"-->
+<!--        path="images/" />-->
+<!--    &lt;!&ndash;1、对应内部内存卡根目录：Context.getFileDir()&ndash;&gt;-->
+<!--    <files-path-->
+<!--        name="int_root"-->
+<!--        path="/" />-->
+<!--    &lt;!&ndash;2、对应应用默认缓存根目录：Context.getCacheDir()&ndash;&gt;-->
+<!--    <cache-path-->
+<!--        name="app_cache"-->
+<!--        path="/" />-->
+<!--    &lt;!&ndash;3、对应外部内存卡根目录：Environment.getExternalStorageDirectory()&ndash;&gt;-->
+<!--    <external-path-->
+<!--        name="ext_root"-->
+<!--        path="pictures/" />-->
+<!--    &lt;!&ndash;4、对应外部内存卡根目录下的APP公共目录：Context.getExternalFileDir(String)&ndash;&gt;-->
+<!--    <external-files-path-->
+<!--        name="ext_pub"-->
+<!--        path="/" />-->
+<!--    &lt;!&ndash;5、对应外部内存卡根目录下的APP缓存目录：Context.getExternalCacheDir()&ndash;&gt;-->
+<!--    <external-cache-path-->
+<!--        name="ext_cache"-->
+<!--        path="/" />-->
+<!--</paths>-->
+
+
+

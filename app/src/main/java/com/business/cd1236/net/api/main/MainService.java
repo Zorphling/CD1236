@@ -5,6 +5,7 @@ import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.http.GET;
 import retrofit2.http.POST;
+import retrofit2.http.Query;
 import retrofit2.http.Streaming;
 import retrofit2.http.Url;
 
@@ -17,8 +18,8 @@ public interface MainService {
     @POST(MainApi.HOME_BANNER)
     Observable<ResponseBody> homeBanner();
 
-    @POST(MainApi.HOME_GOODS)
-    Observable<ResponseBody> homeGoods();
+    @GET(MainApi.HOME_GOODS)
+    Observable<ResponseBody> homeGoods(@Query("db") int db);
 
     @GET(MainApi.MORE)
     Observable<ResponseBody> getMore();

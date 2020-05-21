@@ -42,8 +42,8 @@ public class RequestUtils {
         RetrofitUtils.getService(MainService.class).homeBanner().compose(RxHelper.observableIO2Main(callBack.mContext)).subscribe(callBack);
     }
 
-    public static void getGoods(BaseCallBack callBack) {
-        RetrofitUtils.getService(MainService.class).homeGoods().compose(RxHelper.observableIO2Main(callBack.mContext)).subscribe(callBack);
+    public static void getGoods(int db,BaseCallBack callBack) {
+        RetrofitUtils.getService(MainService.class).homeGoods(db).compose(RxHelper.observableIO2Main(callBack.mContext)).subscribe(callBack);
     }
 
     public static void regist(String name, String pwd, BaseCallBack callBack) {
@@ -150,6 +150,19 @@ public class RequestUtils {
     public static void addOrder(String arrayList, String addressId, String freight, String since, String editText, BaseCallBack callBack) {
         RetrofitUtils.getService(GoodsService.class).addOrder(arrayList, addressId, freight, since, editText).compose(RxHelper.observableIO2Main(callBack.mContext)).subscribe(callBack);
     }
+    //数组
+    public static void addOrder(String[] arrayList, String addressId, String freight, String since, String editText, BaseCallBack callBack) {
+        RetrofitUtils.getService(GoodsService.class).addOrder(arrayList, addressId, freight, since, editText).compose(RxHelper.observableIO2Main(callBack.mContext)).subscribe(callBack);
+    }
+    //Map
+    public static void addOrder(Map<String,String> arrayList, String addressId, String freight, String since, String editText, BaseCallBack callBack) {
+        RetrofitUtils.getService(GoodsService.class).addOrder(arrayList, addressId, freight, since, editText).compose(RxHelper.observableIO2Main(callBack.mContext)).subscribe(callBack);
+    }
+
+    //下单后
+    public static void getOrderMoney(String orderId, BaseCallBack callBack) {
+        RetrofitUtils.getService(GoodsService.class).orderPay(orderId).compose(RxHelper.observableIO2Main(callBack.mContext)).subscribe(callBack);
+    }
 
     public static void add_shopping(String goodsid, String total, String marketprice, String shop_id, BaseCallBack callBack) {
         RetrofitUtils.getService(GoodsService.class).add_shopping(goodsid, total, marketprice, shop_id).compose(RxHelper.observableIO2Main(callBack.mContext)).subscribe(callBack);
@@ -224,8 +237,8 @@ public class RequestUtils {
         RetrofitUtils.getStoreService(StoreService.class).businessGoodsShow().compose(RxHelper.observableIO2Main(callBack.mContext)).subscribe(callBack);
     }
 
-    public static void businessAddGoods(String id, String typeId, String brandId, String categoryId, String editText, String editText1, String editText2, String editText3, String editText4, String formatId, String s, String s1, String editText5, String editText6, String editText7, String editText8, String s2, BaseCallBack callBack) {
-        RetrofitUtils.getStoreService(StoreService.class).businessAddGoods(id, typeId, brandId, categoryId, editText, editText1, editText2, editText3, editText4, formatId, s, s1, editText5, editText6, editText7, editText8, s2).compose(RxHelper.observableIO2Main(callBack.mContext)).subscribe(callBack);
+    public static void businessAddGoods(String id, String typeId, String brandId, String categoryId, String editText, String editText1, String editText2, String editText3, String editText4, String formatId, String s, String s1, String editText5, String editText6, String editText7, String total, String agent_total,String s2, BaseCallBack callBack) {
+        RetrofitUtils.getStoreService(StoreService.class).businessAddGoods(id, typeId, brandId, categoryId, editText, editText1, editText2, editText3, editText4, formatId, s, s1, editText5, editText6, editText7, total,agent_total, s2).compose(RxHelper.observableIO2Main(callBack.mContext)).subscribe(callBack);
     }
 
     public static void businessGoodsDelete(String id, BaseCallBack callBack) {

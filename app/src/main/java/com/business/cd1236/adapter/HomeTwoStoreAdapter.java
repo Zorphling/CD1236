@@ -11,6 +11,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.business.cd1236.R;
+import com.business.cd1236.base.MyApplication;
 import com.business.cd1236.bean.MoreBean;
 import com.business.cd1236.mvp.ui.activity.GoodsDetailActivity;
 import com.business.cd1236.utils.GlideUtil;
@@ -23,6 +24,8 @@ import com.jess.arms.utils.ArmsUtils;
 import org.jetbrains.annotations.NotNull;
 
 public class HomeTwoStoreAdapter extends BaseQuickAdapter<MoreBean.LocalizeSBean, BaseViewHolder> {
+    int dpRange = SizeUtils.dp2px(MyApplication.mApp, 10);
+    SpaceItemDecoration spaceItemDecoration = new SpaceItemDecoration(0, dpRange, SpaceItemDecoration.TYPE.LEFT);
     public HomeTwoStoreAdapter(int layoutResId) {
         super(layoutResId);
     }
@@ -38,8 +41,9 @@ public class HomeTwoStoreAdapter extends BaseQuickAdapter<MoreBean.LocalizeSBean
 
         RecyclerView rvStoreGoods = baseViewHolder.getView(R.id.rv_store_goods);
         ArmsUtils.configRecyclerView(rvStoreGoods, new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false));
-        int dpRange = SizeUtils.dp2px(getContext(), 10);
-        rvStoreGoods.addItemDecoration(new SpaceItemDecoration(0, dpRange, SpaceItemDecoration.TYPE.LEFT));
+
+        rvStoreGoods.removeItemDecoration(spaceItemDecoration);
+        rvStoreGoods.addItemDecoration(spaceItemDecoration);
         HomeTwoStoreGoodsAdapter homeTwoStoreGoodsAdapter = new HomeTwoStoreGoodsAdapter(R.layout.item_home_two_goods);
         rvStoreGoods.setAdapter(homeTwoStoreGoodsAdapter);
         if (data.goods.size() > 0) {

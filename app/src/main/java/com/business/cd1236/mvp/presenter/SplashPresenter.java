@@ -56,7 +56,7 @@ public class SplashPresenter extends BasePresenter<SplashContract.Model, SplashC
     }
 
     public void checkUpdate(Context context) {
-        RequestUtils.checkUpdate(new BaseCallBack(context) {
+        RequestUtils.checkUpdate(new BaseCallBack(context,false) {
             @Override
             protected void onSuccess(String jsonString) {
                 CheckUpdateBean checkUpdateBean = GsonUtils.parseJsonWithGson(jsonString, CheckUpdateBean.class);

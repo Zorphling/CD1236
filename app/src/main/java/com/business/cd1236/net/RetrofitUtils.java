@@ -87,7 +87,7 @@ public class RetrofitUtils {
                 .addInterceptor(new LogInterceptor())//添加打印拦截器
                 .retryOnConnectionFailure(true)//设置出现错误进行重新连接。
                 .cookieJar(cookieJar)
-                .sslSocketFactory(SSLSocketClient.getSSLSocketFactory())//忽略证书
+//                .sslSocketFactory(SSLSocketClient.getSSLSocketFactory())//忽略证书
                 .hostnameVerifier(SSLSocketClient.getHostnameVerifier())//忽略证书
                 .build();
         // 初始化Retrofit

@@ -241,6 +241,7 @@ public class GoodsDetailActivity extends MyBaseActivity<GoodsDetailPresenter> im
                 launchActivity(intent);
                 break;
             case R.id.tv_custom_service:
+
                 break;
             case R.id.tv_add_goods_list:
 
@@ -265,8 +266,9 @@ public class GoodsDetailActivity extends MyBaseActivity<GoodsDetailPresenter> im
                 break;
         }
     }
-
+    int count = 0;
     private void initAnim() {
+        count = 0;
         //计算动画开始/结束点的坐标的准备工作
         //得到父布局的起始点坐标（用于辅助计算动画开始/结束时的点的坐标）
         int[] parentLoc = new int[2];
@@ -324,16 +326,19 @@ public class GoodsDetailActivity extends MyBaseActivity<GoodsDetailPresenter> im
 
             @Override
             public void onAnimationEnd(Animation animation) {
-                //动画执行完成
-                rivTemp.setVisibility(View.GONE);
-                rivTemp.clearAnimation();
-                set.cancel();
-                animation.cancel();
-                //购物车商品数量更新
-                mPresenter.addShopping(goodsDetailBean.goods.id, "1", goodsDetailBean.goods.marketprice, goodsDetailBean.shop.id, mActivity);
-                //购物车控件 开始一个放大动画
+                if (count == 0) {
+                    //动画执行完成
+                    rivTemp.setVisibility(View.GONE);
+                    rivTemp.clearAnimation();
+                    set.cancel();
+                    animation.cancel();
+                    //购物车商品数量更新
+                    mPresenter.addShopping(goodsDetailBean.goods.id, "1", goodsDetailBean.goods.marketprice, goodsDetailBean.shop.id, mActivity);
+                    //购物车控件 开始一个放大动画
 //                Animation scaleAnim = AnimationUtils.loadAnimation(mActivity, R.anim.shop_car_scale);
 //                ivCart.startAnimation(scaleAnim);
+                    count++;
+                }
             }
 
             @Override
@@ -405,7 +410,8 @@ public class GoodsDetailActivity extends MyBaseActivity<GoodsDetailPresenter> im
                         : goodsDetailBean.goods.agent_weight + goodsDetailBean.goods.agent_unit)
                         + "起订" + " | " + "成交" + (StringUtils.equals("0", goodsDetailBean.jud) ? (goodsDetailBean.goods.sales + goodsDetailBean.goods.unit)
                         : (goodsDetailBean.goods.sales + goodsDetailBean.goods.agent_unit)) + " | "
-                        + (goodsDetailBean.goods.agent_total + (StringUtils.equals("0", goodsDetailBean.jud) ? goodsDetailBean.goods.unit : goodsDetailBean.goods.agent_unit)) + "可售"
+//                        + (goodsDetailBean.goods.agent_total + (StringUtils.equals("0", goodsDetailBean.jud) ? goodsDetailBean.goods.unit : goodsDetailBean.goods.agent_unit)) + "可售"
+        +(StringUtils.equals("0",goodsDetailBean.jud)?goodsDetailBean.goods.total+goodsDetailBean.goods.unit:goodsDetailBean.goods.agent_total+goodsDetailBean.goods.agent_unit)+ "可售"
                 , getRColor(R.color.text_select_red), 0, (StringUtils.equals("0", goodsDetailBean.jud) ? (goodsDetailBean.goods.weight + goodsDetailBean.goods.unit)
                         : (goodsDetailBean.goods.agent_weight + goodsDetailBean.goods.agent_unit)
                         + "起订").length()));

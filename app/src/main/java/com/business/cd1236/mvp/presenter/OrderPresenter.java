@@ -9,12 +9,14 @@ import com.business.cd1236.mvp.contract.OrderContract;
 import com.business.cd1236.net.BaseCallBack;
 import com.business.cd1236.net.RequestUtils;
 import com.business.cd1236.utils.GsonUtils;
+import com.business.cd1236.utils.LogUtils;
 import com.jess.arms.di.scope.ActivityScope;
 import com.jess.arms.http.imageloader.ImageLoader;
 import com.jess.arms.integration.AppManager;
 import com.jess.arms.mvp.BasePresenter;
 
 import java.util.ArrayList;
+import java.util.Map;
 
 import javax.inject.Inject;
 
@@ -68,8 +70,8 @@ public class OrderPresenter extends BasePresenter<OrderContract.Model, OrderCont
         });
     }
 
-    public void orderConfirm(String goodsids, String ment,String jud, Context context) {
-        RequestUtils.orderConfirm(goodsids, ment, jud,new BaseCallBack(context) {
+    public void orderConfirm(String goodsids, String ment, String jud, Context context) {
+        RequestUtils.orderConfirm(goodsids, ment, jud, new BaseCallBack(context) {
             @Override
             protected void onSuccess(String jsonString) {
                 OrderBean orderBean = GsonUtils.parseJsonWithGson(jsonString, OrderBean.class);
@@ -78,8 +80,8 @@ public class OrderPresenter extends BasePresenter<OrderContract.Model, OrderCont
         });
     }
 
-    public void orderConfirm(String goodsid, String goodsNum, String ment, String jud,Context context) {
-        RequestUtils.orderConfirm(goodsid, goodsNum, ment,jud, new BaseCallBack(context) {
+    public void orderConfirm(String goodsid, String goodsNum, String ment, String jud, Context context) {
+        RequestUtils.orderConfirm(goodsid, goodsNum, ment, jud, new BaseCallBack(context) {
             @Override
             protected void onSuccess(String jsonString) {
                 OrderBean orderBean = GsonUtils.parseJsonWithGson(jsonString, OrderBean.class);
@@ -88,8 +90,28 @@ public class OrderPresenter extends BasePresenter<OrderContract.Model, OrderCont
         });
     }
 
-    public void addOrder(String arrayList,String addressId, String freight, String since, String editText, Context context) {
-        RequestUtils.addOrder(arrayList,addressId,freight,since,editText, new BaseCallBack(context) {
+    public void addOrder(String arrayList, String addressId, String freight, String since, String editText, Context context) {
+        RequestUtils.addOrder(arrayList, addressId, freight, since, editText, new BaseCallBack(context) {
+            @Override
+            protected void onSuccess(String jsonString) {
+                mRootView.addOrderSucc(jsonString);
+            }
+        });
+    }
+
+    //数组
+    public void addOrder(String[] arrayList, String addressId, String freight, String since, String editText, Context context) {
+        RequestUtils.addOrder(arrayList, addressId, freight, since, editText, new BaseCallBack(context) {
+            @Override
+            protected void onSuccess(String jsonString) {
+
+            }
+        });
+    }
+
+    //Map
+    public void addOrder(Map<String, String> arrayList, String addressId, String freight, String since, String editText, Context context) {
+        RequestUtils.addOrder(arrayList, addressId, freight, since, editText, new BaseCallBack(context) {
             @Override
             protected void onSuccess(String jsonString) {
 

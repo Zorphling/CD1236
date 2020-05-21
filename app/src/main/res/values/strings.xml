@@ -58,5 +58,12 @@
     <string name="business_add_goods_sugg">建议照片大小:375*450(1M以内)</string>
     <string name="business_add_goods_detail">请上传商品详情图</string>
 
+    //订单
+    <string name="myorder_all">全部</string>
+    <string name="myorder_wait_pay">待付款</string>
+    <string name="myorder_wait_send">待发货</string>
+    <string name="myorder_wait_receive">待收货</string>
+    <string name="myorder_wait_appraise">待评价</string>
+
 
 </resources>

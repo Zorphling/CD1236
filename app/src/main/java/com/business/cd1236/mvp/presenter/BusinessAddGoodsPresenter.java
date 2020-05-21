@@ -128,8 +128,8 @@ public class BusinessAddGoodsPresenter extends BasePresenter<BusinessAddGoodsCon
         });
     }
 
-    public void addGoods(String id,String typeId, String brandId, String categoryId, String editText, String editText1, String editText2, String editText3, String editText4, String formatId, String s, String s1, String editText5, String editText6, String editText7, String editText8, String s2, Context context) {
-        RequestUtils.businessAddGoods(id,typeId, brandId, categoryId, editText, editText1, editText2, editText3, editText4, formatId, s, s1, editText5, editText6, editText7, editText8, s2, new BaseCallBack(context) {
+    public void addGoods(String id,String typeId, String brandId, String categoryId, String editText, String editText1, String editText2, String editText3, String editText4, String formatId, String s, String s1, String editText5, String editText6, String editText7, String total,String agent_total, String s2, Context context) {
+        RequestUtils.businessAddGoods(id,typeId, brandId, categoryId, editText, editText1, editText2, editText3, editText4, formatId, s, s1, editText5, editText6, editText7, total,agent_total, s2, new BaseCallBack(context) {
             @Override
             protected void onSuccess(String jsonString) {
 

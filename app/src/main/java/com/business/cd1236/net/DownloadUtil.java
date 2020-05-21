@@ -9,7 +9,6 @@ import android.os.Environment;
 
 import androidx.core.content.FileProvider;
 
-import com.business.cd1236.R;
 import com.business.cd1236.base.MyApplication;
 import com.business.cd1236.globle.OnDownloadListener;
 import com.business.cd1236.utils.LogUtils;
@@ -30,6 +29,8 @@ public class DownloadUtil {
 
     private static DownloadUtil downloadUtil;
     private final OkHttpClient okHttpClient;
+    private String name = "maiyan";
+    private File file;
 
     public static DownloadUtil get() {
         if (downloadUtil == null) {
@@ -68,7 +69,8 @@ public class DownloadUtil {
                 try {
                     is = response.body().byteStream();
                     long total = response.body().contentLength();
-                    File file = new File(Environment.getExternalStorageDirectory(), MyApplication.mApp.getResources().getString(R.string.app_name) + ".apk");
+                    file = new File(Environment.getExternalStorageDirectory(), name + ".apk");
+//                    File file = new File(MyApplication.mApp.getExternalFilesDir(Environment.DIRECTORY_DOWNLOADS), name + ".apk");
                     fos = new FileOutputStream(file);
                     long sum = 0;
                     while ((len = is.read(buf)) != -1) {
@@ -77,7 +79,7 @@ public class DownloadUtil {
                         int progress = (int) (sum * 1.0f / total * 100);
                         // 下载中
                         if (listener != null)
-                            listener.onDownloading(sum, total);
+                            listener.onDownloading(progress);
                     }
                     fos.flush();
                     // 下载完成
@@ -122,13 +124,18 @@ public class DownloadUtil {
 
     public void downSuccess(Activity activity) {
         Intent intent = new Intent(Intent.ACTION_VIEW);
+        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) { //aandroid N的权限问题
-            intent.setFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
-            Uri contentUri = FileProvider.getUriForFile(activity, activity.getApplicationContext().getPackageName() + ".fileprovider",
-                    new File(Environment.getExternalStorageDirectory(), MyApplication.mApp.getResources().getString(R.string.app_name) + ".apk"));//注意修改
+            LogUtils.e("file path ==== "+file.getPath() +" --- "+file.getAbsolutePath());
+            intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+            Uri contentUri = FileProvider.getUriForFile(activity, activity.getApplicationContext().getPackageName() + ".fileProvider",
+                    new File(Environment.getExternalStorageDirectory(), name + ".apk"));//注意修改
+            //Environment.getExternalStorageDirectory()
+            //MyApplication.mApp.getExternalFilesDir(Environment.DIRECTORY_DOWNLOADS)
             intent.setDataAndType(contentUri, "application/vnd.android.package-archive");
         } else {
-            intent.setDataAndType(Uri.fromFile(new File(Environment.getExternalStorageDirectory(), MyApplication.mApp.getResources().getString(R.string.app_name) + ".apk")), "application/vnd.android.package-archive");
+            intent.setDataAndType(Uri.fromFile(new File(Environment.getExternalStorageDirectory(),
+                    name + ".apk")), "application/vnd.android.package-archive");
             intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         }
         activity.startActivity(intent);
@@ -153,19 +160,16 @@ public class DownloadUtil {
             public void onDownloadSuccess(File file) {
                 progressDialog.dismiss();
                 downSuccess(context);
-                LogUtils.i("onDownloadApp===onDownloadSuccess==更新下载成功");
             }
 
             @Override
-            public void onDownloading(float progress,long total) {
+            public void onDownloading(int progress) {
                 progressDialog.setProgress((int) progress);
-                LogUtils.i("onDownloadApp===onDownloading 001==更新下载::" + progress);
             }
 
             @Override
             public void onDownloadFailed() {
                 progressDialog.dismiss();
-                LogUtils.i("onDownloadApp===onDownloadFailed==更新下载失败");
             }
         });
     }
