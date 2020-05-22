@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/white"
-    android:fillViewport="true"
+    android:id="@+id/scrollView"
     android:overScrollMode="never"
     android:scrollbars="none">
 
@@ -131,7 +131,7 @@
             android:layout_height="wrap_content"
             app:drawable="@mipmap/icon_cooperation"
             app:title="加入代理"
-            android:visibility="gone"
+            android:visibility="visible"
             app:titleColor="@color/text_default" />
 
         <View
@@ -171,7 +171,7 @@
             android:id="@+id/piv_custom_service"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:visibility="gone"
+            android:visibility="visible"
             app:drawable="@mipmap/icon_custom_service"
             app:title="联系客服"
             app:titleColor="@color/text_default" />

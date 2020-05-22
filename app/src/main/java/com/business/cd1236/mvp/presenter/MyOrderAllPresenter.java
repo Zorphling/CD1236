@@ -1,17 +1,23 @@
 package com.business.cd1236.mvp.presenter;
 
 import android.app.Application;
+import android.content.Context;
 
-import com.jess.arms.integration.AppManager;
+import com.business.cd1236.bean.MyOrderBean;
+import com.business.cd1236.mvp.contract.MyOrderAllContract;
+import com.business.cd1236.net.BaseCallBack;
+import com.business.cd1236.net.RequestUtils;
+import com.business.cd1236.utils.GsonUtils;
 import com.jess.arms.di.scope.FragmentScope;
-import com.jess.arms.mvp.BasePresenter;
 import com.jess.arms.http.imageloader.ImageLoader;
+import com.jess.arms.integration.AppManager;
+import com.jess.arms.mvp.BasePresenter;
 
-import me.jessyan.rxerrorhandler.core.RxErrorHandler;
+import java.util.ArrayList;
 
 import javax.inject.Inject;
 
-import com.business.cd1236.mvp.contract.MyOrderAllContract;
+import me.jessyan.rxerrorhandler.core.RxErrorHandler;
 
 
 /**
@@ -49,5 +55,15 @@ public class MyOrderAllPresenter extends BasePresenter<MyOrderAllContract.Model,
         this.mAppManager = null;
         this.mImageLoader = null;
         this.mApplication = null;
+    }
+
+    public void getMyOrder(String status, Context context) {
+        RequestUtils.getMyOrder(status, new BaseCallBack(context) {
+            @Override
+            protected void onSuccess(String jsonString) {
+                ArrayList<MyOrderBean> myOrderBeans = GsonUtils.parseJsonArrayWithGson(jsonString, MyOrderBean.class);
+                mRootView.getMyOrderSucc(myOrderBeans);
+            }
+        });
     }
 }

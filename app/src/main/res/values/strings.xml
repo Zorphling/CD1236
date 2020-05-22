@@ -64,6 +64,7 @@
     <string name="myorder_wait_send">待发货</string>
     <string name="myorder_wait_receive">待收货</string>
     <string name="myorder_wait_appraise">待评价</string>
+    <string name="myorder_total_prices">共%s件货品 总价¥ %s</string>
 
 
 </resources>

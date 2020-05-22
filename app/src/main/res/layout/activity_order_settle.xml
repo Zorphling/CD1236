@@ -58,9 +58,4 @@
         android:background="@drawable/solid_bg_revise_button"
         android:text="立即支付"
         android:textColor="@android:color/white" />
-    <TextView
-        android:layout_width="match_parent"
-        android:gravity="center"
-        android:text="暂不支持线上支付"
-        android:layout_height="wrap_content"/>
 </LinearLayout>

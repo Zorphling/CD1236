@@ -79,4 +79,15 @@ public interface GoodsService {
     @GET(GoodsApi.ORDER_PAY)
     Observable<ResponseBody> orderPay(@Query("orderid") String orderid);
 
+    @GET(GoodsApi.APP_PAY)
+    Observable<ResponseBody> pay();
+
+    @GET(GoodsApi.MY_ORDER)
+    Observable<ResponseBody> getMyOrder(@Query("status") String status);
+
+    @GET(GoodsApi.DELETE_ORDER)
+    Observable<ResponseBody> deleteOrder(@Query("id") String id);
+
+    @GET(GoodsApi.ORDER_DETAILS)
+    Observable<ResponseBody> orderDetails(@Query("id") String id);
 }

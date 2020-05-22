@@ -34,5 +34,9 @@
     <color name="store_detail_text_notice">#6B6B6D</color>
     <color name="store_detail_goods_sales">#FEB680</color>
 
+    //myorder
+    <color name="my_order_status">#FF4100</color>
+
+
 
 </resources>

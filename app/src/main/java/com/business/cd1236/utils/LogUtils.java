@@ -268,11 +268,14 @@ public class LogUtils {
 //                Log.e(tag, msg, tr);
                 LogLong(tag,msg);
             } else if ('w' == type && ('w' == logFilter || 'v' == logFilter)) {
-                Log.w(tag, msg, tr);
+//                Log.w(tag, msg, tr);
+                LogLong(tag, msg);
             } else if ('d' == type && ('d' == logFilter || 'v' == logFilter)) {
-                Log.d(tag, msg, tr);
+//                Log.d(tag, msg, tr);
+                LogLong(tag, msg);
             } else if ('i' == type && ('d' == logFilter || 'v' == logFilter)) {
-                Log.i(tag, msg, tr);
+//                Log.i(tag, msg, tr);
+                LogLong(tag, msg);
             }
             if (log2FileSwitch) {
                 log2File(type, tag, msg + '\n' + Log.getStackTraceString(tr));

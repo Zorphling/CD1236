@@ -7,6 +7,9 @@ import com.business.cd1236.bean.OrderPayBean;
 import com.business.cd1236.mvp.contract.OrderSettleContract;
 import com.business.cd1236.net.BaseCallBack;
 import com.business.cd1236.net.RequestUtils;
+import com.business.cd1236.net.RetrofitUtils;
+import com.business.cd1236.net.RxHelper;
+import com.business.cd1236.net.api.goods.GoodsService;
 import com.business.cd1236.utils.GsonUtils;
 import com.jess.arms.di.scope.ActivityScope;
 import com.jess.arms.http.imageloader.ImageLoader;
@@ -15,7 +18,10 @@ import com.jess.arms.mvp.BasePresenter;
 
 import javax.inject.Inject;
 
+import io.reactivex.functions.Consumer;
 import me.jessyan.rxerrorhandler.core.RxErrorHandler;
+import okhttp3.ResponseBody;
+import project.com.arms.mvp.model.api.Api;
 
 
 /**
@@ -61,6 +67,16 @@ public class OrderSettlePresenter extends BasePresenter<OrderSettleContract.Mode
             protected void onSuccess(String jsonString) {
                 OrderPayBean orderPayBean = GsonUtils.parseJsonWithGson(jsonString, OrderPayBean.class);
                 mRootView.getOrderMoneySucc(orderPayBean);
+            }
+        });
+    }
+
+    public void pay(Context context) {
+        RetrofitUtils.getInstance().getRetrofitBaseUrl(Api.PAY_API).create(GoodsService.class).pay().compose(RxHelper.observableIO2Main(context)).subscribe(new Consumer<ResponseBody>() {
+            @Override
+            public void accept(ResponseBody responseBody) throws Exception {
+                mRootView.payCallBack(new String(responseBody.bytes()));
+
             }
         });
     }

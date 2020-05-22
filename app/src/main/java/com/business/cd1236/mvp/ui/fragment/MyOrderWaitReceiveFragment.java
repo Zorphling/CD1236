@@ -3,9 +3,6 @@ package com.business.cd1236.mvp.ui.fragment;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Message;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,16 +10,13 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
-import com.business.cd1236.base.MyBaseFragment;
-import com.jess.arms.base.BaseFragment;
-import com.jess.arms.di.component.AppComponent;
-import com.jess.arms.utils.ArmsUtils;
-
+import com.business.cd1236.R;
+import com.business.cd1236.base.AbstractLazyInitFrag;
 import com.business.cd1236.di.component.DaggerMyOrderWaitReceiveComponent;
 import com.business.cd1236.mvp.contract.MyOrderWaitReceiveContract;
 import com.business.cd1236.mvp.presenter.MyOrderWaitReceivePresenter;
-
-import com.business.cd1236.R;
+import com.jess.arms.di.component.AppComponent;
+import com.jess.arms.utils.ArmsUtils;
 
 import static com.jess.arms.utils.Preconditions.checkNotNull;
 
@@ -39,7 +33,7 @@ import static com.jess.arms.utils.Preconditions.checkNotNull;
  * <a href="https://github.com/JessYanCoding/MVPArmsTemplate">模版请保持更新</a>
  * ================================================
  */
-public class MyOrderWaitReceiveFragment extends MyBaseFragment<MyOrderWaitReceivePresenter> implements MyOrderWaitReceiveContract.View {
+public class MyOrderWaitReceiveFragment extends AbstractLazyInitFrag<MyOrderWaitReceivePresenter> implements MyOrderWaitReceiveContract.View {
 
     public static MyOrderWaitReceiveFragment newInstance() {
         MyOrderWaitReceiveFragment fragment = new MyOrderWaitReceiveFragment();
@@ -131,6 +125,11 @@ public class MyOrderWaitReceiveFragment extends MyBaseFragment<MyOrderWaitReceiv
 
     @Override
     public void killMyself() {
+
+    }
+
+    @Override
+    public void initData() {
 
     }
 }

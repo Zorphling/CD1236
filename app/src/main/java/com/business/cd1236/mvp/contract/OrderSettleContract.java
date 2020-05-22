@@ -22,6 +22,8 @@ public interface OrderSettleContract {
     interface View extends IView {
 
         void getOrderMoneySucc(OrderPayBean orderPayBean);
+
+        void payCallBack(String payCallBack);
     }
 
     //Model层定义接口,外部只需关心Model返回的数据,无需关心内部细节,即是否使用缓存

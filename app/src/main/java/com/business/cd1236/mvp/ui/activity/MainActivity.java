@@ -5,7 +5,6 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.os.Process;
-import android.text.Html;
 import android.view.Gravity;
 import android.view.KeyEvent;
 import android.view.View;
@@ -38,16 +37,15 @@ import com.business.cd1236.net.DownloadUtil;
 import com.business.cd1236.net.api.main.MainApi;
 import com.business.cd1236.utils.FileUtils;
 import com.business.cd1236.utils.GsonUtils;
-import com.business.cd1236.utils.LogUtils;
 import com.business.cd1236.utils.MyToastUtils;
 import com.business.cd1236.utils.SPUtils;
 import com.business.cd1236.view.homebtn.CircularRevealButton;
+import com.jaeger.library.StatusBarUtil;
 import com.jess.arms.di.component.AppComponent;
 import com.jess.arms.utils.ArmsUtils;
 import com.luck.picture.lib.config.PictureConfig;
 import com.luck.picture.lib.config.PictureMimeType;
 import com.luck.picture.lib.tools.PictureFileUtils;
-import com.luck.picture.lib.tools.ToastUtils;
 import com.tbruyelle.rxpermissions2.RxPermissions;
 
 import java.io.File;
@@ -353,17 +351,23 @@ public class MainActivity extends MyBaseActivity<MainPresenter> implements MainC
                 break;
             case 2:
                 changeNav(page);
-                setStatusColor(this, false, true, android.R.color.white);
+                StatusBarUtil.setLightMode(mActivity);
+                StatusBarUtil.setTranslucent(mActivity,0);
+//                setStatusColor(this, false, true, android.R.color.white);
                 smartReplaceFragment(R.id.fl_home_container, homeTwoFragment);
                 break;
             case 3:
                 changeNav(page);
-                setStatusColor(this, false, false, R.color.colorPrimary);
+                StatusBarUtil.setLightMode(mActivity);
+//                StatusBarUtil.setTranslucent(mActivity,0);
+//                setStatusColor(this, false, false, R.color.colorPrimary);
                 smartReplaceFragment(R.id.fl_home_container, homeThreeFragment);
                 break;
             case 4:
                 changeNav(page);
-                setStatusColor(this, true, false, R.color.colorPrimary);
+                StatusBarUtil.setLightMode(mActivity);
+//                StatusBarUtil.setTranslucentForImageViewInFragment(mActivity,0,null);
+//                setStatusColor(this, true, false, R.color.colorPrimary);
                 smartReplaceFragment(R.id.fl_home_container, homeFourFragment);
                 break;
         }
@@ -378,7 +382,9 @@ public class MainActivity extends MyBaseActivity<MainPresenter> implements MainC
 
     private void firstLoad() {
         smartReplaceFragment(R.id.fl_home_container, homeOneFragment);
-        setStatusColor(this, false, true, android.R.color.white);
+        StatusBarUtil.setLightMode(mActivity);
+        StatusBarUtil.setTranslucent(mActivity,0);
+//        setStatusColor(this, false, true, android.R.color.white);
     }
 
     /**

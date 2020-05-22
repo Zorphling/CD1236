@@ -164,6 +164,21 @@ public class RequestUtils {
         RetrofitUtils.getService(GoodsService.class).orderPay(orderId).compose(RxHelper.observableIO2Main(callBack.mContext)).subscribe(callBack);
     }
 
+    //查询我的订单
+    public static void getMyOrder(String status, BaseCallBack callBack) {
+        RetrofitUtils.getService(GoodsService.class).getMyOrder(status).compose(RxHelper.observableIO2Main(callBack.mContext)).subscribe(callBack);
+    }
+
+    //删除订单
+    public static void deleteOrder(String id, BaseCallBack callBack) {
+        RetrofitUtils.getService(GoodsService.class).deleteOrder(id).compose(RxHelper.observableIO2Main(callBack.mContext)).subscribe(callBack);
+    }
+
+    //订单详情
+    public static void orderDetails(String order_id, BaseCallBack callBack) {
+        RetrofitUtils.getService(GoodsService.class).orderDetails(order_id).compose(RxHelper.observableIO2Main(callBack.mContext)).subscribe(callBack);
+    }
+
     public static void add_shopping(String goodsid, String total, String marketprice, String shop_id, BaseCallBack callBack) {
         RetrofitUtils.getService(GoodsService.class).add_shopping(goodsid, total, marketprice, shop_id).compose(RxHelper.observableIO2Main(callBack.mContext)).subscribe(callBack);
     }

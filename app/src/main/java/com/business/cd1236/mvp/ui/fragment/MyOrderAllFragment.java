@@ -3,26 +3,31 @@ package com.business.cd1236.mvp.ui.fragment;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Message;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
-import com.business.cd1236.base.MyBaseFragment;
-import com.jess.arms.base.BaseFragment;
-import com.jess.arms.di.component.AppComponent;
-import com.jess.arms.utils.ArmsUtils;
-
+import com.business.cd1236.R;
+import com.business.cd1236.adapter.MyOrderAdapter;
+import com.business.cd1236.base.AbstractLazyInitFrag;
+import com.business.cd1236.bean.MyOrderBean;
 import com.business.cd1236.di.component.DaggerMyOrderAllComponent;
 import com.business.cd1236.mvp.contract.MyOrderAllContract;
 import com.business.cd1236.mvp.presenter.MyOrderAllPresenter;
+import com.business.cd1236.mvp.ui.activity.MyOrderDetailActivity;
+import com.chad.library.adapter.base.BaseQuickAdapter;
+import com.chad.library.adapter.base.listener.OnItemClickListener;
+import com.jess.arms.di.component.AppComponent;
+import com.jess.arms.utils.ArmsUtils;
 
-import com.business.cd1236.R;
+import java.util.ArrayList;
+
+import butterknife.BindView;
 
 import static com.jess.arms.utils.Preconditions.checkNotNull;
 
@@ -39,7 +44,11 @@ import static com.jess.arms.utils.Preconditions.checkNotNull;
  * <a href="https://github.com/JessYanCoding/MVPArmsTemplate">模版请保持更新</a>
  * ================================================
  */
-public class MyOrderAllFragment extends MyBaseFragment<MyOrderAllPresenter> implements MyOrderAllContract.View {
+public class MyOrderAllFragment extends AbstractLazyInitFrag<MyOrderAllPresenter> implements MyOrderAllContract.View, OnItemClickListener {
+    @BindView(R.id.recycler_view)
+    RecyclerView recyclerView;
+    private MyOrderAdapter myOrderAdapter;
+
 
     public static MyOrderAllFragment newInstance() {
         MyOrderAllFragment fragment = new MyOrderAllFragment();
@@ -63,7 +72,12 @@ public class MyOrderAllFragment extends MyBaseFragment<MyOrderAllPresenter> impl
 
     @Override
     public void initData(@Nullable Bundle savedInstanceState) {
+        ArmsUtils.configRecyclerView(recyclerView,new LinearLayoutManager(getActivity()));
 
+        myOrderAdapter = new MyOrderAdapter(R.layout.item_my_order_all);
+        recyclerView.setAdapter(myOrderAdapter);
+//        myOrderAdapter.setOnItemClickListener(this);
+        //走下面懒加载initData()
     }
 
     /**
@@ -132,5 +146,24 @@ public class MyOrderAllFragment extends MyBaseFragment<MyOrderAllPresenter> impl
     @Override
     public void killMyself() {
 
+    }
+
+    //懒加载
+    @Override
+    public void initData() {
+        mPresenter.getMyOrder("5", getActivity());
+    }
+
+    @Override
+    public void getMyOrderSucc(ArrayList<MyOrderBean> myOrderBeans) {
+        myOrderAdapter.setList(myOrderBeans);
+    }
+
+    @Override
+    public void onItemClick(@NonNull BaseQuickAdapter<?, ?> adapter, @NonNull View view, int position) {
+        MyOrderBean myOrderBean = (MyOrderBean) adapter.getItem(position);
+        Intent intent = new Intent(getActivity(), MyOrderDetailActivity.class);
+        intent.putExtra(MyOrderDetailActivity.ORDER_ID,myOrderBean.id);
+        launchActivity(intent);
     }
 }

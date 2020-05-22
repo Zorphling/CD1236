@@ -15,4 +15,8 @@ public interface GoodsApi {
     String ORDER_CONFIRM = "confirm";//下单
     String ADD_ORDER = "add_order";//生成订单
     String ORDER_PAY = "pay";//生成订单后
+    String MY_ORDER = "order";//查询我的订单
+    String DELETE_ORDER = "delete_order";//删除订单
+    String ORDER_DETAILS = "order_details";//订单详情
+    String APP_PAY = "app_pay";//订单支付
 }

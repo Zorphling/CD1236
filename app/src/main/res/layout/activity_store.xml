@@ -226,7 +226,7 @@
                     <androidx.recyclerview.widget.RecyclerView
                         android:id="@+id/rv_center_category"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
+                        android:layout_height="1000dp"
                         android:overScrollMode="never"
                         android:paddingLeft="@dimen/dp20"
                         android:paddingRight="@dimen/dp20" />

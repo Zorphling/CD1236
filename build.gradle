@@ -24,6 +24,11 @@ allprojects {
         google()
         jcenter()
         maven { url "https://jitpack.io" }
+
+        // 添加下面的内容，支付相关//支付宝
+        flatDir {
+            dirs 'libs'
+        }
     }
 }
 

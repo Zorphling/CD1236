@@ -6,8 +6,6 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentPagerAdapter;
-import androidx.fragment.app.FragmentStatePagerAdapter;
 import androidx.viewpager.widget.ViewPager;
 import androidx.viewpager2.widget.ViewPager2;
 
@@ -52,12 +50,13 @@ public class MyOrderActivity extends MyBaseActivity<MyOrderPresenter> implements
     @BindView(R.id.tab_layout)
     TabLayout tabLayout;
     @BindView(R.id.view_pager)
-    ViewPager2 viewPager;
+    ViewPager viewPager;
 
     List<Fragment> fragments = new ArrayList();
-    String[] titles = {getString(R.string.myorder_all), getString(R.string.myorder_wait_pay),
-            getString(R.string.myorder_wait_send), getString(R.string.myorder_wait_receive), getString(R.string.myorder_wait_appraise)};
+    String[] titles ;
     private MyOrderPagerAdapter myOrderPagerAdapter;
+    public static String TYPE = "type";
+    public int page;
 
     @Override
     public void setupActivityComponent(@NonNull AppComponent appComponent) {
@@ -81,15 +80,40 @@ public class MyOrderActivity extends MyBaseActivity<MyOrderPresenter> implements
         setHeader("我的订单");
         setHeaderColor(getResources().getColor(android.R.color.white), getResources().getColor(android.R.color.black), R.mipmap.arrow_left_black);
 
+        page = getIntent().getIntExtra(TYPE,0);
+
+        titles = new String[]{getString(R.string.myorder_all), getString(R.string.myorder_wait_pay),
+                getString(R.string.myorder_wait_send), getString(R.string.myorder_wait_receive), getString(R.string.myorder_wait_appraise)};
         fragments.add(MyOrderAllFragment.newInstance());
         fragments.add(MyOrderWaitPayFragment.newInstance());
         fragments.add(MyOrderWaitSendFragment.newInstance());
         fragments.add(MyOrderWaitReceiveFragment.newInstance());
         fragments.add(MyOrderWaitAppraiseFragment.newInstance());
 
-        myOrderPagerAdapter = new MyOrderPagerAdapter(getSupportFragmentManager(), FragmentPagerAdapter.BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT);
+        myOrderPagerAdapter = new MyOrderPagerAdapter(getSupportFragmentManager(), fragments, titles);
         viewPager.setAdapter(myOrderPagerAdapter);
+        viewPager.setOffscreenPageLimit(fragments.size() - 1);
+        //绑定tabLayout和viewPager
+        tabLayout.setupWithViewPager(viewPager);
+        tabLayout.selectTab(tabLayout.getTabAt(page));
     }
+
+    private ViewPager2.OnPageChangeCallback onPageChangeCallback = new ViewPager2.OnPageChangeCallback() {
+        @Override
+        public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+            super.onPageScrolled(position, positionOffset, positionOffsetPixels);
+        }
+
+        @Override
+        public void onPageSelected(int position) {
+            super.onPageSelected(position);
+        }
+
+        @Override
+        public void onPageScrollStateChanged(int state) {
+            super.onPageScrollStateChanged(state);
+        }
+    };
 
     @Override
     public void showLoading() {

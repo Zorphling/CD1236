@@ -47,6 +47,7 @@ public class RetrofitUtils {
             return getRetrofitBaseUrl(RetrofitUtils.BaseUrl);
         }
     }
+
     /**
      * =================================
      */
@@ -77,7 +78,7 @@ public class RetrofitUtils {
      */
     ClearableCookieJar cookieJar = new PersistentCookieJar(new SetCookieCache(), new SharedPrefsCookiePersistor(MyApplication.mApp));
 
-    private Retrofit getRetrofitBaseUrl(String baseUrl) {
+    public Retrofit getRetrofitBaseUrl(String baseUrl) {
         // 初始化okhttp
         OkHttpClient client = new OkHttpClient().newBuilder()
                 .readTimeout(DEFAULT_TIME, TimeUnit.SECONDS)//设置读取超时时间

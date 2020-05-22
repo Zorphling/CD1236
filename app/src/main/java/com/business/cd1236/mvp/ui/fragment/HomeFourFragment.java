@@ -269,19 +269,28 @@ public class HomeFourFragment extends MyBaseFragment<HomeFourPresenter> implemen
                 launchActivity(new Intent(mActivity, MyOrderActivity.class));
                 break;
             case R.id.crb_1:
-                launchActivity(new Intent(mActivity, MyOrderActivity.class));
+                intent.setClass(mActivity, MyOrderActivity.class);
+                launchActivity(intent);
                 break;
             case R.id.crb_2:
-                launchActivity(new Intent(mActivity, MyOrderActivity.class));
+                intent.setClass(mActivity, MyOrderActivity.class);
+                intent.putExtra(MyOrderActivity.TYPE, 1);
+                launchActivity(intent);
                 break;
             case R.id.crb_3:
-                launchActivity(new Intent(mActivity, MyOrderActivity.class));
+                intent.setClass(mActivity, MyOrderActivity.class);
+                intent.putExtra(MyOrderActivity.TYPE, 2);
+                launchActivity(intent);
                 break;
             case R.id.crb_4:
-                launchActivity(new Intent(mActivity, MyOrderActivity.class));
+                intent.setClass(mActivity, MyOrderActivity.class);
+                intent.putExtra(MyOrderActivity.TYPE, 3);
+                launchActivity(intent);
                 break;
             case R.id.crb_5:
-                launchActivity(new Intent(mActivity, MyOrderActivity.class));
+                intent.setClass(mActivity, MyOrderActivity.class);
+                intent.putExtra(MyOrderActivity.TYPE, 4);
+                launchActivity(intent);
                 break;
             case R.id.piv_address:
                 launchActivity(new Intent(mActivity, AddressActivity.class));

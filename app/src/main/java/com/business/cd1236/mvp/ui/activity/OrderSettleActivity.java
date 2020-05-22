@@ -15,6 +15,8 @@ import com.business.cd1236.bean.OrderPayBean;
 import com.business.cd1236.di.component.DaggerOrderSettleComponent;
 import com.business.cd1236.mvp.contract.OrderSettleContract;
 import com.business.cd1236.mvp.presenter.OrderSettlePresenter;
+import com.business.cd1236.pay.PayCallBack;
+import com.business.cd1236.pay.PayUtils;
 import com.business.cd1236.utils.MyToastUtils;
 import com.business.cd1236.utils.StringUtils;
 import com.jaeger.library.StatusBarUtil;
@@ -108,7 +110,7 @@ public class OrderSettleActivity extends MyBaseActivity<OrderSettlePresenter> im
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.btn_pay:
-                MyToastUtils.showShort("支付失败");
+                mPresenter.pay(mActivity);
                 break;
         }
     }
@@ -117,5 +119,20 @@ public class OrderSettleActivity extends MyBaseActivity<OrderSettlePresenter> im
     public void getOrderMoneySucc(OrderPayBean orderPayBean) {
         tvOrderId.setText(orderPayBean.ordersn);
         tvOrderAmount.setText(getString(R.string.rmb) + " " + orderPayBean.price);
+    }
+
+    @Override
+    public void payCallBack(String payCallBack) {
+        PayUtils.doAliPay(mActivity, payCallBack, new PayCallBack() {
+            @Override
+            public void call() {
+                MyToastUtils.showShort("支付成功");
+            }
+
+            @Override
+            public void fail() {
+
+            }
+        });
     }
 }
