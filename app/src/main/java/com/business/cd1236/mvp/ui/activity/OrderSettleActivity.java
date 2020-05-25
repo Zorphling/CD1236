@@ -4,10 +4,12 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.widget.AppCompatCheckBox;
 
 import com.business.cd1236.R;
 import com.business.cd1236.base.MyBaseActivity;
@@ -49,8 +51,17 @@ public class OrderSettleActivity extends MyBaseActivity<OrderSettlePresenter> im
     TextView tvOrderAmount;
     @BindView(R.id.btn_pay)
     Button btnPay;
+    @BindView(R.id.rl_alipay)
+    RelativeLayout rlAlipay;
+    @BindView(R.id.rl_unionpay)
+    RelativeLayout rlUnionpay;
+    @BindView(R.id.cb_alipay)
+    AppCompatCheckBox cbAlipay;
+    @BindView(R.id.cb_unionpay)
+    AppCompatCheckBox cbUnionpay;
     public static String ORDER_ID = "order_id";
     private String orderId;
+    OrderPayBean orderPayBean;
 
     @Override
     public void setupActivityComponent(@NonNull AppComponent appComponent) {
@@ -106,19 +117,32 @@ public class OrderSettleActivity extends MyBaseActivity<OrderSettlePresenter> im
         finish();
     }
 
-    @OnClick(R.id.btn_pay)
+    @OnClick({R.id.btn_pay, R.id.rl_alipay, R.id.rl_unionpay})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.btn_pay:
-                mPresenter.pay(mActivity);
+                if (cbAlipay.isChecked() || cbUnionpay.isChecked()) {
+                    if (StringUtils.checkString(orderId))
+                        mPresenter.pay(orderId, mActivity);
+                }
+                break;
+            case R.id.rl_alipay:
+                cbAlipay.setChecked(true);
+                cbUnionpay.setChecked(false);
+
+                break;
+            case R.id.rl_unionpay:
+                ArmsUtils.snackbarText("暂不支持银联支付");
                 break;
         }
     }
 
     @Override
     public void getOrderMoneySucc(OrderPayBean orderPayBean) {
+        this.orderPayBean = orderPayBean;
         tvOrderId.setText(orderPayBean.ordersn);
         tvOrderAmount.setText(getString(R.string.rmb) + " " + orderPayBean.price);
+        cbAlipay.setChecked(true);
     }
 
     @Override
@@ -127,12 +151,26 @@ public class OrderSettleActivity extends MyBaseActivity<OrderSettlePresenter> im
             @Override
             public void call() {
                 MyToastUtils.showShort("支付成功");
+                mPresenter.paySucc(orderId, mActivity);
             }
 
             @Override
             public void fail() {
+                launchActivity(new Intent(mActivity, MyOrderActivity.class));
+                killMyself();
+            }
 
+            @Override
+            public void cancel() {
+                launchActivity(new Intent(mActivity, MyOrderActivity.class));
+                killMyself();
             }
         });
+    }
+
+    @Override
+    public void paySuccBack() {
+        launchActivity(new Intent(mActivity, MyOrderActivity.class));
+        killMyself();
     }
 }

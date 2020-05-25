@@ -46,6 +46,68 @@
             android:textColor="@color/text_select_red" />
     </RelativeLayout>
 
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp10"
+        android:background="@color/bg_gray" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="@dimen/dp15">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="支付方式"
+            android:textColor="@color/goods_detail_title" />
+
+        <RelativeLayout
+            android:id="@+id/rl_alipay"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dp20">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:drawableLeft="@mipmap/icon_alipay"
+                android:drawablePadding="@dimen/dp5"
+                android:text="支付宝"
+                android:textColor="@color/goods_detail_title" />
+
+            <androidx.appcompat.widget.AppCompatCheckBox
+                android:id="@+id/cb_alipay"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:button="@drawable/selector_cart_checkbox" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/rl_unionpay"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dp20">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:drawableLeft="@mipmap/icon_unionpay"
+                android:drawablePadding="@dimen/dp5"
+                android:text="银联"
+                android:textColor="@color/goods_detail_title" />
+
+            <androidx.appcompat.widget.AppCompatCheckBox
+                android:id="@+id/cb_unionpay"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:button="@drawable/selector_cart_checkbox" />
+        </RelativeLayout>
+    </LinearLayout>
+
     <Button
         android:id="@+id/btn_pay"
         android:layout_width="match_parent"

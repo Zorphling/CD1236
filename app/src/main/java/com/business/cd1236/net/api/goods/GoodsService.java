@@ -79,8 +79,12 @@ public interface GoodsService {
     @GET(GoodsApi.ORDER_PAY)
     Observable<ResponseBody> orderPay(@Query("orderid") String orderid);
 
+//    @Headers("Content-Type:application/x-www-form-urlencoded;charset=utf-8")
     @GET(GoodsApi.APP_PAY)
-    Observable<ResponseBody> pay();
+//    @Headers("Content-Type:application/json;charset=UTF-8")
+//    @Headers("Content-Type: application/json")
+//    @Headers("Content-Type: application/json; charset=UTF-8")
+    Observable<ResponseBody> pay(@Query("id")String order_id);
 
     @GET(GoodsApi.MY_ORDER)
     Observable<ResponseBody> getMyOrder(@Query("status") String status);

@@ -68,7 +68,7 @@ public class PayUtils {
                 callBack.call();
             } else if (TextUtils.equals(resultStatus, "6001")) {
                 MyToastUtils.showShort("支付取消");
-                //callBack.fail();
+                callBack.cancel();
             } else {
                 MyToastUtils.showShort("支付失败");
                 callBack.fail();

@@ -57,12 +57,36 @@ public class MyOrderAllPresenter extends BasePresenter<MyOrderAllContract.Model,
         this.mApplication = null;
     }
 
-    public void getMyOrder(String status, Context context) {
-        RequestUtils.getMyOrder(status, new BaseCallBack(context) {
+    public void getMyOrder(String status, Context context,boolean isShowDialog) {
+        RequestUtils.getMyOrder(status, new BaseCallBack(context,isShowDialog) {
             @Override
             protected void onSuccess(String jsonString) {
                 ArrayList<MyOrderBean> myOrderBeans = GsonUtils.parseJsonArrayWithGson(jsonString, MyOrderBean.class);
                 mRootView.getMyOrderSucc(myOrderBeans);
+            }
+        });
+    }
+
+    public void orderCancel(String order_id, Context context) {
+        RequestUtils.deleteOrder(order_id, new BaseCallBack(context) {
+            @Override
+            protected void onSuccess(String jsonString) {
+
+            }
+
+            @Override
+            protected void onSuccess(String jsonString, String msg) {
+                super.onSuccess(jsonString, msg);
+                mRootView.orderCancelSucc(msg);
+            }
+        });
+    }
+
+    public void orderConfirmReceive(String order_id, String status, Context context) {
+        RequestUtils.orderStatusChange(order_id,status, new BaseCallBack(context) {
+            @Override
+            protected void onSuccess(String jsonString) {
+
             }
         });
     }

@@ -37,8 +37,7 @@ abstract class AbstractLazyInitFrag<P : IPresenter> : BaseFragment<P>(), IView {
 
     /*懒加载方法*/
     private fun lazyInitData() {
-        if (!isInitData && isVisibleToUser && isPrepareView) {
-            isInitData = true
+        if (isInitData && isVisibleToUser && isPrepareView) {
             initData()
         }
     }
@@ -46,12 +45,14 @@ abstract class AbstractLazyInitFrag<P : IPresenter> : BaseFragment<P>(), IView {
     /*当fragment由可见变为不可见和不可见变为可见时回调*/
     override fun setUserVisibleHint(isVisibleToUser: Boolean) {
         this.isVisibleToUser = isVisibleToUser
+
         lazyInitData()
     }
 
     /*fragment生命周期中onViewCreated之后的方法 在这里调用一次懒加载 避免第一次可见不加载数据*/
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        lazyInitData()
+//        lazyInitData()
+        isInitData = true
     }
 }

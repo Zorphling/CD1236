@@ -159,8 +159,8 @@ public class MyOrderDetailActivity extends MyBaseActivity<MyOrderDetailPresenter
         tvReceiverName.setText(myOrderDetailBean.realname);
         tvReceiverAddress.setText(myOrderDetailBean.address);
         myOrderDetailAdapter.setList(myOrderDetailBean.goods);
-        tvOrderNo.setText("订单编号：    " + myOrderDetailBean.ordersn);
-        tvOrderTime.setText("下单时间：  " + TimeUtils.millis2String(Long.parseLong(myOrderDetailBean.createtime)));
+        tvOrderNo.setText("订单编号：  " + myOrderDetailBean.ordersn);
+        tvOrderTime.setText("下单时间:  " + TimeUtils.millis2String(Long.parseLong(myOrderDetailBean.createtime)*1000));
     }
 
     @OnClick({R.id.iv_call, R.id.ll_look_more})

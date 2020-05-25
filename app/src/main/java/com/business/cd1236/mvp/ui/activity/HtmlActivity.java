@@ -41,10 +41,12 @@ public class HtmlActivity extends MyBaseActivity<HtmlPresenter> implements HtmlC
 
     @BindView(R.id.ll_web_container)
     LinearLayout llWebContainer;
-    public static final String AGREEMENT_TYPE = "AGREEMENT_TYPE";
+    public static final String AGREEMENT_TYPE = "AGREEMENT_TYPE";//tag
+
     public static final String USER_AGREEMENT = "user_agreement";
     public static final String PRIVACY_POLICY = "privacy_policy";
     public static final String OPERATION_STEPS = "operation_steps";//入驻协议
+    public static final String LOGISTICS_COOPERATE= "new_file";//物流合作
     private AgentWeb mAgentWeb;
 
     @Override

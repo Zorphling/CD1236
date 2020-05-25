@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/ll_list"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="?attr/selectableItemBackground"
     android:orientation="horizontal"
     android:paddingLeft="@dimen/dp15"
-    android:id="@+id/ll_list"
     android:paddingRight="@dimen/dp15">
 
     <ImageView
@@ -28,35 +28,38 @@
             android:maxLines="2"
             android:textColor="@color/goods_detail_title" />
 
+
+        <TextView
+            android:id="@+id/collect_num"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:textSize="@dimen/sp12" />
+
+
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/dp8">
+            android:layout_height="@dimen/dp0"
+            android:layout_marginTop="@dimen/dp8"
+            android:layout_weight="1">
 
             <TextView
-                android:id="@+id/collect_num"
+                android:id="@+id/tv_price"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerVertical="true"
-                android:textSize="@dimen/sp12" />
+                android:layout_height="match_parent"
+                android:gravity="bottom"
+                android:textColor="@color/text_select_red" />
 
             <CheckBox
                 android:id="@+id/check_box"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:visibility="gone"
                 android:layout_alignParentRight="true"
+                android:layout_alignParentBottom="true"
                 android:button="@null"
+                android:clickable="false"
                 android:drawableLeft="@drawable/selector_cart_checkbox"
-                android:clickable="false" />
+                android:visibility="gone" />
         </RelativeLayout>
-
-        <TextView
-            android:id="@+id/tv_price"
-            android:layout_width="wrap_content"
-            android:layout_height="@dimen/dp0"
-            android:layout_weight="1"
-            android:gravity="bottom"
-            android:textColor="@color/text_select_red" />
     </LinearLayout>
 </LinearLayout>

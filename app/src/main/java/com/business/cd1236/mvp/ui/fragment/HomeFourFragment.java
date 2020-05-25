@@ -270,6 +270,7 @@ public class HomeFourFragment extends MyBaseFragment<HomeFourPresenter> implemen
                 break;
             case R.id.crb_1:
                 intent.setClass(mActivity, MyOrderActivity.class);
+                intent.putExtra(MyOrderActivity.TYPE, 0);
                 launchActivity(intent);
                 break;
             case R.id.crb_2:

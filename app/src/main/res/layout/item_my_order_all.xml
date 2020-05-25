@@ -67,9 +67,22 @@
             android:layout_marginTop="@dimen/dp10"
             android:gravity="right"
             android:orientation="horizontal">
-
             <TextView
-                android:id="@+id/tv_order_status"
+                android:id="@+id/tv_order_status_cancel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/stroke_bg_login_regist"
+                android:layout_marginRight="@dimen/dp15"
+                android:paddingLeft="@dimen/dp15"
+                android:paddingTop="@dimen/dp5"
+                android:paddingRight="@dimen/dp15"
+                android:visibility="gone"
+                android:paddingBottom="@dimen/dp5"
+                android:text="提醒发货"
+                android:textColor="@color/text_default" />
+            <TextView
+                android:id="@+id/tv_order_status_pay"
+                android:visibility="gone"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:background="@drawable/solid_bg_regist_button"

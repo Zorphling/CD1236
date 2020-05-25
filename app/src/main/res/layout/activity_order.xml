@@ -315,45 +315,20 @@
         </LinearLayout>
     </androidx.core.widget.NestedScrollView>
 
-    <LinearLayout
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical"
         android:orientation="horizontal">
-
-        <LinearLayout
-            android:layout_width="@dimen/dp0"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:orientation="vertical">
-
-            <include layout="@layout/layout_line" />
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:gravity="center"
-                android:orientation="horizontal">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="应付总额(含运费)：" />
-
-                <TextView
-                    android:id="@+id/tv_amount_paid_andr_express"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textColor="@color/text_select_red"
-                    android:textSize="@dimen/sp22" />
-            </LinearLayout>
-        </LinearLayout>
-
         <TextView
             android:id="@+id/tv_submit_order"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:gravity="center"
             android:background="@color/colorPrimary"
             android:foreground="?android:attr/selectableItemBackground"
+            android:layout_alignParentRight="true"
             android:paddingLeft="@dimen/dp30"
             android:paddingTop="@dimen/dp13"
             android:paddingRight="@dimen/dp30"
@@ -362,5 +337,28 @@
             android:textColor="@android:color/white"
             android:textSize="@dimen/sp16"
             android:textStyle="bold" />
-    </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_toLeftOf="@id/tv_submit_order"
+            android:layout_centerInParent="true"
+            android:layout_gravity="center"
+            android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    android:text="应付总额(含运费)：" />
+
+                <TextView
+                    android:id="@+id/tv_amount_paid_and_express"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/text_select_red"
+                    android:textSize="@dimen/sp22" />
+        </LinearLayout>
+
+
+    </RelativeLayout>
 </LinearLayout>

@@ -72,7 +72,7 @@ public class OrderActivity extends MyBaseActivity<OrderPresenter> implements Ord
     TextView tvCheap;
     @BindView(R.id.tv_amount_paid)
     TextView tvAmountPaid;
-    @BindView(R.id.tv_amount_paid_andr_express)
+    @BindView(R.id.tv_amount_paid_and_express)
     TextView tvAmountPaidAndrExpress;
     @BindView(R.id.tv_submit_order)
     TextView tvSubmitOrder;
@@ -270,5 +270,6 @@ public class OrderActivity extends MyBaseActivity<OrderPresenter> implements Ord
         Intent intent = new Intent(mActivity, OrderSettleActivity.class);
         intent.putExtra(OrderSettleActivity.ORDER_ID, jsonString);
         launchActivity(intent);
+        killMyself();
     }
 }

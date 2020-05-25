@@ -7,4 +7,6 @@ public interface PayCallBack {
     void call();
 
     void fail();
+
+    void cancel();
 }

@@ -145,11 +145,10 @@ public class HomeThreeAdapter extends BaseQuickAdapter<ShoppingCarBean, BaseView
         for (GoodsDetailBean.GoodsBean good : bean.goods) {
             if (good.isCheck) {
                 totalPrice = MathUtils.add(totalPrice,
-                        MathUtils.mul(Double.parseDouble(StringUtils.equals("0", good.marketprice) ? good.marketprice : good.agent_marketprice),
+                        MathUtils.mul(Double.parseDouble(StringUtils.equals("0", jud) ? good.marketprice : good.agent_marketprice),
                                 Double.parseDouble(good.total)));
             }
         }
-
         baseViewHolder.setText(R.id.tv_amount_to, String.valueOf(new DecimalFormat("#0.00").format(totalPrice)));
     }
 

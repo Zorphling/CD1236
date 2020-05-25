@@ -11,8 +11,10 @@ import com.business.cd1236.R;
 import com.business.cd1236.base.MyBaseActivity;
 import com.business.cd1236.bean.CheckUpdateBean;
 import com.business.cd1236.di.component.DaggerSplashComponent;
+import com.business.cd1236.globle.Constants;
 import com.business.cd1236.mvp.contract.SplashContract;
 import com.business.cd1236.mvp.presenter.SplashPresenter;
+import com.business.cd1236.utils.SPUtils;
 import com.jess.arms.di.component.AppComponent;
 import com.jess.arms.utils.ArmsUtils;
 import com.luck.picture.lib.config.PictureConfig;
@@ -64,20 +66,26 @@ public class SplashActivity extends MyBaseActivity<SplashPresenter> implements S
 //        if (rxPermissions.isGranted(Manifest.permission.WRITE_EXTERNAL_STORAGE)) {
 //            mPresenter.checkUpdate(mActivity);
 //        } else {
-            rxPermissions.request(Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.READ_EXTERNAL_STORAGE)
-                    .subscribe(new Consumer<Boolean>() {
-                        @Override
-                        public void accept(Boolean aBoolean) throws Exception {
-                            if (aBoolean) {
+        rxPermissions.request(Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.READ_EXTERNAL_STORAGE)
+                .subscribe(new Consumer<Boolean>() {
+                    @Override
+                    public void accept(Boolean aBoolean) throws Exception {
+                        if (aBoolean) {
 //                                同意权限
 //                                mPresenter.checkUpdate(mActivity);
-                            } else {
+                        } else {
 //                                拒绝权限
-                            }
+                        }
+                        boolean isGuide = (boolean) SPUtils.get(mActivity, Constants.IS_GUIDE, false);
+                        if (isGuide) {
+                            launchActivity(new Intent(mActivity,GuideActivity.class));
+                            killMyself();
+                        } else {
                             launchActivity(new Intent(mActivity, MainActivity.class));
                             killMyself();
                         }
-                    });
+                    }
+                });
 //        }
 
         clearCache();
@@ -96,6 +104,7 @@ public class SplashActivity extends MyBaseActivity<SplashPresenter> implements S
                     PictureConfig.APPLY_STORAGE_PERMISSIONS_CODE);
         }
     }
+
     @Override
     public void showLoading() {
 

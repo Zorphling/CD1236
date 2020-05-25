@@ -1,7 +1,6 @@
 package com.business.cd1236.adapter;
 
 import android.content.Intent;
-import android.view.MotionEvent;
 import android.view.View;
 
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -46,19 +45,23 @@ public class MyOrderAdapter extends BaseQuickAdapter<MyOrderBean, BaseViewHolder
         }
         switch (myOrderBean.status) {
             case "0"://待付款
-                baseViewHolder.setText(R.id.tv_status, "待付款").setText(R.id.tv_order_status, "付款");
+                baseViewHolder.setText(R.id.tv_status, "待付款").setText(R.id.tv_order_status_pay, "付款")
+                .setVisible(R.id.tv_order_status_pay,true).setGone(R.id.tv_order_status_cancel,true);
                 break;
             case "1"://待发货
-                baseViewHolder.setText(R.id.tv_status, "待发货").setText(R.id.tv_order_status, "提醒发货");
+                baseViewHolder.setText(R.id.tv_status, "待发货").setText(R.id.tv_order_status_cancel, "提醒发货")
+                .setGone(R.id.tv_order_status_pay,true).setVisible(R.id.tv_order_status_cancel,true);
                 break;
             case "2"://待收货
-                baseViewHolder.setText(R.id.tv_status, "待收货").setText(R.id.tv_order_status, "确认收货");
+                baseViewHolder.setText(R.id.tv_status, "待收货").setText(R.id.tv_order_status_pay, "确认收货")
+                .setVisible(R.id.tv_order_status_pay,true).setGone(R.id.tv_order_status_cancel,true);
                 break;
             case "3"://已完成
-                baseViewHolder.setText(R.id.tv_status, "交易成功").setText(R.id.tv_order_status, "评价");
+                baseViewHolder.setText(R.id.tv_status, "交易成功").setText(R.id.tv_order_status_pay, "交易完成")
+                .setGone(R.id.ll_buttons, true);
                 break;
             default:
-                baseViewHolder.setText(R.id.tv_status, "交易完成").setGone(R.id.ll_buttons, true);
+                baseViewHolder.setText(R.id.tv_status, "未知的交易状态").setGone(R.id.ll_buttons, true);
                 break;
         }
         RecyclerView rvGoods = baseViewHolder.getView(R.id.rv_goods);
@@ -73,12 +76,7 @@ public class MyOrderAdapter extends BaseQuickAdapter<MyOrderBean, BaseViewHolder
                 getContext().startActivity(intent);
             }
         });
-        rvGoods.setOnTouchListener(new View.OnTouchListener() {
-            @Override
-            public boolean onTouch(View v, MotionEvent event) {
-                return baseViewHolder.itemView.onTouchEvent(event);
-            }
-        });
+        rvGoods.setOnTouchListener((v, event) -> baseViewHolder.itemView.onTouchEvent(event));
 
     }
 
